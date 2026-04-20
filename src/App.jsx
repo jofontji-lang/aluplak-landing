@@ -71,6 +71,58 @@ export default function App() {
         </motion.div>
       </section>
 
+      {/* SECCIÓN DE APLICACIÓN REAL */}
+<section className="max-w-7xl mx-auto px-6 mb-24 grid md:grid-cols-2 gap-12 items-center">
+  
+  {/* Columna de Texto */}
+  <motion.div 
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    className="space-y-6"
+  >
+    <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 px-4 py-1 rounded-full">
+        <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Casos de Éxito • Aplicación Residencial y Comercial</span>
+    </div>
+    <h2 className="text-5xl font-black text-white italic tracking-tighter leading-none">
+      Soluciones Invisibles, <br />
+      <span className="text-yellow-400">Impacto Visible.</span>
+    </div>
+    <p className="text-xl text-slate-300 font-light leading-relaxed border-l-2 border-yellow-400 pl-6">
+      Nuestro sistema bi-componente patentado no es solo teoría. Estas imágenes muestran la integración real de nuestros rodapiés técnicos en proyectos de alto nivel, facilitando la iluminación LED y el registro de instalaciones sin obras.
+    </p>
+  </motion.div>
+
+  {/* Columna de Imágenes (Estilo Mosaico Elegante) */}
+  <div className="grid grid-cols-2 gap-4 h-[500px]">
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="rounded-3xl overflow-hidden border-2 border-white/10 group"
+    >
+        <img 
+            src="/path/to/image_9.png" 
+            alt="Aplicación Aluplak en pasillo con iluminación LED" 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+    </motion.div>
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+        className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
+    >
+        <img 
+            src="/path/to/image_10.png" 
+            alt="Detalle Aluplak en escalera con barandilla de cristal" 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+    </motion.div>
+  </div>
+</section>
+      
       {/* DIFERENCIACIÓN */}
       <section className="max-w-4xl mx-auto px-6 my-20 text-center">
         <p className="text-lg text-slate-400 leading-relaxed">
