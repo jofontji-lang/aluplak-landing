@@ -93,33 +93,38 @@ export default function App() {
       </div>
 
       
-
-    {/* KPIs - CUADRÍCULA 2x2 GRANDE */}
-<section className="max-w-7xl mx-auto px-6 mb-20">
+{/* KPIs - MÁXIMO TAMAÑO Y CONTRASTE */}
+<section className="max-w-7xl mx-auto px-6 mb-24">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     {[
-      { label: "EBITDA", value: "28%", desc: "Rentabilidad sobre ingresos" },
-      { label: "ROI", value: "3.5x", desc: "Retorno de inversión proyectado" },
-      { label: "Crecimiento", value: "+50%", desc: "Incremento anual orgánico" },
-      { label: "Margen", value: "65%", desc: "Margen bruto por producto" }
+      { label: "EBITDA", value: "28%", desc: "EFICIENCIA OPERATIVA" },
+      { label: "ROI", value: "3.5x", desc: "RETORNO CAPITAL" },
+      { label: "CRECIMIENTO", value: "+50%", desc: "ESCALABILIDAD YoY" },
+      { label: "MARGEN", value: "65%", desc: "RENTABILIDAD PRODUCTO" }
     ].map((k, i) => (
       <div 
         key={i} 
-        className="bg-[#0f172a] border border-white/10 p-12 rounded-[2.5rem] flex flex-col items-center justify-center group hover:border-yellow-400/50 transition-all duration-300 shadow-2xl"
+        className="bg-[#0f172a] border-2 border-white/10 p-16 rounded-[3rem] flex flex-col items-center justify-center transition-all hover:border-yellow-400"
       >
-        <div className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-4">
+        {/* Título del KPI - Más grande y blanco puro */}
+        <div className="text-white text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-2">
           {k.label}
         </div>
-        <div className="text-7xl md:text-8xl font-black text-yellow-400 italic tracking-tighter mb-4">
+        
+        {/* Valor del KPI - Tamaño masivo */}
+        <div className="text-8xl md:text-9xl font-black text-yellow-400 italic tracking-tighter leading-none my-4">
           {k.value}
         </div>
-        <div className="text-slate-400 text-sm font-medium opacity-60">
+        
+        {/* Subtítulo - Contraste sutil */}
+        <div className="text-slate-500 text-xs font-bold uppercase tracking-[0.4em] mt-2">
           {k.desc}
         </div>
       </div>
     ))}
   </div>
 </section>
+
 
       {/* VENTAS */}
       <div className="bg-slate-900 p-6 rounded-2xl mb-10">
