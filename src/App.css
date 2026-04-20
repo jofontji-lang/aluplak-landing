@@ -1,0 +1,174 @@
+import React, { useState } from "react";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
+  AreaChart, Area, PieChart, Pie, Cell, LineChart, Line, LabelList
+} from "recharts";
+import { motion } from "framer-motion";
+import { TrendingDown, Zap, Target, BarChart3, Clock, ArrowUpRight } from "lucide-react";
+
+const scenarios = {
+  conservador: 180000,
+  base: 220000,
+  agresivo: 300000
+};
+
+// Componente para la flecha de fondo en eficiencia
+const BackgroundArrow = () => (
+  <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+    <TrendingDown size={300} strokeWidth={1} className="text-blue-400 rotate-0" />
+  </div>
+);
+
+export default function App() {
+  const [scenario, setScenario] = useState("base");
+
+  const salesData = [
+    { year: "2022", ventas: 47416, growth: 0 },
+    { year: "2023", ventas: 71677, growth: 51 },
+    { year: "2024", ventas: 88210, growth: 23 },
+    { year: "2025", ventas: 132531, growth: 50 },
+    { year: "2026", ventas: scenarios[scenario], growth: 66 }
+  ];
+
+  const laborData = [
+    { name: "Tradicional", horas: 10, color: "#1e293b" },
+    { name: "Estándar", horas: 7, color: "#334155" },
+    { name: "ALUPLAK", horas: 2, color: "#facc15" }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#020617] text-slate-200 font-sans selection:bg-yellow-400 selection:text-black">
+      
+      {/* DECORACIÓN DE FONDO */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-500/10 blur-[120px] rounded-full"></div>
+        <div className="absolute top-[20%] -right-[10%] w-[30%] h-[50%] bg-yellow-500/5 blur-[120px] rounded-full"></div>
+      </div>
+
+      {/* NAV */}
+      <nav className="border-b border-white/5 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+          <div className="font-black italic text-2xl tracking-tighter text-white">ALUPLAK<span className="text-yellow-400">.</span></div>
+          <div className="flex gap-4">
+            {['conservador', 'base', 'agresivo'].map((s) => (
+              <button 
+                key={s}
+                onClick={() => setScenario(s)}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${scenario === s ? 'bg-yellow-400 text-black' : 'bg-white/5 text-slate-400 hover:bg-white/10'}`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="relative pt-24 pb-16 px-6 text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-7xl md:text-8xl font-black mb-6 tracking-tighter text-white italic">
+            EFICIENCIA <br /><span className="text-yellow-400">REDISEÑADA.</span>
+          </h1>
+          <p className="text-slate-400 max-w-2xl mx-auto text-xl font-light leading-relaxed">
+            Inversión en infraestructura térmica inteligente. <span className="text-white font-medium">80% menos tiempo de obra</span>, 28% de margen EBITDA.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* GRID DE KPIs */}
+      <section className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 px-6 mb-20">
+        {[
+          { label: "EBITDA Sectorial", value: "28%", icon: <BarChart3 size={20}/>, color: "text-green-400" },
+          { label: "Proyección ROI", value: "3.5x", icon: <Target size={20}/>, color: "text-purple-400" },
+          { label: "Crecimiento YoY", value: "+50%", icon: <Zap size={20}/>, color: "text-yellow-400" },
+          { label: "Instalación", value: "-80% t", icon: <Clock size={20}/>, color: "text-blue-400" }
+        ].map((k, i) => (
+          <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-[2rem] backdrop-blur-sm group hover:border-yellow-400/50 transition-all">
+            <div className={`${k.color} mb-4`}>{k.icon}</div>
+            <div className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mb-1">{k.label}</div>
+            <div className="text-4xl font-black text-white italic">{k.value}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* SECCIÓN DE GRÁFICOS PRINCIPALES */}
+      <section className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 pb-40">
+        
+        {/* VENTAS */}
+        <div className="bg-[#0f172a]/50 border border-white/5 p-10 rounded-[3rem] relative overflow-hidden">
+          <div className="flex justify-between items-start mb-10">
+            <div>
+              <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter">Crecimiento de Ventas</h2>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Proyección {scenario}</p>
+            </div>
+            <div className="bg-yellow-400 text-black px-3 py-1 rounded-lg text-xs font-black">+{salesData[4].growth}% YoY</div>
+          </div>
+          <div className="h-[350px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={salesData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#facc15" />
+                    <stop offset="100%" stopColor="#eab308" />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
+                <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{fill: '#475569', fontSize: 12, fontWeight: 'bold'}} dy={10} />
+                <Tooltip cursor={{fill: '#ffffff05'}} contentStyle={{backgroundColor: '#1e293b', border: 'none', borderRadius: '12px', color: '#fff'}} />
+                <Bar dataKey="ventas" fill="url(#barGrad)" radius={[10, 10, 0, 0]}>
+                   <LabelList dataKey="ventas" position="top" fill="#facc15" fontSize={12} fontWeight="900" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* EFICIENCIA - CON FLECHA DESCENDENTE */}
+        <div className="bg-[#0f172a]/50 border border-white/5 p-10 rounded-[3rem] relative overflow-hidden flex flex-col">
+          <BackgroundArrow />
+          <div className="relative z-10 mb-10">
+            <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter">Eficiencia de Instalación</h2>
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">Horas de montaje por unidad</p>
+          </div>
+          
+          <div className="relative z-10 h-[350px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={laborData} layout="vertical" margin={{ left: 20, right: 60 }}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 'bold'}} />
+                <Tooltip cursor={false} />
+                <Bar dataKey="horas" radius={[0, 20, 20, 0]} barSize={50}>
+                  {laborData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                  <LabelList dataKey="horas" position="right" fill="#fff" fontSize={18} fontWeight="900" formatter={(v) => `${v}h`} />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          
+          <div className="relative z-10 mt-auto bg-blue-500/10 border border-blue-400/20 p-6 rounded-2xl">
+            <div className="flex items-center gap-4 text-blue-400">
+               <TrendingDown size={32} />
+               <div>
+                  <p className="text-xs font-black uppercase tracking-widest">Impacto en Coste</p>
+                  <p className="text-xl font-black italic text-white">-80% Ahorro operativo</p>
+               </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* FOOTER CTA */}
+      <footer className="max-w-4xl mx-auto px-6 pb-40 text-center">
+        <div className="bg-white rounded-[3rem] p-16 text-black relative overflow-hidden">
+          <h2 className="text-5xl font-black tracking-tighter uppercase italic leading-[0.9] mb-8">Ready to invest <br />in Aluplak?</h2>
+          <button className="bg-black text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition flex items-center gap-3 mx-auto">
+            Contact Founders <ArrowUpRight size={20} />
+          </button>
+        </div>
+      </footer>
+    </div>
+  );
+}
