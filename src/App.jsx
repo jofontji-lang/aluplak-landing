@@ -88,29 +88,38 @@ export default function App() {
           Infraestructura térmica inteligente con escalabilidad industrial
         </p>
          <p className="text-xl md:text-2xl font-light text-slate-300 leading-relaxed italic border-l-2 border-yellow-400 pl-6 text-left">
-              "Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente
-patentado. Nuestra tecnología permite que el rodapié sea completamente desmontable,
-facilitando el registro de instalaciones (cables, LED o tuberías) sin necesidad de realizar
-obras ni dañar las paredes de placa de yeso laminado."
+              "Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente patentado. Nuestra tecnología permite que el rodapié sea completamente desmontable, facilitando el registro de instalaciones (cables, LED o tuberías) sin necesidad de realizar obras ni dañar las paredes de placa de yeso laminado."
             </p>
       </div>
 
       
 
-      {/* KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        {[
-          { label: "EBITDA", value: "28%" },
-          { label: "ROI", value: "3.5x" },
-          { label: "Crecimiento", value: "+50%" },
-          { label: "Margen", value: "65%" }
-        ].map((k, i) => (
-          <div key={i} className="bg-slate-900 p-4 rounded-xl text-center">
-            <div className="text-slate-400 text-sm">{k.label}</div>
-            <div className="text-yellow-400 text-2xl font-bold">{k.value}</div>
-          </div>
-        ))}
+    {/* KPIs - CUADRÍCULA 2x2 GRANDE */}
+<section className="max-w-7xl mx-auto px-6 mb-20">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {[
+      { label: "EBITDA", value: "28%", desc: "Rentabilidad sobre ingresos" },
+      { label: "ROI", value: "3.5x", desc: "Retorno de inversión proyectado" },
+      { label: "Crecimiento", value: "+50%", desc: "Incremento anual orgánico" },
+      { label: "Margen", value: "65%", desc: "Margen bruto por producto" }
+    ].map((k, i) => (
+      <div 
+        key={i} 
+        className="bg-[#0f172a] border border-white/10 p-12 rounded-[2.5rem] flex flex-col items-center justify-center group hover:border-yellow-400/50 transition-all duration-300 shadow-2xl"
+      >
+        <div className="text-slate-500 text-xs font-black uppercase tracking-[0.3em] mb-4">
+          {k.label}
+        </div>
+        <div className="text-7xl md:text-8xl font-black text-yellow-400 italic tracking-tighter mb-4">
+          {k.value}
+        </div>
+        <div className="text-slate-400 text-sm font-medium opacity-60">
+          {k.desc}
+        </div>
       </div>
+    ))}
+  </div>
+</section>
 
       {/* VENTAS */}
       <div className="bg-slate-900 p-6 rounded-2xl mb-10">
