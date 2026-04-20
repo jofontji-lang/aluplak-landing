@@ -28,6 +28,12 @@ export default function App() {
     { name: "ALUPLAK", consumo: 55 }
   ];
 
+  const laborData = [
+    { name: "Tradicional", minutos: 45, costo: "Alto" },
+    { name: "Estándar", minutos: 25, costo: "Medio" },
+    { name: "ALUPLAK", minutos: 8, costo: "Mínimo" }
+  ];
+
   return (
     <div className="min-h-screen bg-[#020617] text-white pb-20 font-sans">
 
@@ -219,6 +225,38 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* AHORRO EN MANO DE OBRA */}
+        <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5 md:col-span-2">
+          <h3 className="font-bold mb-2 text-slate-400 uppercase tracking-widest text-xs">Eficiencia en Instalación (Minutos/Metro)</h3>
+          <p className="text-sm text-slate-500 mb-6 italic">Reducción drástica de costes operativos por rapidez de montaje.</p>
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={laborData} layout="vertical" margin={{ top: 5, right: 80, left: 20, bottom: 5 }}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" stroke="#64748b" fontSize={12} axisLine={false} tickLine={false} />
+                <Tooltip cursor={{fill: 'rgba(255,255,255,0.05)'}} contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '8px' }} />
+                <Bar dataKey="minutos" fill="#60a5fa" radius={[0, 10, 10, 0]}>
+                  <LabelList 
+                    dataKey="minutos" 
+                    position="right" 
+                    content={(props) => {
+                      const { x, y, value, index } = props;
+                      if (index === 2) { // ALUPLAK
+                        return (
+                          <text x={x + 10} y={y + 20} fill="#facc15" fontSize={14} fontWeight="bold">
+                            82% Más Rápido
+                          </text>
+                        );
+                      }
+                      return <text x={x + 10} y={y + 20} fill="#94a3b8" fontSize={12}>{value} min</text>;
+                    }} 
+                  />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
     </div>
   );
