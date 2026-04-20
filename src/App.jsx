@@ -138,4 +138,51 @@ export default function App() {
 
       {/* GRÁFICA DE VENTAS */}
       <section className="max-w-7xl mx-auto px-6 mb-10">
-        <div className="bg-slate-900
+        <div className="bg-slate-900/50 border border-white/10 p-8 rounded-[2.5rem]">
+          <h2 className="text-2xl font-black text-white italic mb-8 uppercase tracking-tighter">Ventas Proyectadas (€)</h2>
+          <div className="h-[400px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={salesData} margin={{ top: 30, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="year" stroke="#94a3b8" tickLine={false} axisLine={false} dy={10} />
+                <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '12px' }} />
+                <Bar dataKey="ventas" fill="#facc15" radius={[10, 10, 0, 0]}>
+                  <LabelList dataKey="crecimiento" position="insideTop" fill="#000000" fontSize={18} fontWeight="900" offset={10} />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* MÉTRICAS SECUNDARIAS */}
+      <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
+          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">EBITDA vs Sector (%)</h3>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={ebitdaData}>
+                <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
+                <Bar dataKey="value" fill="#22c55e" radius={[4,4,0,0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
+          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">Ahorro Energético (%)</h3>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={energyData}>
+                <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
+                <Bar dataKey="consumo" fill="#facc15" radius={[4,4,0,0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+}
