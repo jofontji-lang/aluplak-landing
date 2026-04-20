@@ -51,13 +51,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#020617] text-white p-6">
 
-      {/* HERO */}
-      <div className="text-center mb-10">
-        <h1 className="text-5xl font-black mb-3">ALUPLAK SYSTEMS</h1>
-        <p className="text-slate-400">
-          Infraestructura térmica inteligente con escalabilidad industrial
-        </p>
-      </div>
+      
 
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 px-6 text-center border-b border-white/5">
@@ -86,6 +80,16 @@ export default function App() {
           </div>
         </motion.div>
       </section>
+      
+      {/* HERO */}
+      <div className="text-center mb-10">
+        <h1 className="text-5xl font-black mb-3">ALUPLAK SYSTEMS</h1>
+        <p className="text-slate-400">
+          Infraestructura térmica inteligente con escalabilidad industrial
+        </p>
+      </div>
+
+      
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
