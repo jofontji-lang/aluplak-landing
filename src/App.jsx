@@ -156,27 +156,64 @@ export default function App() {
         </div>
       </section>
 
-      {/* MÉTRICAS SECUNDARIAS */}
+    {/* MÉTRICAS SECUNDARIAS CORREGIDAS CON PORCENTAJES */}
       <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        
+        {/* EBITDA COMPARATIVO */}
         <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
           <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">EBITDA vs Sector (%)</h3>
-          <div className="h-[200px]">
+          <div className="h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={ebitdaData}>
+              <BarChart data={ebitdaData} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                 <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
-                <Bar dataKey="value" fill="#22c55e" radius={[4,4,0,0]} />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '8px' }} />
+                <Bar dataKey="value" fill="#22c55e" radius={[4,4,0,0]}>
+                  {/* Etiqueta solo para la barra de ALUPLAK */}
+                  <LabelList 
+                    dataKey="value" 
+                    content={(props) => {
+                      const { x, y, width, value, index } = props;
+                      if (index === 3) { // El índice 3 es ALUPLAK
+                        return (
+                          <text x={x + width / 2} y={y - 10} fill="#22c55e" textAnchor="middle" fontSize={12} fontWeight="bold">
+                            +250% vs Trad.
+                          </text>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
+        {/* AHORRO ENERGÉTICO */}
         <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
-          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">Ahorro Energético (%)</h3>
-          <div className="h-[200px]">
+          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">Consumo Energético (%)</h3>
+          <div className="h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={energyData}>
+              <BarChart data={energyData} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                 <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
-                <Bar dataKey="consumo" fill="#facc15" radius={[4,4,0,0]} />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '8px' }} />
+                <Bar dataKey="consumo" fill="#facc15" radius={[4,4,0,0]}>
+                  {/* Etiqueta solo para la barra de ALUPLAK */}
+                  <LabelList 
+                    dataKey="consumo" 
+                    content={(props) => {
+                      const { x, y, width, value, index } = props;
+                      if (index === 2) { // El índice 2 es ALUPLAK
+                        return (
+                          <text x={x + width / 2} y={y - 10} fill="#facc15" textAnchor="middle" fontSize={12} fontWeight="bold">
+                            -45% Consumo
+                          </text>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
