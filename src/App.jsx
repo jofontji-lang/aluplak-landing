@@ -139,7 +139,10 @@ export default function App() {
           </BarChart>
         </ResponsiveContainer>
         <p className="text-sm text-slate-400 mt-4">
-          Crecimiento acelerado con escalado industrial progresivo.
+          Crecimiento acelerado con escalado industrial progresivo. Con la nueva Tarifa Industriales 2026 y el lanzamiento de la división de climatización invisible, se
+proyecta un crecimiento disruptivo:
+Invisotherm: Panel de fibrocemento con nanotecnología para climatizar hasta 14m2.
+Rodapié Calefactable: Solución de barrera térmica perimetral de alta eficiencia.
         </p>
       </div>
 
