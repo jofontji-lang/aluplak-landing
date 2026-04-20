@@ -102,7 +102,7 @@ export default function App() {
         className="rounded-3xl overflow-hidden border-2 border-white/10 group"
     >
         <img 
-            src="/path/to/image_9.png" 
+            src="https://github.com/jofontji-lang/aluplak-landing/blob/main/public/Aluplak1.jpeg" 
             alt="Aplicación Aluplak en pasillo con iluminación LED" 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -115,7 +115,7 @@ export default function App() {
         className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
     >
         <img 
-            src="/path/to/image_10.png" 
+            src="https://github.com/jofontji-lang/aluplak-landing/blob/main/public/Aluplak2.jpeg" 
             alt="Detalle Aluplak en escalera con barandilla de cristal" 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
