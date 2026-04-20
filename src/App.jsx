@@ -4,7 +4,7 @@ import {
   CartesianGrid, LabelList
 } from "recharts";
 import { motion } from "framer-motion";
-import { DollarSign, TrendingUp, BarChart3, PieChart, Wrench } from 'lucide-react';
+import { DollarSign, TrendingUp, BarChart3, PieChart, Wrench, Zap } from 'lucide-react';
 
 export default function App() {
   const salesData = [
@@ -26,6 +26,11 @@ export default function App() {
     { name: "Radiadores", consumo: 100 },
     { name: "A/C", consumo: 75 },
     { name: "ALUPLAK", consumo: 55 }
+  ];
+
+  const laborData = [
+    { name: "Tradicional (Obra)", minutos: 45 },
+    { name: "ALUPLAK (Adhesivo)", minutos: 8 }
   ];
 
   return (
@@ -58,14 +63,9 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* SECCIÓN DE APLICACIÓN REAL (ORIGINAL) */}
+      {/* SECCIÓN 1: APLICACIÓN REAL (Aluplak1 y Aluplak2) */}
       <section className="max-w-7xl mx-auto px-6 my-24 grid md:grid-cols-2 gap-12 items-center">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
+        <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6">
           <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 px-4 py-1 rounded-full">
               <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Casos de Éxito • Aplicación Real</span>
           </div>
@@ -74,162 +74,118 @@ export default function App() {
             <span className="text-yellow-400">Impacto Visible.</span>
           </h2>
           <p className="text-xl text-slate-300 font-light leading-relaxed border-l-2 border-yellow-400 pl-6">
-            Nuestro sistema bi-componente patentado facilita la integración de iluminación LED y el registro de instalaciones sin necesidad de realizar obras. Eficiencia y diseño en un solo perfil.
+            Nuestro sistema bi-componente patentado facilita la integración de iluminación LED y el registro de instalaciones sin necesidad de realizar obras.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-2 gap-4 h-[500px]">
-          <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="rounded-3xl overflow-hidden border-2 border-white/10 group"
-          >
-              <img 
-                  src="/Aluplak1.jpeg" 
-                  alt="Aplicación Aluplak en pasillo" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-          </motion.div>
-          <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
-          >
-              <img 
-                  src="/Aluplak2.jpeg" 
-                  alt="Detalle Aluplak en escalera" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-          </motion.div>
+          <div className="rounded-3xl overflow-hidden border-2 border-white/10 group">
+              <img src="/Aluplak1.jpeg" alt="Instalación 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10">
+              <img src="/Aluplak2.jpeg" alt="Instalación 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
         </div>
       </section>
 
-      {/* SECCIÓN: VALIDACIÓN DE INSTALACIÓN (LAS 2 NUEVAS IMÁGENES) */}
+      {/* SECCIÓN 2: VALIDACIÓN TÉCNICA (Aluplak3 y Aluplak4) */}
       <section className="max-w-7xl mx-auto px-6 my-24 grid md:grid-cols-2 gap-12 items-center border-t border-white/5 pt-24">
         <div className="grid grid-cols-2 gap-4 h-[500px] order-2 md:order-1">
-          <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
-          >
-              <img 
-                  src="/Aluplak4.jpg" 
-                  alt="Proceso de pegado Aluplak" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-          </motion.div>
-          <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="rounded-3xl overflow-hidden border-2 border-white/10 group"
-          >
-              <img 
-                  src="/Aluplak3.jpeg" 
-                  alt="Instalación click Aluplak" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-          </motion.div>
+          <div className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10">
+              <img src="/Aluplak4.jpg" alt="Instalación 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div className="rounded-3xl overflow-hidden border-2 border-white/10 group">
+              <img src="/Aluplak3.jpeg" alt="Instalación 4" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-6 order-1 md:order-2"
-        >
+        <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6 order-1 md:order-2">
           <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 px-4 py-1 rounded-full">
               <Wrench size={14} className="text-yellow-400" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Instalación Simplificada • Eficiencia</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Validación de Montaje</span>
           </div>
           <h2 className="text-5xl font-black text-white italic tracking-tighter leading-none">
             Montaje en Seco, <br />
-            <span className="text-yellow-400">Sin Complicaciones.</span>
+            <span className="text-yellow-400">Eficiencia Pura.</span>
           </h2>
           <p className="text-xl text-slate-300 font-light leading-relaxed border-l-2 border-yellow-400 pl-6">
-            La validación en campo demuestra la rapidez del sistema: fijación mediante adhesivo de alta resistencia y terminación mediante clipado mecánico. Reducción total de tiempos muertos en obra.
+            Fijación mediante adhesivo y clipado mecánico. Eliminamos las rozas, el polvo y reducimos drásticamente los costes de mano de obra.
           </p>
         </motion.div>
       </section>
 
-      {/* DIFERENCIACIÓN */}
-      <section className="max-w-4xl mx-auto px-6 my-20 text-center">
-        <p className="text-lg text-slate-400 leading-relaxed italic">
-          Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente patentado. El rodapié es completamente desmontable, permitiendo mantenimiento y cambios sin tocar la pared.
-        </p>
-      </section>
-
-      {/* KPIs */}
+      {/* MÉTRICA: AHORRO COSTES DE MONTAJE */}
       <section className="max-w-7xl mx-auto px-6 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[
-            { label: "EBITDA", value: "28%", desc: "EFICIENCIA OPERATIVA", icon: <DollarSign size={40}/> },
-            { label: "ROI", value: "3.5x", desc: "RETORNO CAPITAL", icon: <TrendingUp size={40}/> },
-            { label: "CRECIMIENTO", value: "+50%", desc: "ESCALABILIDAD YoY", icon: <BarChart3 size={40}/> },
-            { label: "MARGEN", value: "65%", desc: "RENTABILIDAD PRODUCTO", icon: <PieChart size={40}/> }
-          ].map((k, i) => (
-            <div key={i} className="bg-[#0f172a] border-2 border-white/10 p-16 rounded-[3rem] flex flex-col items-center justify-center transition-all hover:border-yellow-400 group">
-              <div className="text-yellow-400 mb-4 opacity-50 group-hover:opacity-100 transition-opacity">{k.icon}</div>
-              <div className="text-white text-2xl md:text-3xl font-black italic uppercase mb-2">{k.label}</div>
-              <div className="text-8xl md:text-9xl font-black text-yellow-400 italic leading-none my-4">{k.value}</div>
-              <div className="text-slate-500 text-xs font-bold tracking-[0.4em]">{k.desc}</div>
-            </div>
-          ))}
+        <div className="bg-slate-900/50 p-10 rounded-[2rem] border border-white/5 shadow-xl">
+          <div className="flex items-center gap-4 mb-8">
+            <Zap className="text-yellow-400" />
+            <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Impacto en Costes de Montaje</h3>
+          </div>
+          <div className="h-[250px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={laborData} layout="vertical" margin={{ right: 80 }}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={12} width={150} axisLine={false} tickLine={false} />
+                <Bar dataKey="minutos" fill="#60a5fa" radius={[0, 10, 10, 0]}>
+                  <LabelList dataKey="minutos" position="right" fill="#fff" formatter={(v) => `${v} min / m`} />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <p className="text-yellow-400 font-bold mt-4 text-center">Ahorro superior al 80% en tiempo de ejecución frente a obra tradicional.</p>
         </div>
       </section>
 
-      {/* GRÁFICA DE VENTAS */}
-      <section className="max-w-7xl mx-auto px-6 mb-10">
+      {/* KPIs */}
+      <section className="max-w-7xl mx-auto px-6 mb-24 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[
+          { label: "EBITDA", value: "28%", icon: <DollarSign size={40}/> },
+          { label: "ROI", value: "3.5x", icon: <TrendingUp size={40}/> },
+          { label: "CRECIMIENTO", value: "+50%", icon: <BarChart3 size={40}/> },
+          { label: "MARGEN", value: "65%", icon: <PieChart size={40}/> }
+        ].map((k, i) => (
+          <div key={i} className="bg-[#0f172a] border-2 border-white/10 p-12 rounded-[3rem] flex flex-col items-center group hover:border-yellow-400 transition-colors">
+            <div className="text-yellow-400 mb-4 opacity-50 group-hover:opacity-100">{k.icon}</div>
+            <div className="text-white text-2xl font-black italic uppercase">{k.label}</div>
+            <div className="text-8xl font-black text-yellow-400 italic my-4">{k.value}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* GRÁFICAS FINALES (Ventas, EBITDA y Energía) */}
+      <section className="max-w-7xl mx-auto px-6 space-y-10">
         <div className="bg-slate-900/50 border border-white/10 p-8 rounded-[2.5rem]">
           <h2 className="text-2xl font-black text-white italic mb-8 uppercase tracking-tighter">Ventas Proyectadas (€)</h2>
-          <div className="h-[400px] w-full">
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={salesData} margin={{ top: 30, right: 30, left: 20, bottom: 5 }}>
+              <BarChart data={salesData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="year" stroke="#94a3b8" tickLine={false} axisLine={false} dy={10} />
-                <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} />
-                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '12px' }} />
+                <XAxis dataKey="year" stroke="#94a3b8" axisLine={false} />
+                <YAxis stroke="#94a3b8" axisLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#0f172a', border: 'none', borderRadius: '12px' }} />
                 <Bar dataKey="ventas" fill="#facc15" radius={[10, 10, 0, 0]}>
-                  <LabelList dataKey="crecimiento" position="insideTop" fill="#000000" fontSize={18} fontWeight="900" offset={10} />
+                  <LabelList dataKey="crecimiento" position="insideTop" fill="#000" fontWeight="900" />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
-      </section>
 
-      {/* MÉTRICAS SECUNDARIAS */}
-      <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-        <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
-          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">EBITDA vs Sector (%)</h3>
-          <div className="h-[200px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={ebitdaData}>
-                <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
-                <Bar dataKey="value" fill="#22c55e" radius={[4,4,0,0]} />
-              </BarChart>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5 h-[250px]">
+            <h3 className="font-bold mb-4 text-slate-400 uppercase text-xs">EBITDA vs Sector (%)</h3>
+            <ResponsiveContainer width="100%" height="80%">
+              <BarChart data={ebitdaData}><XAxis dataKey="name" stroke="#64748b" fontSize={10} /><Bar dataKey="value" fill="#22c55e" radius={[4,4,0,0]} /></BarChart>
             </ResponsiveContainer>
           </div>
-        </div>
-
-        <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5">
-          <h3 className="font-bold mb-6 text-slate-400 uppercase tracking-widest text-xs">Ahorro Energético (%)</h3>
-          <div className="h-[200px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={energyData}>
-                <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
-                <Bar dataKey="consumo" fill="#facc15" radius={[4,4,0,0]} />
-              </BarChart>
+          <div className="bg-slate-900/50 p-8 rounded-[2rem] border border-white/5 h-[250px]">
+            <h3 className="font-bold mb-4 text-slate-400 uppercase text-xs">Ahorro Energético (%)</h3>
+            <ResponsiveContainer width="100%" height="80%">
+              <BarChart data={energyData}><XAxis dataKey="name" stroke="#64748b" fontSize={10} /><Bar dataKey="consumo" fill="#facc15" radius={[4,4,0,0]} /></BarChart>
             </ResponsiveContainer>
           </div>
         </div>
       </section>
-
     </div>
   );
 }
