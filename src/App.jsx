@@ -89,7 +89,7 @@ export default function App() {
               className="rounded-3xl overflow-hidden border-2 border-white/10 group"
           >
               <img 
-                  src="public/Aluplak1.jpeg" 
+                  src="/Aluplak1.jpeg" 
                   alt="Aplicación Aluplak en pasillo" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -102,7 +102,7 @@ export default function App() {
               className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
           >
               <img 
-                  src="public/Aluplak2.jpeg" 
+                  src="/Aluplak2.jpeg" 
                   alt="Detalle Aluplak en escalera" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
