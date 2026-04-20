@@ -14,13 +14,13 @@ const scenarios = {
 export default function App() {
   const [scenario] = useState("base");
 
-  const salesData = [
-    { year: "2022", ventas: 47416, growth: 0 },
-    { year: "2023", ventas: 71677, growth: 51 },
-    { year: "2024", ventas: 88210, growth: 23 },
-    { year: "2025", ventas: 132531, growth: 50 },
-    { year: "2026", ventas: scenarios[scenario], growth: 66 }
-  ];
+ const salesData = [
+  { year: '2022', ventas: 48000, crecimiento: '' }, // El primero va vacío
+  { year: '2023', ventas: 72000, crecimiento: '+50%' },
+  { year: '2024', ventas: 90000, crecimiento: '+25%' },
+  { year: '2025', ventas: 135000, crecimiento: '+50%' },
+  { year: '2026', ventas: 220000, crecimiento: '+63%' },
+];
 
   const roiData = [
     { year: "2023", value: 1.2 },
@@ -126,25 +126,7 @@ export default function App() {
 </section>
 
 
-      {/* VENTAS */}
-      <div className="bg-slate-900 p-6 rounded-2xl mb-10">
-        <h2 className="text-xl font-bold mb-4">Ventas (€)</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={salesData}>
-            <CartesianGrid stroke="#1e293b" />
-            <XAxis dataKey="year" stroke="#94a3b8" />
-            <YAxis stroke="#94a3b8" />
-            <Tooltip />
-            <Bar dataKey="ventas" fill="#facc15" />
-          </BarChart>
-        </ResponsiveContainer>
-        <p className="text-sm text-slate-400 mt-4">
-          Crecimiento acelerado con escalado industrial progresivo. Con la nueva Tarifa Industriales 2026 y el lanzamiento de la división de climatización invisible, se
-proyecta un crecimiento disruptivo:
-Invisotherm: Panel de fibrocemento con nanotecnología para climatizar hasta 14m2.
-Rodapié Calefactable: Solución de barrera térmica perimetral de alta eficiencia.
-        </p>
-      </div>
+
 
       {/* EBITDA */}
       <div className="bg-slate-900 p-6 rounded-2xl mb-10">
@@ -158,7 +140,50 @@ Rodapié Calefactable: Solución de barrera térmica perimetral de alta eficienc
           </BarChart>
         </ResponsiveContainer>
         <p className="text-sm text-slate-400 mt-4">
-          Margen muy superior al sector industrial tradicional.
+          Margen import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
+
+{/* VENTAS CON VARIACIÓN PORCENTUAL */}
+<div className="bg-slate-900/50 border border-white/10 p-8 rounded-[2.5rem] mb-10">
+  <h2 className="text-2xl font-black text-white italic mb-8 uppercase tracking-tighter">Ventas (€)</h2>
+  <ResponsiveContainer width="100%" height={400}>
+    <BarChart data={salesData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+      <XAxis 
+        dataKey="year" 
+        stroke="#94a3b8" 
+        fontSize={12} 
+        tickLine={false} 
+        axisLine={false} 
+        dy={10}
+      />
+      <YAxis 
+        stroke="#94a3b8" 
+        fontSize={12} 
+        tickLine={false} 
+        axisLine={false} 
+      />
+      <Tooltip 
+        cursor={{fill: 'transparent'}}
+        contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '12px' }}
+      />
+      <Bar dataKey="ventas" fill="#facc15" radius={[10, 10, 0, 0]}>
+        {/* ESTO ES LO QUE PONE EL TEXTO GRANDE DENTRO */}
+        <LabelList 
+          dataKey="crecimiento" 
+          position="insideTop" 
+          fill="#000000" 
+          fontSize={20} 
+          fontWeight="900"
+          style={{ fontStyle: 'italic' }}
+          offset={20}
+        />
+      </Bar>
+    </BarChart>
+  </ResponsiveContainer>
+  <p className="text-sm text-slate-400 mt-6 italic border-l-2 border-yellow-400 pl-4">
+    Crecimiento acelerado con escalado industrial progresivo.
+  </p>
+</div>muy superior al sector industrial tradicional.
         </p>
       </div>
 
