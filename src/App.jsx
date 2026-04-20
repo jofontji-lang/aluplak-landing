@@ -1,305 +1,258 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { 
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, 
   CartesianGrid, LabelList, AreaChart, Area, PieChart, Pie, Cell,
-  RadarChart, PolarGrid, PolarAngleAxis, Radar
+  RadarChart, PolarGrid, PolarAngleAxis, Radar, LineChart, Line
 } from "recharts";
 import { motion } from "framer-motion";
 import { 
   DollarSign, TrendingUp, BarChart3, PieChart as PieIcon, Wrench, 
   Zap, Flame, ShieldCheck, Globe, Layout, Target, Award, 
-  Users, Lightbulb, ChevronRight, Activity, Eye, MousePointer2
+  Users, Lightbulb, ChevronRight, Activity, Eye, CheckCircle2,
+  ArrowRight, Thermometer, Box, ZapOff
 } from 'lucide-react';
 
 export default function App() {
-  // --- DATOS DEL DOSSIER ---
-  const salesHistory = [
-    { year: '2022', ventas: 47416, label: 'Fase 1' }, 
-    { year: '2023', ventas: 71677, label: '+51%' },
-    { year: '2024', ventas: 88210, label: '+23%' }, 
-    { year: '2025', ventas: 132531, label: 'Récord' }, 
-    { year: '2026', ventas: 220000, label: 'Proyectado' }
+  const [activeSection, setActiveSection] = useState('hero');
+
+  // Función de navegación con Scroll Suave
+  const scrollTo = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // Compensar el menú fijo
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      setActiveSection(id);
+    }
+  };
+
+  // --- DATOS MAESTROS DEL DOSSIER ---
+  const salesData = [
+    { year: '2022', monto: 47416, grow: '0%', desc: 'Lanzamiento' },
+    { year: '2023', monto: 71677, grow: '+51%', desc: 'Consolidación' },
+    { year: '2024', monto: 88210, grow: '+23%', desc: 'Expansión Ind.' },
+    { year: '2025', monto: 132531, grow: '+50%', desc: 'Récord Histórico' },
+    { year: '2026', monto: 220000, grow: '+66%', desc: 'Proyección Invisotherm' }
   ];
 
-  const productPerformance = [
-    { subject: 'Eficiencia', A: 120, fullMark: 150 },
-    { subject: 'Instalación', A: 150, fullMark: 150 },
-    { subject: 'Margen', A: 140, fullMark: 150 },
-    { subject: 'Estética', A: 130, fullMark: 150 },
-    { subject: 'Versatilidad', A: 110, fullMark: 150 },
+  const marketSplit = [
+    { name: 'Nacional', value: 45 },
+    { name: 'Exportación (+30 países)', value: 55 },
   ];
 
-  const pieData = [
-    { name: 'Margen Aluplak', value: 78, color: '#facc15' },
-    { name: 'Coste Op.', value: 22, color: '#1e293b' },
-  ];
-
-  const laborData = [
-    { name: "Obra Tradicional", tiempo: 45, color: '#475569' },
-    { name: "Sistema ALUPLAK", tiempo: 8, color: '#facc15' }
+  const techRadar = [
+    { subject: 'Conductividad', A: 150 },
+    { subject: 'Montaje', A: 140 },
+    { subject: 'Diseño', A: 130 },
+    { subject: 'Coste', A: 120 },
+    { subject: 'Durabilidad', A: 150 },
   ];
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white pb-32 font-sans selection:bg-yellow-400 selection:text-black">
+    <div className="min-h-screen bg-[#020617] text-white font-sans selection:bg-yellow-400 selection:text-black">
       
-      {/* --- CABECERA ESTRATÉGICA --- */}
-      <nav className="fixed top-0 w-full z-[100] bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 px-8 py-5 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
-            <Activity size={18} className="text-black" />
+      {/* --- NAVEGACIÓN TOTALMENTE FUNCIONAL --- */}
+      <nav className="fixed top-0 w-full z-[100] bg-[#020617]/90 backdrop-blur-xl border-b border-white/10 px-6 lg:px-12 py-5 flex justify-between items-center">
+        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+          <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform">
+            <Activity size={22} className="text-black" />
           </div>
-          <span className="font-black italic text-2xl tracking-tighter uppercase">ALUPLAK<span className="text-yellow-400">.</span>SYSTEMS</span>
+          <div className="flex flex-col">
+            <span className="font-black italic text-xl tracking-tighter leading-none uppercase">ALUPLAK</span>
+            <span className="text-[8px] font-bold tracking-[0.3em] text-yellow-400">SYSTEMS S.L.</span>
+          </div>
         </div>
-        <div className="hidden lg:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
-          <span className="text-yellow-400">Investor Portal 2026</span>
-          <span className="hover:text-white cursor-pointer transition-colors">Tecnología</span>
-          <span className="hover:text-white cursor-pointer transition-colors">Mercado</span>
-          <span className="hover:text-white cursor-pointer transition-colors">Finanzas</span>
+        
+        <div className="hidden lg:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em]">
+          <button 
+            onClick={() => scrollTo('hero')} 
+            className={`${activeSection === 'hero' ? 'text-yellow-400' : 'text-slate-500'} hover:text-white transition-colors`}
+          >Investor Portal</button>
+          <button 
+            onClick={() => scrollTo('tecnologia')} 
+            className={`${activeSection === 'tecnologia' ? 'text-yellow-400' : 'text-slate-500'} hover:text-white transition-colors`}
+          >Tecnología</button>
+          <button 
+            onClick={() => scrollTo('mercado')} 
+            className={`${activeSection === 'mercado' ? 'text-yellow-400' : 'text-slate-500'} hover:text-white transition-colors`}
+          >Mercado</button>
+          <button 
+            onClick={() => scrollTo('finanzas')} 
+            className={`${activeSection === 'finanzas' ? 'text-yellow-400' : 'text-slate-500'} hover:text-white transition-colors`}
+          >Finanzas</button>
         </div>
-        <button className="bg-white text-black px-7 py-2.5 rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-yellow-400 transition-all active:scale-95 shadow-lg shadow-white/5">
-          Descargar Dossier Full PDF
+        
+        <button className="bg-yellow-400 text-black px-8 py-3 rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-yellow-400/10">
+          Invertir 2026
         </button>
       </nav>
 
-      {/* --- HERO: EL CAMBIO DE PARADIGMA --- */}
-      <section className="relative pt-60 pb-40 px-6 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-full bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.15)_0%,transparent_70%)] opacity-40" />
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="max-w-7xl mx-auto relative z-10"
-        >
-          <div className="inline-flex items-center gap-3 bg-yellow-400/10 border border-yellow-400/30 px-5 py-2 rounded-full mb-10">
-            <Globe size={16} className="text-yellow-400 animate-pulse" />
-            <span className="text-[12px] font-black uppercase tracking-[0.3em] text-yellow-400">Valencia • España • +30 Países</span>
-          </div>
-          
-          <h1 className="text-[10vw] lg:text-[13rem] font-black mb-12 tracking-tighter italic leading-[0.7] uppercase">
-            ACTIVE <br /><span className="text-yellow-400">SURFACES.</span>
-          </h1>
-          
-          <div className="grid lg:grid-cols-2 gap-20 mt-24 items-start">
-            <div className="relative">
-              <div className="absolute -left-10 top-0 w-1 h-full bg-yellow-400" />
-              <p className="text-3xl md:text-5xl font-light text-slate-200 italic leading-tight">
-                "Hemos convertido elementos <span className="text-white font-bold">arquitectónicos pasivos</span> en sistemas activos de alta eficiencia."
-              </p>
-            </div>
-            <div className="space-y-8 text-xl text-slate-400 font-light leading-relaxed">
-              <p>
-                Desde 2021, Aluplak ha transformado el sector de los perfiles técnicos. No somos solo fabricantes de zócalos; somos la 
-                <strong> única compañía que integra alta decoración con nanotecnología térmica</strong>.
-              </p>
-              <div className="flex gap-12 pt-6">
-                <div>
-                  <p className="text-5xl font-black text-white italic">28%</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-yellow-400 mt-2">EBITDA Objetivo</p>
-                </div>
-                <div>
-                  <p className="text-5xl font-black text-white italic">70%</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-yellow-400 mt-2">Margen Producto</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* --- SECCIÓN INVISOTHERM: LA OBRA MAESTRA --- */}
-      <section className="py-40 bg-white/5 border-y border-white/10 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-24 items-center">
-            <div className="lg:w-1/2 space-y-12">
-              <div className="space-y-4">
-                <span className="text-yellow-400 font-black tracking-[0.4em] uppercase text-xs">Flagship Product</span>
-                <h2 className="text-7xl lg:text-9xl font-black italic tracking-tighter leading-none">
-                  INVISO<span className="text-yellow-400">THERM</span>
-                </h2>
-                <h3 className="text-3xl font-bold text-slate-200 italic">Climatización Invisible de Vanguardia.</h3>
-              </div>
-
-              <div className="prose prose-invert prose-xl text-slate-400 font-light max-w-none">
-                <p>
-                  Se trata del <strong>primer panel constructivo calefactable de una sola pieza</strong> del mercado. Fabricado en Pladur o Fibrocemento de 13 mm con nanotecnología térmica integrada.
+      {/* --- SECCIÓN HERO (ID: hero) --- */}
+      <section id="hero" className="relative pt-64 pb-32 px-6 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(250,204,21,0.1)_0%,transparent_70%)]" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="text-yellow-400 font-black tracking-[0.5em] uppercase text-xs mb-6 block">The Tech Skirting Company</span>
+            <h1 className="text-[10vw] lg:text-[12rem] font-black mb-12 tracking-tighter italic leading-[0.75] uppercase">
+              ACTIVE <br /><span className="text-yellow-400">HOMES.</span>
+            </h1>
+            
+            <div className="grid lg:grid-cols-2 gap-20 mt-24">
+              <div className="space-y-8">
+                <p className="text-3xl lg:text-5xl font-light italic text-slate-200 border-l-4 border-yellow-400 pl-8 leading-tight">
+                  "No fabricamos perfiles, creamos <span className="text-white font-bold underline decoration-yellow-400">superficies inteligentes</span> que climatizan tu vida."
                 </p>
-                <div className="grid md:grid-cols-2 gap-6 mt-10">
-                  <div className="bg-black/40 p-8 rounded-3xl border border-white/10 group hover:border-yellow-400 transition-colors">
-                    <Flame className="text-yellow-400 mb-4" size={32} />
-                    <h4 className="text-white font-black uppercase text-sm mb-2">14m² de Alcance</h4>
-                    <p className="text-xs leading-relaxed">Capacidad de climatizar grandes superficies mediante radiación homogénea desde la estructura.</p>
+                <div className="flex gap-4">
+                  <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+                    <p className="text-4xl font-black italic">2021</p>
+                    <p className="text-[9px] uppercase tracking-widest text-slate-500">Fundación Valencia</p>
                   </div>
-                  <div className="bg-black/40 p-8 rounded-3xl border border-white/10 group hover:border-yellow-400 transition-colors">
-                    <Zap className="text-yellow-400 mb-4" size={32} />
-                    <h4 className="text-white font-black uppercase text-sm mb-2">Eliminación Total</h4>
-                    <p className="text-xs leading-relaxed">Suprime radiadores tradicionales, liberando espacio y mejorando la estética del proyecto inmobiliario.</p>
+                  <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+                    <p className="text-4xl font-black italic text-yellow-400">+30</p>
+                    <p className="text-[9px] uppercase tracking-widest text-slate-500">Países Exportados</p>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="lg:w-1/2 relative">
-              <div className="grid grid-cols-2 gap-6">
-                <motion.div whileHover={{ y: -10 }} className="space-y-6">
-                  <div className="rounded-[2.5rem] overflow-hidden border-2 border-yellow-400/20 shadow-2xl">
-                    <img src="/Aluplak5.jpeg" className="w-full h-80 object-cover" alt="Detalle panel" />
-                  </div>
-                  <div className="rounded-[2.5rem] overflow-hidden border-2 border-white/10">
-                    <img src="/Aluplak7.jpeg" className="w-full h-80 object-cover" alt="Instalación" />
-                  </div>
-                </motion.div>
-                <motion.div whileHover={{ y: 10 }} className="space-y-6 mt-16">
-                  <div className="rounded-[2.5rem] overflow-hidden border-2 border-white/10">
-                    <img src="/Aluplak6.jpeg" className="w-full h-80 object-cover" alt="Acabado" />
-                  </div>
-                  <div className="rounded-[2.5rem] overflow-hidden border-2 border-yellow-400/20 shadow-2xl">
-                    <img src="/Aluplak8.jpeg" className="w-full h-80 object-cover" alt="Tecnología" />
-                  </div>
-                </motion.div>
+              <div className="text-slate-400 text-xl font-light leading-relaxed space-y-6">
+                <p>Nuestra misión es transformar el concepto tradicional del rodapié fijo en un sistema <strong>inteligente, funcional y sostenible</strong>.</p>
+                <p>A través de un sistema bi-componente patentado, hemos logrado el registro total de instalaciones sin obras, sentando las bases para la <strong>climatización invisible</strong>.</p>
+                <button onClick={() => scrollTo('tecnologia')} className="flex items-center gap-4 text-yellow-400 font-black uppercase text-sm group">
+                  Explorar Tecnología <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* --- MÉTRICAS DE MERCADO Y PERFORMANCE --- */}
-      <section className="py-40 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-12">
-          
-          {/* Gráfico de Radar: Atributos */}
-          <div className="bg-slate-900/50 p-12 rounded-[3rem] border border-white/5 space-y-8">
-            <h4 className="text-white font-black italic uppercase text-lg tracking-tighter">Superioridad Técnica</h4>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={productPerformance}>
-                  <PolarGrid stroke="#334155" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                  <Radar name="Aluplak" dataKey="A" stroke="#facc15" fill="#facc15" fillOpacity={0.5} />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-            <p className="text-xs text-slate-500 italic leading-relaxed text-center">
-              "Validación técnica basada en la conductividad del aluminio y facilidad de registro bi-componente."
-            </p>
-          </div>
-
-          {/* Gráfico de Barras: Tiempos de Instalación */}
-          <div className="bg-slate-900/50 p-12 rounded-[3rem] border border-white/5 space-y-8">
-            <h4 className="text-white font-black italic uppercase text-lg tracking-tighter">Optimización de Obra</h4>
-            <div className="h-64 flex flex-col justify-center">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={laborData} layout="vertical">
-                  <XAxis type="number" hide />
-                  <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={10} width={100} axisLine={false} tickLine={false} />
-                  <Bar dataKey="tiempo" radius={[0, 10, 10, 0]}>
-                    {laborData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                    <LabelList dataKey="tiempo" position="right" fill="#fff" formatter={(v) => `${v} min`} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="space-y-3">
-               <div className="flex justify-between text-xs font-bold uppercase tracking-widest"><span className="text-slate-500">Ahorro Tiempo:</span> <span className="text-yellow-400">82.2%</span></div>
-               <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div className="w-[82%] h-full bg-yellow-400" />
-               </div>
-            </div>
-          </div>
-
-          {/* Margen de Beneficio */}
-          <div className="bg-yellow-400 p-12 rounded-[3rem] text-black space-y-8 relative overflow-hidden">
-            <PieIcon size={120} className="absolute -right-10 -bottom-10 opacity-10 rotate-12" />
-            <h4 className="font-black italic uppercase text-lg tracking-tighter">Rentabilidad por Unidad</h4>
-            <div className="h-64 flex flex-col items-center justify-center">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={pieData} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color === '#facc15' ? '#000' : '#fef08a'} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="text-center mt-4">
-                <p className="text-6xl font-black italic tracking-tighter">78%</p>
-                <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Margen Comercial</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* --- SECCIÓN: ZÓCALO TÉCNICO (DETALLE BI-COMPONENTE) --- */}
-      <section className="py-40 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-32 items-center">
-        <div className="order-2 lg:order-1 grid grid-cols-2 gap-4 h-[600px]">
-          <img src="/Aluplak1.jpeg" className="w-full h-full object-cover rounded-[3rem] border border-white/10" alt="Aluplak 1" />
-          <img src="/Aluplak2.jpeg" className="w-full h-full object-cover rounded-[3rem] border border-white/10 mt-20" alt="Aluplak 2" />
-          <img src="/Aluplak3.jpeg" className="w-full h-full object-cover rounded-[3rem] border border-white/10 -mt-20 shadow-2xl" alt="Aluplak 3" />
-          <img src="/Aluplak4.jpg" className="w-full h-full object-cover rounded-[3rem] border border-white/10" alt="Aluplak 4" />
-        </div>
-
-        <div className="order-1 lg:order-2 space-y-12">
-          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 px-5 py-2 rounded-full">
-            <ShieldCheck size={16} className="text-blue-400" />
-            <span className="text-[12px] font-black uppercase tracking-widest text-blue-400">Patente Bi-Componente</span>
-          </div>
-          <h2 className="text-6xl font-black italic tracking-tighter leading-none">
-            ZÓCALOS QUE <br /><span className="text-yellow-400">RESPIRAN.</span>
-          </h2>
-          <div className="space-y-8 text-xl text-slate-300 font-light leading-relaxed">
-            <p className="border-l-4 border-yellow-400 pl-8">
-              "Nuestra tecnología permite que el rodapié sea <strong>completamente desmontable</strong>, facilitando el registro de instalaciones sin necesidad de realizar obras ni dañar las paredes."
-            </p>
-            <div className="grid grid-cols-1 gap-4">
-              {[
-                { t: "Registro LED", d: "Instalación de luz indirecta de forma nativa." },
-                { t: "Barrera Térmica", d: "Crea un perímetro protector contra la condensación." },
-                { t: "Montaje Mecánico", d: "Fijación por clipado de alta resistencia." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 p-6 bg-slate-900/50 rounded-2xl border border-white/5">
-                  <ChevronRight className="text-yellow-400 shrink-0" />
-                  <p className="text-sm"><strong className="text-white uppercase tracking-tighter">{item.t}:</strong> {item.d}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- FINANZAS Y ESCALABILIDAD 2026 --- */}
-      <section className="py-40 bg-gradient-to-t from-black to-[#020617]">
+      {/* --- SECCIÓN TECNOLOGÍA (ID: tecnologia) --- */}
+      <section id="tecnologia" className="py-40 bg-slate-900/40 border-y border-white/10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col lg:flex-row justify-between items-end mb-24 gap-10">
+          <div className="grid lg:grid-cols-2 gap-32 items-center">
+            <div className="space-y-12">
+              <div className="space-y-4">
+                <h2 className="text-7xl font-black italic tracking-tighter uppercase leading-none">INVISO<br /><span className="text-yellow-400">THERM.</span></h2>
+                <p className="text-2xl font-bold italic text-slate-300">La joya de la corona tecnológica.</p>
+              </div>
+              
+              <div className="prose prose-invert text-slate-400 text-lg font-light leading-relaxed space-y-6">
+                <p>Este es el <strong>primer panel constructivo calefactable de una sola pieza</strong>. No es un accesorio, es parte estructural de la casa.</p>
+                <ul className="space-y-4">
+                  <li className="flex gap-4 items-start bg-black/40 p-6 rounded-3xl border border-white/5">
+                    <Thermometer className="text-yellow-400 shrink-0" />
+                    <span><strong>Nanotecnología Térmica:</strong> Climatiza hasta 14m² mediante radiación homogénea desde la propia placa de 13mm.</span>
+                  </li>
+                  <li className="flex gap-4 items-start bg-black/40 p-6 rounded-3xl border border-white/5">
+                    <ZapOff className="text-yellow-400 shrink-0" />
+                    <span><strong>Adiós Radiadores:</strong> Estética minimalista pura. El sistema es invisible, silencioso y no levanta polvo.</span>
+                  </li>
+                  <li className="flex gap-4 items-start bg-black/40 p-6 rounded-3xl border border-white/5">
+                    <Box className="text-yellow-400 shrink-0" />
+                    <span><strong>Bi-componente:</strong> El único sistema que permite desmontar el rodapié para registrar cables o LEDs sin picar la pared.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 relative">
+              <div className="absolute inset-0 bg-yellow-400/20 blur-[120px] rounded-full" />
+              <img src="/Aluplak5.jpeg" className="rounded-[3rem] border-2 border-yellow-400/30 shadow-2xl relative z-10 hover:scale-105 transition-transform" />
+              <img src="/Aluplak6.jpeg" className="rounded-[3rem] border-2 border-white/10 shadow-2xl relative z-10 mt-20 hover:scale-105 transition-transform" />
+              <img src="/Aluplak7.jpeg" className="rounded-[3rem] border-2 border-white/10 shadow-2xl relative z-10 -mt-20 hover:scale-105 transition-transform" />
+              <img src="/Aluplak8.jpeg" className="rounded-[3rem] border-2 border-yellow-400/30 shadow-2xl relative z-10 hover:scale-105 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- SECCIÓN MERCADO (ID: mercado) --- */}
+      <section id="mercado" className="py-40 max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-24">
+          <div className="lg:w-1/3 space-y-8">
+            <h2 className="text-6xl font-black italic tracking-tighter uppercase leading-none">MERCADO & <br/><span className="text-yellow-400">ALCANCE.</span></h2>
+            <p className="text-slate-400 text-lg font-light leading-relaxed">
+              Validado en España y exportado a mercados premium. ALUPLAK lidera el nicho de <strong>alta decoración tecnológica</strong> con márgenes industriales protegidos.
+            </p>
             <div className="space-y-4">
-              <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase leading-none">
-                Finanzas & <br /><span className="text-yellow-400">Crecimiento.</span>
-              </h2>
-              <p className="text-slate-500 italic max-w-xl">
-                Proyección de facturación basada en la nueva tarifa de industriales y la expansión de la red logística en Europa y América.
+              <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                <span className="text-xs uppercase font-bold text-slate-500">Mano de obra</span>
+                <span className="text-yellow-400 font-black">-82% tiempo</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                <span className="text-xs uppercase font-bold text-slate-500">Margen bruto</span>
+                <span className="text-white font-black">78%</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                <span className="text-xs uppercase font-bold text-slate-500">Eficiencia Energética</span>
+                <span className="text-blue-400 font-black">+45%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:w-2/3 grid md:grid-cols-2 gap-8">
+            <div className="bg-slate-900/50 p-10 rounded-[3rem] border border-white/5">
+              <h4 className="text-white font-black italic uppercase text-xs mb-8 tracking-widest">Distribución de Ventas</h4>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={marketSplit} innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
+                      <Cell fill="#facc15" />
+                      <Cell fill="#1e293b" />
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex justify-center gap-10 mt-6">
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-yellow-400 rounded-full"/> <span className="text-[10px] uppercase font-bold">Exportación</span></div>
+                <div className="flex items-center gap-2"><div className="w-3 h-3 bg-slate-700 rounded-full"/> <span className="text-[10px] uppercase font-bold">Nacional</span></div>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/50 p-10 rounded-[3rem] border border-white/5">
+              <h4 className="text-white font-black italic uppercase text-xs mb-8 tracking-widest">Superioridad de Producto</h4>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={techRadar}>
+                    <PolarGrid stroke="#334155" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10 }} />
+                    <Radar name="Aluplak" dataKey="A" stroke="#facc15" fill="#facc15" fillOpacity={0.5} />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- SECCIÓN FINANZAS (ID: finanzas) --- */}
+      <section id="finanzas" className="py-40 bg-[#03081a] border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row justify-between items-end mb-20 gap-10">
+            <div className="space-y-4">
+              <h2 className="text-6xl lg:text-8xl font-black italic tracking-tighter uppercase leading-none">BUSINESS <br/><span className="text-yellow-400">SCALING.</span></h2>
+              <p className="text-slate-400 max-w-xl text-lg font-light">
+                Proyectamos un crecimiento disruptivo para 2026 impulsado por la nueva <strong>Tarifa Industriales</strong> y la división de climatización.
               </p>
             </div>
-            <div className="bg-slate-900 p-8 rounded-3xl border border-white/10 flex gap-12">
-              <div className="text-center">
-                <p className="text-sm font-bold text-slate-500 uppercase mb-1 tracking-widest">Growth 26</p>
-                <p className="text-4xl font-black text-yellow-400">+66%</p>
-              </div>
-              <div className="w-px h-12 bg-white/10" />
-              <div className="text-center">
-                <p className="text-sm font-bold text-slate-500 uppercase mb-1 tracking-widest">ROI</p>
-                <p className="text-4xl font-black text-white">3.5x</p>
-              </div>
+            <div className="bg-yellow-400 text-black p-10 rounded-[2.5rem] flex items-center gap-10">
+              <div><p className="text-[10px] font-black uppercase">EBITDA</p><p className="text-5xl font-black italic">28%</p></div>
+              <div className="w-px h-12 bg-black/20" />
+              <div><p className="text-[10px] font-black uppercase">ROI 3Y</p><p className="text-5xl font-black italic">3.5x</p></div>
             </div>
           </div>
 
-          <div className="bg-slate-900/40 p-12 rounded-[4rem] border border-white/10 backdrop-blur-3xl shadow-2xl">
-            <div className="h-[450px] w-full">
+          <div className="bg-slate-900/40 p-12 lg:p-20 rounded-[4rem] border border-white/10">
+            <div className="h-[500px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={salesHistory} margin={{ top: 20, right: 30, left: 20, bottom: 0 }}>
+                <AreaChart data={salesData}>
                   <defs>
                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#facc15" stopOpacity={0.3}/>
@@ -311,26 +264,22 @@ export default function App() {
                   <YAxis stroke="#475569" fontSize={12} axisLine={false} tickLine={false} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '16px' }} 
-                    itemStyle={{ color: '#facc15', fontWeight: 'bold' }}
+                    itemStyle={{ color: '#facc15' }}
                   />
-                  <Area type="monotone" dataKey="ventas" stroke="#facc15" strokeWidth={4} fillOpacity={1} fill="url(#colorSales)" />
-                  <Bar dataKey="ventas" fill="transparent">
-                    <LabelList dataKey="label" position="top" fill="#facc15" fontSize={10} fontWeight="black" dy={-10} />
+                  <Area type="monotone" dataKey="monto" stroke="#facc15" strokeWidth={5} fillOpacity={1} fill="url(#colorSales)" />
+                  <Bar dataKey="monto" fill="transparent">
+                    <LabelList dataKey="grow" position="top" fill="#facc15" fontSize={12} fontWeight="black" dy={-10} />
                   </Bar>
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div className="grid md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-white/5">
-              {[
-                { l: "2022", v: "47.416€", d: "Penetración de mercado." },
-                { l: "2023", v: "71.677€", d: "Consolidación nacional." },
-                { l: "2024", v: "88.210€", d: "Expansión Industrial." },
-                { l: "2026 Proj", v: "220.000€", d: "Efecto Invisotherm." }
-              ].map((item, i) => (
-                <div key={i} className="space-y-2">
-                  <p className="text-[10px] font-black uppercase text-yellow-400 tracking-widest">{item.l}</p>
-                  <p className="text-2xl font-black text-white italic">{item.v}</p>
-                  <p className="text-xs text-slate-500">{item.d}</p>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 mt-20 pt-10 border-t border-white/5">
+              {salesData.map((d, i) => (
+                <div key={i} className="space-y-1">
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{d.year}</p>
+                  <p className="text-2xl font-black italic">{d.monto.toLocaleString()}€</p>
+                  <p className="text-[9px] text-yellow-400 font-bold uppercase">{d.desc}</p>
                 </div>
               ))}
             </div>
@@ -338,23 +287,17 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- FOOTER INVERSOR --- */}
-      <footer className="max-w-7xl mx-auto px-6 pt-40 text-center">
-        <div className="bg-yellow-400 p-20 rounded-[4rem] text-black space-y-10 shadow-[0_0_100px_rgba(250,204,21,0.2)]">
-          <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase leading-none">
-            ¿LISTO PARA <br />LA REVOLUCIÓN?
-          </h2>
-          <p className="text-xl font-bold uppercase tracking-[0.2em] max-w-2xl mx-auto opacity-70">
-            Únete a la compañía que está redefiniendo el confort térmico en la arquitectura moderna.
-          </p>
+      {/* --- FOOTER --- */}
+      <footer className="py-40 text-center max-w-7xl mx-auto px-6">
+        <div className="bg-yellow-400 p-24 rounded-[5rem] text-black space-y-10 shadow-[0_50px_100px_-20px_rgba(250,204,21,0.3)]">
+          <h2 className="text-7xl lg:text-[10rem] font-black italic tracking-tighter uppercase leading-[0.75]">JOIN THE <br/>FUTURE.</h2>
+          <p className="text-xl font-bold uppercase tracking-widest opacity-60">Aluplak Skirting Board S.L. • Investor Relations</p>
           <div className="flex flex-wrap justify-center gap-6">
-            <button className="bg-black text-white px-12 py-5 rounded-full font-black uppercase italic tracking-widest hover:scale-105 transition-all shadow-xl">Contactar con RRII</button>
-            <button className="bg-transparent border-2 border-black text-black px-12 py-5 rounded-full font-black uppercase italic tracking-widest hover:bg-black hover:text-white transition-all">Ver Roadmap 2027</button>
+            <button className="bg-black text-white px-12 py-5 rounded-full font-black uppercase italic tracking-widest hover:scale-105 transition-all">Solicitar Auditoría</button>
+            <button className="bg-transparent border-2 border-black px-12 py-5 rounded-full font-black uppercase italic tracking-widest hover:bg-black hover:text-white transition-all">Roadmap 2027</button>
           </div>
         </div>
-        <p className="mt-20 text-slate-600 text-[10px] font-bold uppercase tracking-[0.5em]">
-          © 2026 ALUPLAK SKIRTING BOARD S.L • Todos los derechos reservados.
-        </p>
+        <p className="mt-24 text-slate-600 text-[10px] font-black uppercase tracking-[0.5em]">© 2026 ALUPLAK • TODOS LOS DERECHOS RESERVADOS</p>
       </footer>
     </div>
   );
