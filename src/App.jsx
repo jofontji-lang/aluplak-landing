@@ -87,6 +87,12 @@ export default function App() {
         <p className="text-slate-400">
           Infraestructura térmica inteligente con escalabilidad industrial
         </p>
+         <p className="text-xl md:text-2xl font-light text-slate-300 leading-relaxed italic border-l-2 border-yellow-400 pl-6 text-left">
+              "Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente
+patentado. Nuestra tecnología permite que el rodapié sea completamente desmontable,
+facilitando el registro de instalaciones (cables, LED o tuberías) sin necesidad de realizar
+obras ni dañar las paredes de placa de yeso laminado."
+            </p>
       </div>
 
       
