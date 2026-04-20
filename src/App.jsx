@@ -4,7 +4,7 @@ import {
   LineChart, Line, CartesianGrid, LabelList
 } from "recharts";
 import { motion } from "framer-motion";
-import { DollarSign, TrendingUp, BarChart3, PieChart } from 'lucide-react';
+import { DollarSign, TrendingUp, BarChart3, PieChart, Wrench } from 'lucide-react';
 
 export default function App() {
   const salesData = [
@@ -58,10 +58,8 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* SECCIÓN DE APLICACIÓN REAL */}
+      {/* SECCIÓN DE APLICACIÓN REAL (ORIGINAL) */}
       <section className="max-w-7xl mx-auto px-6 my-24 grid md:grid-cols-2 gap-12 items-center">
-        
-        {/* Columna de Texto */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -80,7 +78,6 @@ export default function App() {
           </p>
         </motion.div>
 
-        {/* Columna de Imágenes */}
         <div className="grid grid-cols-2 gap-4 h-[500px]">
           <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -110,42 +107,55 @@ export default function App() {
         </div>
       </section>
 
-      {/* DIFERENCIACIÓN */}
-      <section className="max-w-4xl mx-auto px-6 my-20 text-center">
-        <p className="text-lg text-slate-400 leading-relaxed italic">
-          Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente patentado. El rodapié es completamente desmontable, permitiendo mantenimiento y cambios sin tocar la pared.
-        </p>
-      </section>
-
-      {/* KPIs */}
-      <section className="max-w-7xl mx-auto px-6 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[
-            { label: "EBITDA", value: "28%", desc: "EFICIENCIA OPERATIVA", icon: <DollarSign size={40}/> },
-            { label: "ROI", value: "3.5x", desc: "RETORNO CAPITAL", icon: <TrendingUp size={40}/> },
-            { label: "CRECIMIENTO", value: "+50%", desc: "ESCALABILIDAD YoY", icon: <BarChart3 size={40}/> },
-            { label: "MARGEN", value: "65%", desc: "RENTABILIDAD PRODUCTO", icon: <PieChart size={40}/> }
-          ].map((k, i) => (
-            <div key={i} className="bg-[#0f172a] border-2 border-white/10 p-16 rounded-[3rem] flex flex-col items-center justify-center transition-all hover:border-yellow-400 group">
-              <div className="text-yellow-400 mb-4 opacity-50 group-hover:opacity-100 transition-opacity">{k.icon}</div>
-              <div className="text-white text-2xl md:text-3xl font-black italic uppercase mb-2">{k.label}</div>
-              <div className="text-8xl md:text-9xl font-black text-yellow-400 italic leading-none my-4">{k.value}</div>
-              <div className="text-slate-500 text-xs font-bold tracking-[0.4em]">{k.desc}</div>
-            </div>
-          ))}
+      {/* NUEVA SECCIÓN: VALIDACIÓN DE INSTALACIÓN (AÑADIDA) */}
+      <section className="max-w-7xl mx-auto px-6 my-24 grid md:grid-cols-2 gap-12 items-center border-t border-white/5 pt-24">
+        <div className="grid grid-cols-2 gap-4 h-[500px] order-2 md:order-1">
+          <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-3xl overflow-hidden border-2 border-white/10 group mt-10"
+          >
+              <img 
+                  src="/Aluplak4.jpg" 
+                  alt="Proceso de pegado Aluplak" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+          </motion.div>
+          <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="rounded-3xl overflow-hidden border-2 border-white/10 group"
+          >
+              <img 
+                  src="/Aluplak3.jpeg" 
+                  alt="Instalación click Aluplak" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+          </motion.div>
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="space-y-6 order-1 md:order-2"
+        >
+          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/20 px-4 py-1 rounded-full">
+              <Wrench size={14} className="text-yellow-400" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Instalación Simplificada • Eficiencia</span>
+          </div>
+          <h2 className="text-5xl font-black text-white italic tracking-tighter leading-none">
+            Montaje en Seco, <br />
+            <span className="text-yellow-400">Sin Complicaciones.</span>
+          </h2>
+          <p className="text-xl text-slate-300 font-light leading-relaxed border-l-2 border-yellow-400 pl-6">
+            La validación en campo demuestra la rapidez del sistema: fijación mediante adhesivo de alta resistencia y terminación mediante clipado mecánico. Reducción total de tiempos muertos en obra.
+          </p>
+        </motion.div>
       </section>
 
-      {/* GRÁFICA DE VENTAS */}
-      <section className="max-w-7xl mx-auto px-6 mb-10">
-        <div className="bg-slate-900/50 border border-white/10 p-8 rounded-[2.5rem]">
-          <h2 className="text-2xl font-black text-white italic mb-8 uppercase tracking-tighter">Ventas Proyectadas (€)</h2>
-          <div className="h-[400px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={salesData} margin={{ top: 30, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="year" stroke="#94a3b8" tickLine={false} axisLine={false} dy={10} />
-                <YAxis stroke="#94a3b8" tickLine={false} axisLine={false} />
-                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '12px' }} />
-                <Bar dataKey="ventas" fill="#facc15" radius={[10, 10, 0, 0]}>
-                  <LabelList dataKey="crecimiento" position="insideTop" fill="#0000
+      {/* DIFERENCIACIÓN (ORIGINAL) */}
+      <section className="max-w-4xl mx-
