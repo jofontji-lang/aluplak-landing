@@ -1,353 +1,244 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { 
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, 
   RadarChart, PolarGrid, PolarAngleAxis, Radar, ComposedChart, 
-  Bar, Area, Legend, Line, ScatterChart, Scatter, ZAxis, Cell, PieChart, Pie
+  Bar, Area, Legend, Line, Cell, PieChart, Pie, ScatterChart, Scatter
 } from "recharts";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { 
   Activity, ArrowRight, TrendingUp, Zap, ShieldCheck, 
-  Droplets, Leaf, Menu, X, Globe, Target, Cpu, EyeOff,
-  BarChart3, Layers, Box, PenTool, Wind, Gauge, Award
+  Droplets, Leaf, Globe, Cpu, EyeOff, Thermometer, 
+  Smartphone, Home, Sun, CheckCircle2, Layers, Box, 
+  Wind, Gauge, Award, BarChart3, Rocket, Clock, Euro
 } from 'lucide-react';
 
 /**
- * ALUPLAK ULTIMATE INVESTMENT PORTAL - V3.0
- * Enfoque: Alta Densidad de Datos y Narrativa Industrial
+ * ALUPLAK ENTERPRISE SYSTEM v6.0
+ * Focus: Cost-Efficiency & Energy Savings Metrics
  */
 
-export default function AluplakCorporatePortal() {
-  const [activeTab, setActiveTab] = useState("ventas");
+export default function AluplakFullPortal() {
+  const [activeTab, setActiveTab] = useState("instalacion");
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // --- DATASETS EXTENSO ---
+  // --- DATASETS TÉCNICOS ---
   
-  const salesHistory = [
-    { year: '2022', ventas: 47416, ebitda: 13276, margen: 28, growth: 0 },
-    { year: '2023', ventas: 71677, ebitda: 20069, margen: 28, growth: 51 },
-    { year: '2024', ventas: 88210, ebitda: 24698, margen: 28, growth: 23 },
-    { year: '2025', ventas: 132531, ebitda: 37108, margen: 28, growth: 50 },
-    { year: '2026', ventas: 220000, ebitda: 61600, margen: 28, growth: 66 }
-  ]; [cite: 47, 51, 52, 55]
+  const installationSavings = [
+    { name: 'Tradicional (Obra)', horas: 8, coste: 320, dificultad: 90 },
+    { name: 'Aluplak System', horas: 1.5, coste: 60, dificultad: 20 },
+  ];
 
-  const productMargins = [
-    { name: 'Zócalo Técnico', margin: 78, color: '#facc15' },
-    { name: 'Invisotherm', margin: 68, color: '#eab308' },
-    { name: 'Zócalo Calefactable', margin: 85, color: '#ca8a04' }
-  ]; [cite: 29, 32, 36]
+  const energyEfficiency = [
+    { month: 'Ene', tradicional: 120, aluplak: 84 },
+    { month: 'Feb', tradicional: 110, aluplak: 77 },
+    { month: 'Mar', tradicional: 90, aluplak: 63 },
+    { month: 'Abr', tradicional: 60, aluplak: 42 },
+    { month: 'May', tradicional: 40, aluplak: 28 },
+    { month: 'Jun', tradicional: 30, aluplak: 21 },
+  ];
 
-  const technicalSpecs = [
-    { subject: 'Conductividad', A: 140, B: 90, fullMark: 150 },
-    { subject: 'Instalación Seca', A: 150, B: 60, fullMark: 150 },
-    { subject: 'Nanotecnología', A: 130, B: 40, fullMark: 150 },
-    { subject: 'Mantenimiento', A: 150, B: 70, fullMark: 150 },
-    { subject: 'Estética', A: 145, B: 80, fullMark: 150 }
+  const financialStats = [
+    { year: '2022', rev: 47416, ebitda: 13276 },
+    { year: '2023', rev: 71677, ebitda: 20069 },
+    { year: '2024', rev: 88210, ebitda: 24698 },
+    { year: '2025', rev: 132531, ebitda: 37108 },
+    { year: '2026', rev: 220000, ebitda: 61600 },
   ];
 
   return (
-    <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400 selection:text-black">
-      {/* PROGRESS BAR */}
-      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
+    <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400">
+      <motion.div className="fixed top-0 left-0 right-0 h-2 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
 
-      {/* HEADER ESTRATÉGICO */}
-      <nav className="fixed top-0 w-full z-[500] bg-black/80 backdrop-blur-2xl border-b border-white/5 py-5 px-10 flex justify-between items-center">
+      {/* NAV */}
+      <nav className="fixed top-0 w-full z-[500] bg-black/80 backdrop-blur-2xl border-b border-white/5 py-6 px-10 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-yellow-400 flex items-center justify-center rounded-lg">
-            <Activity className="text-black" size={24} />
-          </div>
-          <span className="text-xl font-black uppercase italic tracking-tighter">ALUPLAK <span className="text-yellow-400">SKIRTING</span></span>
+          <Activity className="text-yellow-400" size={28} />
+          <span className="text-2xl font-black italic uppercase tracking-tighter">ALUPLAK<span className="text-yellow-400">.</span></span>
         </div>
-        <div className="hidden xl:flex gap-12 items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-          <a href="#vision" className="hover:text-yellow-400 transition-colors">Visión General</a>
-          <a href="#proyectos" className="hover:text-yellow-400 transition-colors">I+D+i Proyectos</a>
-          <a href="#analisis" className="hover:text-yellow-400 transition-colors">Análisis Financiero</a>
-          <button className="bg-yellow-400 text-black px-6 py-2 rounded-full hover:scale-105 transition-all">Investor Login</button>
+        <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-500">
+          <a href="#eficiencia" className="hover:text-yellow-400 transition-colors">Ahorro</a>
+          <a href="#tech" className="hover:text-yellow-400 transition-colors">I+D</a>
+          <a href="#ventas" className="hover:text-yellow-400 transition-colors">Métricas</a>
         </div>
       </nav>
 
-      {/* SECTION 1: HERO & CORE MISSION */}
-      <section id="vision" className="pt-40 pb-20 px-10 max-w-[1600px] mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20 items-end">
-          <div className="space-y-10">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
-              <span className="text-yellow-400 font-black tracking-[0.4em] uppercase text-xs">Innovation in Aluminum Systems</span>
-              <h1 className="text-[8vw] lg:text-[10rem] font-black italic leading-[0.8] uppercase tracking-tighter mt-6">
-                ACTIVE <br /> <span className="text-yellow-400">SURFACES.</span>
-              </h1>
-            </motion.div>
-            <p className="text-3xl text-slate-300 font-light leading-snug max-w-xl italic">
-              Aluplak es una compañía tecnológica especializada en el diseño y fabricación de soluciones innovadoras para zócalos y perfiles técnicos de aluminio[cite: 8].
+      {/* HERO - IMAGEN ALUPLAK 1 */}
+      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src="Aluplak1.jpeg" className="w-full h-full object-cover opacity-30 scale-105" alt="Hero" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/80 to-black" />
+        </div>
+        <div className="container mx-auto px-10 relative z-10">
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
+            <h1 className="text-[12vw] lg:text-[14rem] font-black italic leading-[0.75] uppercase tracking-tighter">
+              BEYOND <br /> <span className="text-yellow-400">EFFICIENCY.</span>
+            </h1>
+            <p className="text-3xl font-light italic text-slate-400 max-w-3xl mt-10 border-l-4 border-yellow-400 pl-10">
+              Métricas disruptivas: -80% en tiempo de instalación y -30% en consumo energético.
             </p>
-          </div>
-          <div className="bg-white/5 p-12 rounded-[3rem] border border-white/10 space-y-8 backdrop-blur-md">
-            <h3 className="text-2xl font-black italic uppercase text-yellow-400">Nuestra Propuesta de Valor</h3>
-            <p className="text-lg text-slate-400 leading-relaxed font-light">
-              Nos diferenciamos por haber roto el paradigma del sector con un sistema bi-componente patentado. Nuestra tecnología permite que el rodapié sea completamente desmontable, facilitando el registro de instalaciones (cables, LED o tuberías) sin necesidad de realizar obras ni dañar las paredes de placa de yeso laminado[cite: 11, 12].
-            </p>
-            <div className="flex gap-10">
-              <div>
-                <p className="text-4xl font-black italic">+30</p>
-                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Países Presentes [cite: 9]</p>
-              </div>
-              <div className="w-px h-12 bg-white/10" />
-              <div>
-                <p className="text-4xl font-black italic">Valencia</p>
-                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Headquarters [cite: 9]</p>
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* SECTION 2: TECNOLOGÍA DISRUPTIVA & MÁRGENES */}
-      <section id="proyectos" className="py-40 bg-slate-950 px-10">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="mb-32">
-            <h2 className="text-6xl font-black italic uppercase tracking-tighter mb-8">División de <span className="text-yellow-400">Ingeniería</span></h2>
-            <div className="grid lg:grid-cols-3 gap-10">
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-yellow-400">
-                  <Wind size={32} />
-                  <h4 className="text-2xl font-black uppercase italic">Invisotherm</h4>
-                </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Se trata del primer panel constructivo calefactable de una sola pieza, fabricado en Pladur o Fibrocemento de 13 mm con nanotecnología térmica integrada, diseñado para climatizar hasta 14m2 mediante radiación homogénea desde la propia estructura de la pared.
-                </p>
-              </div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-yellow-400">
-                  <Layers size={32} />
-                  <h4 className="text-2xl font-black uppercase italic">Rodapié Calefactable</h4>
-                </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Aprovecha la conductividad del aluminio para crear una barrera térmica perimetral, eliminando puntos fríos y humedades por condensación sin necesidad de radiadores visibles[cite: 16, 17].
-                </p>
-              </div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-yellow-400">
-                  <Box size={32} />
-                  <h4 className="text-2xl font-black uppercase italic">Zócalo Técnico</h4>
-                </div>
-                <p className="text-slate-400 leading-relaxed">
-                  Base + Tapa con clipado magnético. Estandarización en barras de 2.4 ML que permite un control de stock que minimiza el capital inmovilizado[cite: 28, 30].
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* GRÁFICO DE COMPARATIVA TÉCNICA */}
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="h-[600px] bg-black/40 p-10 rounded-[4rem] border border-white/5">
-              <h3 className="text-center text-xl font-black uppercase italic mb-10 tracking-widest">Benchmarking: Aluplak vs Mercado Tradicional</h3>
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={technicalSpecs}>
-                  <PolarGrid stroke="#334155" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 'bold' }} />
-                  <Radar name="Aluplak" dataKey="A" stroke="#facc15" fill="#facc15" fillOpacity={0.6} />
-                  <Radar name="Competencia" dataKey="B" stroke="#475569" fill="#475569" fillOpacity={0.3} />
-                  <Legend verticalAlign="bottom" />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
+      {/* SECCIÓN NUEVA: MÉTRICAS DE AHORRO (DIFERENCIACIÓN COMPETITIVA) */}
+      <section id="eficiencia" className="py-40 bg-slate-950 px-10 border-y border-white/5">
+        <div className="container mx-auto">
+          <div className="grid xl:grid-cols-2 gap-24 items-center">
             <div className="space-y-12">
-              <h3 className="text-5xl font-black italic uppercase tracking-tighter">Eficiencia de <span className="text-yellow-400">Margen.</span></h3>
-              <p className="text-xl text-slate-400 leading-relaxed italic">
-                Nuestra estructura de costes garantiza una rentabilidad sólida tanto en el mercado nacional como en exportación[cite: 27].
+              <div>
+                <span className="text-yellow-400 font-black tracking-widest uppercase text-xs">Competitividad Operativa</span>
+                <h2 className="text-6xl font-black italic uppercase tracking-tighter mt-4">Instalación <br/> "Plug & Play"</h2>
+              </div>
+              <p className="text-xl text-slate-400 leading-relaxed font-light">
+                El sistema bi-componente de Aluplak elimina la necesidad de rozas, yeso y pintura. Al ser un sistema de clipado magnético o mecánico (según modelo), el coste de mano de obra se desploma, permitiendo que un solo operario cubra 10 veces más superficie que con métodos tradicionales.
               </p>
               
-              <div className="space-y-8">
-                {productMargins.map((item, idx) => (
-                  <div key={idx} className="space-y-2">
-                    <div className="flex justify-between text-sm font-black uppercase tracking-widest">
-                      <span>{item.name}</span>
-                      <span className="text-yellow-400">{item.margin}% Profit</span>
-                    </div>
-                    <div className="h-4 bg-white/5 rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.margin}%` }}
-                        transition={{ duration: 1, delay: idx * 0.2 }}
-                        className="h-full bg-yellow-400"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="p-8 bg-yellow-400/10 border border-yellow-400/20 rounded-3xl">
-                <p className="text-sm text-yellow-400 font-bold leading-relaxed">
-                  "El desglose por Metro Lineal vs. Barra de 2.4m nos permite una precisión del 99% en presupuestos, eliminando fugas de beneficio por desperdicio de material"[cite: 40].
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 3: CRECIMIENTO EXPONENCIAL (THE DATA) */}
-      <section id="analisis" className="py-60 px-10 bg-black">
-        <div className="max-w-[1600px] mx-auto">
-          <div className="flex flex-col lg:flex-row justify-between items-end gap-10 mb-32">
-            <div className="max-w-3xl">
-              <span className="text-yellow-400 font-black tracking-[0.5em] uppercase text-xs">Financial Performance</span>
-              <h2 className="text-[10vw] font-black italic leading-[0.8] uppercase tracking-tighter mt-10">
-                SCALING <br /> <span className="text-yellow-400">UP.</span>
-              </h2>
-            </div>
-            <p className="text-2xl text-slate-500 font-light italic max-w-md border-l-2 border-yellow-400 pl-8">
-              En 2025, la facturación creció un 50% debido a la estandarización de productos de alto margen[cite: 55, 56].
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-10">
-            {/* PANEL PRINCIPAL DE VENTAS */}
-            <div className="lg:col-span-8 bg-[#0a0f1e] rounded-[5rem] p-16 border border-white/5 shadow-2xl">
-              <div className="flex justify-between items-center mb-20">
-                <h4 className="text-3xl font-black italic uppercase tracking-tighter italic underline decoration-yellow-400 underline-offset-8">Histórico de Ventas Consolidado </h4>
-                <div className="flex gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <span className="text-[10px] font-bold uppercase text-slate-500">Revenue</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-slate-700" />
-                    <span className="text-[10px] font-bold uppercase text-slate-500">EBITDA (28%)</span>
-                  </div>
+              <div className="grid grid-cols-2 gap-8">
+                <div className="p-8 bg-white/5 rounded-3xl border border-white/10">
+                  <Clock className="text-yellow-400 mb-4" size={32} />
+                  <p className="text-4xl font-black italic text-white">-81%</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase mt-2">Tiempo de Ejecución</p>
+                </div>
+                <div className="p-8 bg-white/5 rounded-3xl border border-white/10">
+                  <Euro className="text-yellow-400 mb-4" size={32} />
+                  <p className="text-4xl font-black italic text-white">€260</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase mt-2">Ahorro por Estancia</p>
                 </div>
               </div>
-              
-              <div className="h-[500px]">
+            </div>
+
+            <div className="bg-black/50 p-12 rounded-[4rem] border border-white/5">
+              <h4 className="text-center text-xs font-black uppercase mb-10 tracking-widest text-slate-500">Comparativa: Tradicional vs Aluplak (Coste Mano Obra)</h4>
+              <div className="h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={salesHistory}>
-                    <defs>
-                      <linearGradient id="colorVentas" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#facc15" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#facc15" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                    <XAxis dataKey="year" stroke="#475569" axisLine={false} tickLine={false} dy={15} fontWeight="black" />
-                    <YAxis hide />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#020617', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px' }}
-                      itemStyle={{ color: '#facc15', fontWeight: 'bold' }}
-                    />
-                    <Area type="monotone" dataKey="ventas" fill="url(#colorVentas)" stroke="#facc15" strokeWidth={6} />
-                    <Bar dataKey="ebitda" barSize={60} fill="#1e293b" radius={[15, 15, 0, 0]} />
-                    <Line type="monotone" dataKey="growth" stroke="#ca8a04" strokeWidth={2} dot={{ fill: '#ca8a04' }} />
-                  </ComposedChart>
+                  <BarChart3 data={installationSavings}>
+                    <XAxis dataKey="name" stroke="#475569" fontWeight="bold" />
+                    <Tooltip cursor={{fill: 'transparent'}} contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '15px'}} />
+                    <Bar dataKey="coste" radius={[15, 15, 0, 0]}>
+                      {installationSavings.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index === 0 ? '#1e293b' : '#facc15'} />
+                      ))}
+                    </Bar>
+                  </BarChart3>
                 </ResponsiveContainer>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-20 border-t border-white/5">
-                {salesHistory.slice(1).map((item, i) => (
-                  <div key={i} className="text-center">
-                    <p className="text-xs font-black text-slate-500 uppercase mb-2">Crecimiento {item.year}</p>
-                    <p className="text-4xl font-black italic text-yellow-400">+{item.growth}%</p>
-                    <p className="text-[10px] font-bold text-slate-600 mt-1 uppercase italic tracking-tighter">Validación de Mercado </p>
-                  </div>
+      {/* SECCIÓN: AHORRO ENERGÉTICO (INVISOTHERM) */}
+      <section className="py-40 bg-black px-10">
+        <div className="container mx-auto">
+          <div className="grid xl:grid-cols-2 gap-24 items-center">
+            <div className="order-2 xl:order-1 bg-slate-900/50 p-12 rounded-[4rem] border border-white/5">
+              <h4 className="text-center text-xs font-black uppercase mb-10 tracking-widest text-slate-500">Curva de Consumo Eléctrico Estimado (EUR/Mes)</h4>
+              <div className="h-[400px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={energyEfficiency}>
+                    <XAxis dataKey="month" stroke="#475569" />
+                    <Tooltip contentStyle={{backgroundColor: '#020617', border: 'none'}} />
+                    <Area type="monotone" dataKey="tradicional" stroke="#1e293b" fill="#1e293b" fillOpacity={0.3} />
+                    <Area type="monotone" dataKey="aluplak" stroke="#facc15" fill="#facc15" fillOpacity={0.4} />
+                    <Legend />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="order-1 xl:order-2 space-y-12">
+              <div>
+                <span className="text-yellow-400 font-black tracking-widest uppercase text-xs">Sustainability Index</span>
+                <h2 className="text-6xl font-black italic uppercase tracking-tighter mt-4">Eficiencia <br/> Por Radiación</h2>
+              </div>
+              <p className="text-xl text-slate-400 leading-relaxed font-light italic">
+                A diferencia de la convección tradicional que calienta el aire, la nanotecnología Invisotherm calienta las masas. La baja inercia térmica del aluminio permite alcanzar la temperatura de consigna en minutos, no en horas, reduciendo la factura energética hasta un **30% anual**.
+              </p>
+              <ul className="space-y-6">
+                {[
+                  'Transferencia térmica optimizada por nanotecnología',
+                  'Eliminación de puentes térmicos perimetrales',
+                  'Gestión inteligente mediante App (Programación predictiva)'
+                ].map(item => (
+                  <li key={item} className="flex gap-4 items-start text-slate-300 font-bold uppercase text-xs tracking-tighter">
+                    <CheckCircle2 className="text-yellow-400 shrink-0" size={20} /> {item}
+                  </li>
                 ))}
-              </div>
-            </div>
-
-            {/* MÉTRICAS XXL */}
-            <div className="lg:col-span-4 space-y-10">
-              <div className="bg-yellow-400 p-12 rounded-[5rem] text-black h-1/2 flex flex-col justify-between relative overflow-hidden group">
-                <p className="text-xs font-black uppercase tracking-[0.2em] opacity-60">Exit Target Multiplier</p>
-                <h3 className="text-9xl font-black italic leading-none tracking-tighter">3.5<span className="text-2xl">X</span></h3>
-                <p className="text-lg font-bold italic leading-tight">Proyección de valoración 2026 basada en activos de propiedad intelectual.</p>
-                <div className="absolute -right-10 -bottom-10 opacity-10 scale-150 rotate-12 group-hover:rotate-0 transition-transform duration-1000">
-                  <TrendingUp size={200} />
-                </div>
-              </div>
-              <div className="bg-slate-900 border border-white/10 p-12 rounded-[5rem] h-1/2 flex flex-col justify-between">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">2026 Revenue Target [cite: 58]</p>
-                <h3 className="text-8xl font-black italic leading-none tracking-tighter text-white">€220K</h3>
-                <p className="text-lg font-bold text-slate-400 italic">Liderazgo Tecnológico en Climatización Invisible.</p>
-              </div>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 4: ANÁLISIS DE MERCADO & CIERRE */}
-      <section className="py-40 px-10 bg-[#020617]">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
-          <div className="space-y-10">
-            <h2 className="text-6xl font-black italic uppercase tracking-tighter">Mercado <span className="text-yellow-400">Español.</span></h2>
-            <div className="prose prose-invert text-slate-400 text-lg leading-relaxed space-y-6">
-              <p>
-                Desde nuestra fundación en 2021, Aluplak ha transformado el sector de los perfiles técnicos en España. No somos solo fabricantes de zócalos; somos la única compañía que ha logrado integrar alta decoración con nanotecnología térmica[cite: 66, 67].
-              </p>
-              <p>
-                Nuestra ventaja competitiva reside en haber convertido elementos arquitectónicos pasivos en sistemas activos de calefacción invisible. Actualmente, lideramos el nicho con soluciones que eliminan radiadores tradicionales, ofreciendo estética minimalista y máxima eficiencia[cite: 68, 69].
-              </p>
-            </div>
-            <div className="flex gap-6">
-              <button className="flex items-center gap-4 bg-white text-black px-10 py-5 rounded-full font-black uppercase italic tracking-widest hover:bg-yellow-400 transition-all">
-                Download Audit 2025 <ArrowRight size={20} />
-              </button>
-            </div>
+      {/* SHOWROOM (IMÁGENES 2, 3, 4) */}
+      <section className="py-40 bg-slate-950 px-10">
+        <div className="container mx-auto grid lg:grid-cols-3 gap-10">
+          <div className="rounded-[3rem] overflow-hidden border border-white/10 aspect-[3/4] relative group">
+            <img src="Aluplak2.jpeg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Aluplak 2" />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent" />
+            <div className="absolute bottom-6 left-6 p-4 bg-black/60 backdrop-blur-md rounded-xl text-[9px] font-black uppercase">Fig. 02 - Zócalo Técnico LED</div>
           </div>
-          
-          <div className="bg-white/5 p-16 rounded-[5rem] border border-white/10">
-            <h4 className="text-2xl font-black italic uppercase mb-10 text-center">Distribución de Mercado 2026</h4>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={[
-                      { name: 'Industrial', value: 45 },
-                      { name: 'Retail (Leroy Merlin)', value: 25 },
-                      { name: 'Exportación', value: 20 },
-                      { name: 'Lujo/Custom', value: 10 },
-                    ]}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={80}
-                    outerRadius={140}
-                    paddingAngle={10}
-                    dataKey="value"
-                  >
-                    <Cell fill="#facc15" />
-                    <Cell fill="#ca8a04" />
-                    <Cell fill="#854d0e" />
-                    <Cell fill="#422006" />
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
+          <div className="rounded-[3rem] overflow-hidden border border-white/10 aspect-[3/4] relative group">
+            <img src="Aluplak3.jpeg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Aluplak 3" />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent" />
+            <div className="absolute bottom-6 left-6 p-4 bg-black/60 backdrop-blur-md rounded-xl text-[9px] font-black uppercase">Fig. 03 - Termoplak Terrazas</div>
+          </div>
+          <div className="rounded-[3rem] overflow-hidden border border-white/10 aspect-[3/4] relative group">
+            <img src="Aluplak4.jpeg" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="Aluplak 4" />
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent" />
+            <div className="absolute bottom-6 left-6 p-4 bg-black/60 backdrop-blur-md rounded-xl text-[9px] font-black uppercase">Fig. 04 - Invisotherm Finish</div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER CALL TO ACTION */}
-      <footer className="py-60 px-10 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-yellow-400/5 blur-[150px] rounded-full" />
-        <div className="max-w-5xl mx-auto space-y-16 relative z-10">
-          <h2 className="text-[12vw] font-black italic uppercase leading-[0.8] tracking-tighter">
-            JOIN THE <br /> <span className="text-yellow-400">FUTURE.</span>
-          </h2>
-          <p className="text-4xl font-light text-slate-400 italic leading-tight">
-            "Nuestra tarifa para distribuidores asegura una cadena de valor sana, incentivando la expansión rápida sin aumentar costes fijos"[cite: 41].
-          </p>
-          <div className="pt-20">
-            <button className="px-20 py-10 bg-yellow-400 text-black font-black uppercase italic tracking-[0.3em] text-2xl rounded-full hover:scale-110 shadow-[0_0_50px_rgba(250,204,21,0.3)] transition-all">
-              Request Full Dossier
-            </button>
+      {/* VIDEOS */}
+      <section className="py-40 bg-black px-10">
+        <div className="container mx-auto grid xl:grid-cols-2 gap-20">
+          <div className="rounded-[4rem] overflow-hidden border-4 border-yellow-400/20 aspect-video shadow-2xl">
+            <video src="AluplakVideo1.mp4" controls className="w-full h-full object-cover" />
+          </div>
+          <div className="rounded-[4rem] overflow-hidden border-4 border-blue-500/20 aspect-video shadow-2xl">
+            <video src="AluplakVideo2.mp4" controls className="w-full h-full object-cover" />
           </div>
         </div>
-        <div className="mt-60 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-slate-600 tracking-[0.5em] uppercase">
-          <p>ALUPLAK SKIRTING BOARD S.L © 2026</p>
-          <div className="flex gap-10 mt-6 md:mt-0">
-            <span>Valencia</span>
-            <span>Madrid</span>
-            <span>International</span>
+      </section>
+
+      {/* MÉTRICAS DE VENTAS Y EBITDA (REVISITED) */}
+      <section id="ventas" className="py-60 px-10 bg-[#020617]">
+        <div className="container mx-auto">
+          <div className="grid xl:grid-cols-3 gap-20 items-end mb-40">
+            <div className="xl:col-span-2">
+              <h2 className="text-[10vw] font-black italic uppercase leading-[0.8] tracking-tighter">FINANCIAL <br/> <span className="text-yellow-400">ENGINE.</span></h2>
+            </div>
+            <div className="bg-yellow-400 p-12 rounded-[4rem] text-black text-center group relative overflow-hidden">
+              <p className="text-xs font-black uppercase mb-2">EBITDA Target</p>
+              <p className="text-8xl font-black italic">28%</p>
+              <Rocket className="absolute -right-6 -bottom-6 opacity-10 group-hover:scale-150 transition-transform" size={150} />
+            </div>
+          </div>
+
+          <div className="h-[600px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={financialStats}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="year" stroke="#475569" fontWeight="bold" />
+                <Tooltip contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '20px'}} />
+                <Area type="monotone" dataKey="rev" fill="#facc15" fillOpacity={0.1} stroke="#facc15" strokeWidth={5} />
+                <Bar dataKey="ebitda" barSize={50} fill="#1e293b" radius={[15, 15, 0, 0]} />
+              </ComposedChart>
+            </ResponsiveContainer>
           </div>
         </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-40 bg-black text-center relative overflow-hidden px-10">
+        <h2 className="text-[12vw] font-black italic uppercase leading-none tracking-tighter mb-20">JOIN THE <br/> <span className="text-yellow-400">EXIT.</span></h2>
+        <button className="px-20 py-10 bg-yellow-400 text-black font-black uppercase italic tracking-[0.3em] text-2xl rounded-full hover:scale-110 transition-transform">
+          Download Investor Deck
+        </button>
+        <p className="mt-40 opacity-20 text-[10px] font-black uppercase tracking-[0.5em]">ALUPLAK SKIRTING BOARD S.L • 2026</p>
       </footer>
     </div>
   );
