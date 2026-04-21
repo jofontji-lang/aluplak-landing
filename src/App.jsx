@@ -6,7 +6,8 @@ import {
 import { motion, useScroll, useSpring } from "framer-motion";
 import { 
   Activity, TrendingUp, Zap, ShieldCheck, 
-  Droplets, Smartphone, CheckCircle2, Clock, Euro, Rocket, ArrowRight
+  Droplets, Smartphone, CheckCircle2, Clock, Euro, Rocket, 
+  Globe, Factory, Users, Target
 } from 'lucide-react';
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // --- DATASETS LIMPIOS (SIN CITAS) ---
+  // --- DATASETS ---
   
   const installationSavings = [
     { name: 'Tradicional (Obra)', coste: 320 },
@@ -44,7 +45,7 @@ export default function App() {
   }), [investment]);
 
   return (
-    <div className="bg-[#020617] text-white min-h-screen font-sans">
+    <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400 selection:text-black">
       <motion.div className="fixed top-0 left-0 right-0 h-2 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
 
       {/* NAVIGATION */}
@@ -54,9 +55,10 @@ export default function App() {
           <span className="text-2xl font-black italic uppercase tracking-tighter">ALUPLAK</span>
         </div>
         <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-500">
-          <a href="#ahorro" className="hover:text-yellow-400">Ahorro</a>
-          <a href="#galeria" className="hover:text-yellow-400">Gama</a>
-          <a href="#metricas" className="hover:text-yellow-400 text-yellow-400">Inversión</a>
+          <a href="#ahorro" className="hover:text-yellow-400 transition-colors">Ahorro</a>
+          <a href="#estrategia" className="hover:text-yellow-400 transition-colors">Estrategia</a>
+          <a href="#galeria" className="hover:text-yellow-400 transition-colors">Gama</a>
+          <a href="#metricas" className="hover:text-yellow-400 text-yellow-400 transition-colors">Inversión</a>
         </div>
       </nav>
 
@@ -78,7 +80,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* VENTAJAS COMPETITIVAS: AHORRO DE COSTES */}
+      {/* MÉTRICAS DE AHORRO */}
       <section id="ahorro" className="py-40 bg-slate-950 px-10 border-y border-white/5">
         <div className="container mx-auto grid xl:grid-cols-2 gap-20 items-center">
           <div className="space-y-10">
@@ -113,8 +115,40 @@ export default function App() {
         </div>
       </section>
 
+      {/* NUEVA SECCIÓN: ESTRATEGIA DE OPERACIONES E INDUSTRIAL */}
+      <section id="estrategia" className="py-40 bg-black px-10">
+        <div className="container mx-auto">
+          <div className="mb-24">
+            <h2 className="text-6xl font-black italic uppercase tracking-tighter">Estrategia de <br/> <span className="text-yellow-400">Escalabilidad</span></h2>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-12">
+            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
+              <Globe className="text-yellow-400 mb-6" size={40} />
+              <h4 className="text-2xl font-black italic uppercase mb-6">Escalabilidad de Exportación</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic">
+                "Contamos con una tarifa específica para el mercado exterior que optimiza la competitividad logística sin sacrificar el margen neto."
+              </p>
+            </div>
+            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
+              <Factory className="text-yellow-400 mb-6" size={40} />
+              <h4 className="text-2xl font-black italic uppercase mb-6">Eficiencia Industrial</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic">
+                "El desglose por Metro Lineal vs. Barra de 2.4m nos permite una precisión del 99% en presupuestos, eliminando fugas de beneficio por desperdicio de material."
+              </p>
+            </div>
+            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
+              <Users className="text-yellow-400 mb-6" size={40} />
+              <h4 className="text-2xl font-black italic uppercase mb-6">Canal Distribuidor</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic">
+                "Nuestra tarifa recomendada para distribuidores asegura una cadena de valor sana, incentivando la expansión rápida sin aumentar nuestros costes fijos."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* AHORRO ENERGÉTICO */}
-      <section className="py-40 bg-black px-10">
+      <section className="py-40 bg-slate-950 px-10">
         <div className="container mx-auto grid xl:grid-cols-2 gap-20 items-center">
           <div className="order-2 xl:order-1 bg-slate-900/50 p-10 rounded-[3rem] border border-white/5 h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -140,7 +174,7 @@ export default function App() {
       </section>
 
       {/* VIDEOS */}
-      <section className="py-40 bg-slate-950 px-10">
+      <section className="py-40 bg-black px-10">
         <div className="container mx-auto grid md:grid-cols-2 gap-10">
           <div className="rounded-[3rem] overflow-hidden border-4 border-white/5 aspect-video">
             <video src="/AluplakVideo1.mp4" controls className="w-full h-full object-cover" />
@@ -152,18 +186,18 @@ export default function App() {
       </section>
 
       {/* GALERÍA */}
-      <section id="galeria" className="py-40 bg-black px-10 text-center">
+      <section id="galeria" className="py-40 bg-slate-950 px-10 text-center">
         <div className="container mx-auto grid lg:grid-cols-3 gap-8">
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5">
-            <img src="/Aluplak2.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all" alt="Aluplak 2" />
+          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5">
+            <img src="/Aluplak2.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all duration-700" alt="Aluplak 2" />
             <p className="p-6 text-xs font-black uppercase tracking-widest">Zócalo Técnico LED</p>
           </div>
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5">
-            <img src="/Aluplak3.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all" alt="Aluplak 3" />
+          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5">
+            <img src="/Aluplak3.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all duration-700" alt="Aluplak 3" />
             <p className="p-6 text-xs font-black uppercase tracking-widest">Outdoor Termoplak</p>
           </div>
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5">
-            <img src="/Aluplak4.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all" alt="Aluplak 4" />
+          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5">
+            <img src="/Aluplak4.jpeg" className="w-full h-80 object-cover group-hover:scale-110 transition-all duration-700" alt="Aluplak 4" />
             <p className="p-6 text-xs font-black uppercase tracking-widest">Invisotherm Wall</p>
           </div>
         </div>
@@ -172,7 +206,7 @@ export default function App() {
       {/* MÉTRICAS FINANCIERAS E INVERSIÓN */}
       <section id="metricas" className="py-60 px-10 bg-[#020617]">
         <div className="container mx-auto">
-          <div className="grid xl:grid-cols-3 gap-20 mb-32">
+          <div className="grid xl:grid-cols-3 gap-20 mb-32 items-center">
             <div className="xl:col-span-2">
               <h2 className="text-[8vw] font-black italic uppercase leading-[0.8] mb-20 tracking-tighter">TARGET <br/> <span className="text-yellow-400">EXIT 3.5X</span></h2>
               <div className="h-[400px]">
@@ -186,7 +220,7 @@ export default function App() {
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-yellow-400 p-12 rounded-[4rem] text-black text-center flex flex-col justify-center">
+            <div className="bg-yellow-400 p-12 rounded-[4rem] text-black text-center flex flex-col justify-center shadow-2xl">
               <p className="text-[10px] font-black uppercase tracking-widest mb-6">Simulador de Retorno</p>
               <input 
                 type="range" min="10000" max="500000" step="5000" 
@@ -202,9 +236,9 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-20 bg-black text-center">
+      <footer className="py-20 bg-black text-center border-t border-white/5">
         <h2 className="text-4xl font-black italic uppercase mb-10">ALUPLAK <span className="text-yellow-400">ENGINEERING</span></h2>
-        <p className="opacity-20 text-[10px] font-bold tracking-[0.5em] uppercase">© 2026 ALUPLAK SKIRTING BOARD S.L</p>
+        <p className="opacity-20 text-[10px] font-bold tracking-[0.5em] uppercase">© 2026 ALUPLAK SKIRTING BOARD S.L • SPAIN</p>
       </footer>
     </div>
   );
