@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, 
-  BarChart, Bar, AreaChart, Area, ComposedChart, LineChart, Line, PieChart, Pie
+  BarChart, Bar, AreaChart, Area, ComposedChart, LineChart, Line, PieChart, Pie, Cell
 } from "recharts";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { 
@@ -107,12 +107,16 @@ export default function App() {
     { year: '2026', rev: 220000, ebitda: 61600 },
   ];
 
-  const marketGrowth = [
-    { year: '2024', share: 2 },
-    { year: '2025', share: 8 },
-    { year: '2026', share: 15 },
-    { year: '2027', share: 28 },
-    { year: '2028', share: 45 },
+  // Datos para los nuevos gráficos de barras
+  const ebitdaComparison = [
+    { name: 'Sector Medio', value: 12 },
+    { name: 'Carpintería', value: 18 },
+    { name: 'ALUPLAK', value: 28 },
+  ];
+
+  const efficiencyData = [
+    { name: 'Tradicional', tiempo: 100, coste: 100 },
+    { name: 'Sistema Aluplak', tiempo: 19, coste: 40 },
   ];
 
   const revenueMix = [
@@ -281,6 +285,8 @@ export default function App() {
         <div className="container mx-auto">
           <div className="grid xl:grid-cols-3 gap-12 items-start">
             <div className="xl:col-span-2 space-y-12">
+              
+              {/* Gráfico Principal Existente */}
               <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5 shadow-inner">
                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <h3 className="text-3xl font-black italic uppercase leading-none">PROYECCIÓN DE INGRESOS</h3>
@@ -294,13 +300,13 @@ export default function App() {
                         <CartesianGrid stroke="#ffffff05" vertical={false} />
                         <XAxis dataKey="year" stroke="#475569" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'bold'}} />
                         <YAxis stroke="#475569" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'bold'}} />
-                        <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '20px'}} />
+                        <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '20px', color: '#fff'}} />
                         <Area type="monotone" dataKey="rev" fill="#facc15" fillOpacity={0.05} stroke="#facc15" strokeWidth={5} />
                         <Bar dataKey="ebitda" fill="#334155" radius={[10, 10, 0, 0]} barSize={40} />
                       </ComposedChart>
                    </ResponsiveContainer>
                  </div>
-                 <div className="mt-8 flex justify-center gap-12">
+                 <div className="mt-8 flex justify-center gap-12 text-center">
                     {revenueMix.map((item, i) => (
                       <div key={i} className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full" style={{backgroundColor: item.fill}}></div>
@@ -310,6 +316,54 @@ export default function App() {
                  </div>
               </div>
 
+              {/* DOS NUEVOS GRÁFICOS DE BARRAS SOLICITADOS */}
+              <div className="grid md:grid-cols-2 gap-8">
+                
+                {/* Gráfico 1: Margen Sectorial */}
+                <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
+                  <div className="mb-8">
+                    <h4 className="text-xl font-black italic uppercase leading-none mb-2">MARGEN EBITDA (%)</h4>
+                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic">Benchmarking Sectorial</p>
+                  </div>
+                  <div className="h-[240px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={ebitdaComparison} layout="vertical">
+                        <CartesianGrid stroke="#ffffff05" horizontal={false} />
+                        <XAxis type="number" hide />
+                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#94a3b8'}} width={80} />
+                        <Tooltip cursor={{fill: 'transparent'}} contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
+                        <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={25}>
+                          {ebitdaComparison.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.name === 'ALUPLAK' ? '#facc15' : '#1e293b'} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Gráfico 2: Eficiencia de Tiempo y Coste */}
+                <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
+                  <div className="mb-8">
+                    <h4 className="text-xl font-black italic uppercase leading-none mb-2">EFICIENCIA OPERATIVA</h4>
+                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic">Ahorro Aluplak vs Tradicional</p>
+                  </div>
+                  <div className="h-[240px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={efficiencyData}>
+                        <CartesianGrid stroke="#ffffff05" vertical={false} />
+                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#94a3b8'}} />
+                        <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
+                        <Bar dataKey="tiempo" fill="#334155" radius={[10, 10, 0, 0]} barSize={25} />
+                        <Bar dataKey="coste" fill="#facc15" radius={[10, 10, 0, 0]} barSize={25} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Análisis de ROI IA */}
               <div className="bg-gradient-to-br from-slate-900 to-black p-10 rounded-[3.5rem] border border-yellow-400/20 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10">
                   <Sparkles size={120} className="text-yellow-400" />
