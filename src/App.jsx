@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, 
-  BarChart, Bar, AreaChart, Area, ComposedChart, LineChart, Line, PieChart, Pie, Cell
+  BarChart, Bar, AreaChart, Area, ComposedChart, LineChart, Line, PieChart, Pie, Cell, LabelList
 } from "recharts";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { 
@@ -107,11 +107,11 @@ export default function App() {
     { year: '2026', rev: 220000, ebitda: 61600 },
   ];
 
-  // Datos para los gráficos de barras
+  // Datos para los gráficos de barras con etiquetas personalizadas
   const ebitdaComparison = [
-    { name: 'Sector Medio', value: 12 },
-    { name: 'Carpintería', value: 18 },
-    { name: 'ALUPLAK', value: 28 },
+    { name: 'Sector Medio', value: 12, label: '12%' },
+    { name: 'Carpintería', value: 18, label: '18%' },
+    { name: 'ALUPLAK', value: 28, label: '28.4%' },
   ];
 
   const efficiencyData = [
@@ -119,11 +119,24 @@ export default function App() {
     { name: 'Sistema Aluplak', tiempo: 19, coste: 40 },
   ];
 
-  const revenueMix = [
-    { name: 'Zócalo Técnico', value: 45, fill: '#facc15' },
-    { name: 'Sistemas Térmicos', value: 30, fill: '#334155' },
-    { name: 'Instalación Premium', value: 25, fill: '#1e293b' },
-  ];
+  // Componente personalizado para etiquetas de las barras
+  const renderCustomLabel = (props) => {
+    const { x, y, width, value, index } = props;
+    const isAluplak = ebitdaComparison[index].name === 'ALUPLAK';
+    return (
+      <text 
+        x={x + width + 10} 
+        y={y + 25} 
+        fill={isAluplak ? "#3b82f6" : "#64748b"} 
+        fontSize={isAluplak ? 24 : 14} 
+        fontWeight="900" 
+        fontStyle="italic"
+        textAnchor="start"
+      >
+        {value}
+      </text>
+    );
+  };
 
   return (
     <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400 selection:text-black antialiased">
@@ -178,7 +191,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* NUEVA SECCIÓN: MARGEN EBITDA JUSTO DESPUÉS DEL HERO */}
+      {/* SECCIÓN: MARGEN EBITDA RESALTADO CON NÚMEROS */}
       <section id="ebitda-section" className="py-24 bg-[#020617] px-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[120px] rounded-full" />
         <div className="container mx-auto">
@@ -187,21 +200,21 @@ export default function App() {
               <div>
                 <div className="flex items-center gap-3 mb-6">
                    <div className="bg-blue-500 p-2 rounded-lg text-white shadow-lg shadow-blue-500/20"><TrendingUp size={20}/></div>
-                   <span className="text-blue-400 font-black uppercase text-[10px] tracking-widest italic tracking-[0.3em]">Liderazgo en Rentabilidad</span>
+                   <span className="text-blue-400 font-black uppercase text-[10px] tracking-widest italic tracking-[0.3em]">Ventaja Competitiva</span>
                 </div>
                 <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none mb-6">
-                  MARGEN <br/><span className="text-blue-500">EBITDA SUPERIOR</span>
+                  NÚMEROS QUE <br/><span className="text-blue-500">HABLAN SOLOS</span>
                 </h2>
                 <p className="text-slate-400 italic text-lg leading-relaxed max-w-md">
-                  Aluplak no solo innova en producto, sino en modelo financiero. Nuestro margen supera en más del doble la media del sector de carpintería tradicional gracias a la industrialización.
+                  Nuestro margen del 28.4% es el resultado directo de eliminar los costes ocultos de la construcción artesanal mediante la estandarización industrial del aluminio.
                 </p>
               </div>
 
-              <div className="h-[350px] w-full">
+              <div className="h-[350px] w-full pr-12">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={ebitdaComparison} layout="vertical" margin={{ left: 20 }}>
+                  <BarChart data={ebitdaComparison} layout="vertical" margin={{ left: 20, right: 80 }}>
                     <CartesianGrid stroke="#ffffff05" horizontal={false} />
-                    <XAxis type="number" hide />
+                    <XAxis type="number" domain={[0, 35]} hide />
                     <YAxis 
                       dataKey="name" 
                       type="category" 
@@ -215,11 +228,12 @@ export default function App() {
                       contentStyle={{backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', color: '#fff'}} 
                     />
                     <Bar dataKey="value" radius={[0, 20, 20, 0]} barSize={45}>
+                      <LabelList dataKey="label" content={renderCustomLabel} />
                       {ebitdaComparison.map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`} 
                           fill={entry.name === 'ALUPLAK' ? '#3b82f6' : '#1e293b'} 
-                          className={entry.name === 'ALUPLAK' ? 'drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]' : ''}
+                          className={entry.name === 'ALUPLAK' ? 'drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]' : ''}
                         />
                       ))}
                     </Bar>
@@ -361,7 +375,7 @@ export default function App() {
                  </div>
               </div>
 
-              {/* Gráfico 2: Eficiencia de Tiempo y Coste */}
+              {/* Gráfico de Eficiencia */}
               <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
                 <div className="mb-10 text-center">
                   <h4 className="text-3xl font-black italic uppercase leading-none mb-2">EFICIENCIA OPERATIVA</h4>
