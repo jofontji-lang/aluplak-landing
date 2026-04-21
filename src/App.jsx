@@ -7,7 +7,8 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { 
   Activity, TrendingUp, Zap, ShieldCheck, 
   Droplets, Smartphone, CheckCircle2, Clock, Euro, Rocket, 
-  Globe, Factory, Users, Target, BarChart3, Construction
+  Globe, Factory, Users, Target, BarChart3, Construction, 
+  ChevronRight, Timer
 } from 'lucide-react';
 
 export default function App() {
@@ -15,11 +16,11 @@ export default function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // --- DATASETS ACTUALIZADOS ---
+  // --- DATASETS ---
   
   const installationSavings = [
-    { name: 'Mano de Obra Tradicional', coste: 320, horas: 8, fill: '#1e293b' },
-    { name: 'Mano de Obra Aluplak', coste: 60, horas: 1.5, fill: '#facc15' },
+    { name: 'Mano de Obra Tradicional', coste: 320, horas: 8, color: '#334155' },
+    { name: 'Mano de Obra Aluplak', coste: 60, horas: 1.5, color: '#facc15' },
   ];
 
   const energyEfficiency = [
@@ -46,133 +47,177 @@ export default function App() {
 
   return (
     <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400 selection:text-black">
-      <motion.div className="fixed top-0 left-0 right-0 h-2 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
 
       {/* NAVIGATION */}
-      <nav className="fixed top-0 w-full z-[500] bg-black/80 backdrop-blur-2xl border-b border-white/5 py-6 px-10 flex justify-between items-center">
+      <nav className="fixed top-0 w-full z-[500] bg-black/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <Activity className="text-yellow-400" size={28} />
-          <span className="text-2xl font-black italic uppercase tracking-tighter">ALUPLAK</span>
+          <Activity className="text-yellow-400" size={24} />
+          <span className="text-xl font-black italic uppercase tracking-tighter">ALUPLAK</span>
         </div>
-        <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-500">
-          <a href="#ahorro" className="hover:text-yellow-400 transition-colors">Instalación</a>
+        <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+          <a href="#ahorro" className="hover:text-yellow-400 transition-colors">Eficiencia</a>
           <a href="#estrategia" className="hover:text-yellow-400 transition-colors">Estrategia</a>
           <a href="#galeria" className="hover:text-yellow-400 transition-colors">Gama</a>
-          <a href="#metricas" className="hover:text-yellow-400 text-yellow-400 transition-colors">Inversión</a>
+          <a href="#metricas" className="bg-yellow-400 text-black px-4 py-1 rounded-full hover:bg-white transition-all">Investor Portal</a>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden px-10">
+      {/* HERO */}
+      <section className="relative h-screen flex items-center overflow-hidden px-6 md:px-12">
         <div className="absolute inset-0 z-0">
-          <img src="/Aluplak1.jpeg" className="w-full h-full object-cover opacity-30" alt="Hero Background" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/80 to-black" />
+          <img src="/Aluplak1.jpeg" className="w-full h-full object-cover opacity-30" alt="Aluplak Background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
         </div>
         <div className="container mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <h1 className="text-[12vw] lg:text-[10rem] font-black italic leading-[0.8] uppercase tracking-tighter">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="text-[12vw] lg:text-[9rem] font-black italic leading-[0.85] uppercase tracking-tighter">
               BEYOND <br /> <span className="text-yellow-400">EFFICIENCY.</span>
             </h1>
-            <p className="text-2xl lg:text-3xl font-light italic text-slate-400 max-w-3xl mt-10 border-l-4 border-yellow-400 pl-10">
-              Instalación un 80% más rápida y ahorro energético del 30%. La infraestructura inteligente del 2026.
+            <p className="text-xl lg:text-2xl font-light italic text-slate-300 max-w-2xl mt-8 border-l-2 border-yellow-400 pl-6">
+              Reinventando la infraestructura del hogar mediante zócalos inteligentes. Un 81% más rápido de instalar, un 30% más eficiente energéticamente.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* SECCIÓN IMPACTO: OPERARIO + GRÁFICO DE AHORRO */}
-      <section id="ahorro" className="py-40 bg-slate-950 px-10 border-y border-white/5 overflow-hidden">
+      <section id="ahorro" className="py-32 bg-slate-950 px-6 md:px-12">
         <div className="container mx-auto">
-          <div className="flex flex-col lg:flex-row gap-20 items-center">
-            {/* Imagen del Operario con Overlay Técnico */}
-            <div className="w-full lg:w-1/2 relative group">
-              <div className="absolute -inset-4 bg-yellow-400/20 rounded-[4rem] blur-2xl group-hover:bg-yellow-400/30 transition-all duration-700"></div>
-              <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 aspect-[4/5] shadow-2xl">
+          <div className="flex flex-col lg:flex-row gap-16 items-stretch">
+            
+            {/* Tarjeta de Imagen del Operario */}
+            <div className="w-full lg:w-5/12 relative">
+              <div className="absolute -inset-2 bg-yellow-400/10 rounded-[3rem] blur-xl"></div>
+              <div className="relative h-full min-h-[500px] rounded-[2.5rem] overflow-hidden border border-white/10 group shadow-2xl">
                 <img 
                   src="/Aluplak2.jpeg" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
                   alt="Operario instalando zócalo Aluplak" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                <div className="absolute bottom-12 left-10 right-10">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Construction className="text-yellow-400" size={32} />
-                    <span className="text-xs font-black uppercase tracking-[0.3em] text-yellow-400">Factor de Instalación</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-yellow-400 p-2 rounded-lg">
+                      <Construction className="text-black" size={20} />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400">Optimización de Campo</span>
                   </div>
-                  <h3 className="text-4xl font-black italic uppercase leading-none mb-4">Simplicidad <br/> Estructural</h3>
+                  <h3 className="text-3xl font-black italic uppercase leading-none mb-3">Sencillez <br/> Estructural</h3>
                   <p className="text-slate-300 text-sm font-light italic leading-relaxed">
-                    Un sistema diseñado para ser montado en seco, sin rozas, sin escombros y con un clipado de precisión quirúrgica.
+                    El sistema de clipado directo elimina la necesidad de herramientas complejas, reduciendo el error humano y acelerando la entrega de obra.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Gráfico de Barras de Ahorro */}
-            <div className="w-full lg:w-1/2 space-y-12">
-              <div>
-                <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none mb-6">Ahorro en <br/> <span className="text-yellow-400">Mano de Obra</span></h2>
-                <p className="text-xl text-slate-400 leading-relaxed font-light italic">
-                  La facilidad de instalación no es solo comodidad; es rentabilidad directa. Al reducir el tiempo de ejecución en un 81%, el coste operativo por estancia se desploma.
+            {/* Panel de Gráfico de Ahorro */}
+            <div className="w-full lg:w-7/12 flex flex-col justify-between">
+              <div className="mb-12">
+                <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter leading-tight mb-4">
+                  Ahorro en <br/> <span className="text-yellow-400">Mano de Obra</span>
+                </h2>
+                <p className="text-lg text-slate-400 font-light italic max-w-xl">
+                  Nuestra tecnología reduce el tiempo de instalación de una jornada completa a menos de dos horas por estancia. Menos tiempo en obra significa más margen para la promotora.
                 </p>
               </div>
 
-              <div className="bg-black/40 p-10 rounded-[3rem] border border-white/5 h-[450px] shadow-inner">
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-10 text-center">Comparativa de Coste Directo (€) e Intradía (Horas)</h4>
+              {/* El Gran Gráfico de Barras */}
+              <div className="bg-slate-900/40 p-8 rounded-[2rem] border border-white/5 h-[350px] shadow-inner relative group">
+                <div className="absolute top-6 right-8 flex items-center gap-2">
+                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Sistema Aluplak</span>
+                </div>
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={installationSavings} layout="vertical" margin={{ left: 40, right: 40 }}>
+                  <BarChart data={installationSavings} layout="vertical" margin={{ left: 20, right: 40, top: 40 }}>
                     <XAxis type="number" hide />
-                    <YAxis dataKey="name" type="category" stroke="#475569" fontSize={10} width={120} tickLine={false} axisLine={false} />
-                    <Tooltip cursor={{fill: 'rgba(255,255,255,0.05)'}} contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '15px'}} />
-                    <Bar dataKey="coste" radius={[0, 15, 15, 0]} barSize={50}>
+                    <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      stroke="#475569" 
+                      fontSize={10} 
+                      width={140} 
+                      tickLine={false} 
+                      axisLine={false}
+                      tick={{ fill: '#94a3b8', fontWeight: 'bold' }}
+                    />
+                    <Tooltip 
+                      cursor={{fill: 'rgba(255,255,255,0.03)'}} 
+                      contentStyle={{backgroundColor: '#000', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px'}} 
+                    />
+                    <Bar dataKey="coste" radius={[0, 12, 12, 0]} barSize={45}>
                       {installationSavings.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                        <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
-              <div className="grid grid-cols-2 gap-8">
-                <div className="flex flex-col">
-                  <span className="text-5xl font-black italic text-white leading-none">8.0h</span>
-                  <span className="text-[10px] font-bold text-slate-500 uppercase mt-2 tracking-widest">Sistema Tradicional</span>
+              {/* Métricas Comparativas */}
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
+                  <div className="flex items-center gap-2 text-slate-500 mb-1">
+                    <Timer size={14} />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Tiempo Estimado</span>
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-black italic">8.0h</span>
+                    <span className="text-xs text-slate-500 italic">tradicional</span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-5xl font-black italic text-yellow-400 leading-none">1.5h</span>
-                  <span className="text-[10px] font-bold text-slate-500 uppercase mt-2 tracking-widest">Aluplak System</span>
+                <div className="bg-yellow-400/5 p-6 rounded-2xl border border-yellow-400/20">
+                  <div className="flex items-center gap-2 text-yellow-400/60 mb-1">
+                    <Zap size={14} />
+                    <span className="text-[10px] font-black uppercase tracking-widest">Tiempo Aluplak</span>
+                  </div>
+                  <div className="flex items-baseline gap-2 text-yellow-400">
+                    <span className="text-4xl font-black italic">1.5h</span>
+                    <span className="text-xs italic">optimizada</span>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* SECCIÓN ESTRATEGIA (TEXTOS INTEGRADOS) */}
-      <section id="estrategia" className="py-40 bg-black px-10">
+      {/* ESTRATEGIA Y CRECIMIENTO */}
+      <section id="estrategia" className="py-32 bg-black px-6 md:px-12">
         <div className="container mx-auto">
-          <div className="mb-24">
-            <h2 className="text-6xl font-black italic uppercase tracking-tighter">Estrategia de <br/> <span className="text-yellow-400">Escalabilidad</span></h2>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <h2 className="text-5xl font-black italic uppercase tracking-tighter">Plan de <br/> <span className="text-yellow-400">Escalabilidad</span></h2>
+            <div className="text-right text-slate-500 text-xs font-bold uppercase tracking-[0.3em] max-w-xs">
+              Estrategia comercial focalizada en la exportación y eficiencia logística.
+            </div>
           </div>
-          <div className="grid lg:grid-cols-3 gap-12">
-            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
-              <Globe className="text-yellow-400 mb-6" size={40} />
-              <h4 className="text-2xl font-black italic uppercase mb-6">Escalabilidad de Exportación</h4>
-              <p className="text-slate-400 font-light leading-relaxed italic">
-                "Contamos con una tarifa específica para el mercado exterior que optimiza la competitividad logística sin sacrificar el margen neto."
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="p-10 bg-slate-900/30 rounded-[2.5rem] border border-white/5 group hover:bg-slate-900/50 transition-all">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                <Globe size={24} />
+              </div>
+              <h4 className="text-xl font-black italic uppercase mb-4">Exportación</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic text-sm">
+                Tarifas específicas para mercados internacionales optimizando márgenes netos y logística transfronteriza.
               </p>
             </div>
-            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
-              <Factory className="text-yellow-400 mb-6" size={40} />
-              <h4 className="text-2xl font-black italic uppercase mb-6">Eficiencia Industrial</h4>
-              <p className="text-slate-400 font-light leading-relaxed italic">
-                "El desglose por Metro Lineal vs. Barra de 2.4m nos permite una precisión del 99% en presupuestos, eliminando fugas de beneficio por desperdicio de material."
+            <div className="p-10 bg-slate-900/30 rounded-[2.5rem] border border-white/5 group hover:bg-slate-900/50 transition-all">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                <Factory size={24} />
+              </div>
+              <h4 className="text-xl font-black italic uppercase mb-4">Métrica por Metro</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic text-sm">
+                Cálculo de beneficio exacto por Metro Lineal vs Barra de 2.4m, eliminando mermas y fugas de capital en obra.
               </p>
             </div>
-            <div className="p-10 bg-slate-900/50 rounded-[3rem] border border-white/5 hover:border-yellow-400/50 transition-colors">
-              <Users className="text-yellow-400 mb-6" size={40} />
-              <h4 className="text-2xl font-black italic uppercase mb-6">Canal Distribuidor</h4>
-              <p className="text-slate-400 font-light leading-relaxed italic">
-                "Nuestra tarifa recomendada para distribuidores asegura una cadena de valor sana, incentivando la expansión rápida sin aumentar nuestros costes fijos."
+            <div className="p-10 bg-slate-900/30 rounded-[2.5rem] border border-white/5 group hover:bg-slate-900/50 transition-all">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
+                <Users size={24} />
+              </div>
+              <h4 className="text-xl font-black italic uppercase mb-4">Red de Distribución</h4>
+              <p className="text-slate-400 font-light leading-relaxed italic text-sm">
+                Esquema de precios recomendado para distribuidores que asegura una penetración de mercado rápida y sostenible.
               </p>
             </div>
           </div>
@@ -180,106 +225,116 @@ export default function App() {
       </section>
 
       {/* EFICIENCIA ENERGÉTICA */}
-      <section className="py-40 bg-slate-950 px-10 border-y border-white/5">
-        <div className="container mx-auto grid xl:grid-cols-2 gap-20 items-center">
-          <div className="order-2 xl:order-1 bg-slate-900/50 p-10 rounded-[3rem] border border-white/5 h-[400px]">
+      <section className="py-32 bg-slate-950 px-6 md:px-12 border-y border-white/5">
+        <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <div className="order-2 lg:order-1 bg-slate-900/20 p-8 rounded-[2.5rem] border border-white/5 h-[400px]">
+             <div className="flex justify-between items-center mb-8">
+               <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Curva de Consumo Térmico (kWh)</span>
+               <div className="flex gap-4">
+                  <div className="flex items-center gap-2"><div className="w-2 h-2 bg-slate-800 rounded-full"></div><span className="text-[8px] uppercase font-bold text-slate-500">Trad.</span></div>
+                  <div className="flex items-center gap-2"><div className="w-2 h-2 bg-yellow-400 rounded-full"></div><span className="text-[8px] uppercase font-bold text-slate-500">Aluplak</span></div>
+               </div>
+             </div>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={energyEfficiency}>
-                <XAxis dataKey="month" stroke="#475569" />
-                <Tooltip contentStyle={{backgroundColor: '#000', border: 'none'}} />
-                <Area type="monotone" dataKey="tradicional" stroke="#1e293b" fill="#1e293b" fillOpacity={0.3} />
-                <Area type="monotone" dataKey="aluplak" stroke="#facc15" fill="#facc15" fillOpacity={0.4} />
+                <XAxis dataKey="month" stroke="#475569" fontSize={10} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '15px'}} />
+                <Area type="monotone" dataKey="tradicional" stroke="#1e293b" fill="#1e293b" fillOpacity={0.2} strokeWidth={2} />
+                <Area type="monotone" dataKey="aluplak" stroke="#facc15" fill="#facc15" fillOpacity={0.4} strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="order-1 xl:order-2 space-y-10">
-            <h2 className="text-6xl font-black italic uppercase tracking-tighter">Eficiencia <br/> por Radiación</h2>
-            <p className="text-xl text-slate-400 font-light italic leading-relaxed">
-              Invisotherm calienta las masas de la vivienda, no el aire. Esto reduce el consumo en un 30% al alcanzar la temperatura de confort térmico eliminando la inercia del aire.
+          <div className="order-1 lg:order-2 space-y-8">
+            <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">Radiación <br/> <span className="text-yellow-400">Inteligente</span></h2>
+            <p className="text-lg text-slate-400 font-light italic leading-relaxed">
+              Invisotherm no calienta el aire, calienta la masa. El resultado es una sensación térmica instantánea con un ahorro real del 30% en la factura eléctrica del cliente final.
             </p>
-            <div className="flex gap-10">
-               <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-400">
-                 <Zap className="text-yellow-400" /> Baja Inercia
-               </div>
-               <div className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-400">
-                 <ShieldCheck className="text-yellow-400" /> Cero Mantenimiento
-               </div>
-            </div>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-slate-300">
+                <CheckCircle2 className="text-yellow-400" size={18} /> Cero inercia térmica
+              </li>
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-slate-300">
+                <CheckCircle2 className="text-yellow-400" size={18} /> Eliminación de puentes térmicos
+              </li>
+              <li className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-slate-300">
+                <CheckCircle2 className="text-yellow-400" size={18} /> Integración invisible
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
       {/* VIDEOS */}
-      <section className="py-40 bg-black px-10">
+      <section className="py-32 bg-black px-6 md:px-12">
         <div className="container mx-auto grid md:grid-cols-2 gap-10">
-          <div className="rounded-[4rem] overflow-hidden border-4 border-white/5 aspect-video shadow-2xl group">
-            <video src="/AluplakVideo1.mp4" controls className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+          <div className="rounded-[3rem] overflow-hidden border border-white/5 aspect-video shadow-2xl relative group">
+            <video src="/AluplakVideo1.mp4" controls className="w-full h-full object-cover" />
+            <div className="absolute top-6 left-6 pointer-events-none">
+              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10">Demo Técnica v.01</span>
+            </div>
           </div>
-          <div className="rounded-[4rem] overflow-hidden border-4 border-white/5 aspect-video shadow-2xl group">
-            <video src="/AluplakVideo2.mp4" controls className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-          </div>
-        </div>
-      </section>
-
-      {/* GALERÍA */}
-      <section id="galeria" className="py-40 bg-slate-950 px-10">
-        <div className="container mx-auto grid lg:grid-cols-3 gap-8">
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5 relative">
-            <img src="/Aluplak2.jpeg" className="w-full h-[500px] object-cover group-hover:scale-110 transition-all duration-1000 opacity-50 group-hover:opacity-100" alt="Gama 2" />
-            <p className="absolute bottom-10 left-10 text-[10px] font-black uppercase tracking-widest bg-yellow-400 text-black px-4 py-1 rounded-full">Zócalo Técnico</p>
-          </div>
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5 relative">
-            <img src="/Aluplak3.jpeg" className="w-full h-[500px] object-cover group-hover:scale-110 transition-all duration-1000 opacity-50 group-hover:opacity-100" alt="Gama 3" />
-            <p className="absolute bottom-10 left-10 text-[10px] font-black uppercase tracking-widest bg-yellow-400 text-black px-4 py-1 rounded-full">Outdoor Solution</p>
-          </div>
-          <div className="group overflow-hidden rounded-[3rem] bg-white/5 border border-white/5 relative">
-            <img src="/Aluplak4.jpeg" className="w-full h-[500px] object-cover group-hover:scale-110 transition-all duration-1000 opacity-50 group-hover:opacity-100" alt="Gama 4" />
-            <p className="absolute bottom-10 left-10 text-[10px] font-black uppercase tracking-widest bg-yellow-400 text-black px-4 py-1 rounded-full">Invisotherm Finish</p>
+          <div className="rounded-[3rem] overflow-hidden border border-white/5 aspect-video shadow-2xl relative group">
+            <video src="/AluplakVideo2.mp4" controls className="w-full h-full object-cover" />
+            <div className="absolute top-6 left-6 pointer-events-none">
+              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10">Instalación Real</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* MÉTRICAS FINANCIERAS E INVERSIÓN */}
-      <section id="metricas" className="py-60 px-10 bg-[#020617]">
+      <section id="metricas" className="py-40 px-6 md:px-12 bg-[#020617]">
         <div className="container mx-auto">
-          <div className="grid xl:grid-cols-3 gap-20 items-center">
+          <div className="grid xl:grid-cols-3 gap-16 items-center">
             <div className="xl:col-span-2">
-              <h2 className="text-[10vw] font-black italic uppercase leading-[0.8] mb-20 tracking-tighter">TARGET <br/> <span className="text-yellow-400">EXIT 3.5X</span></h2>
-              <div className="h-[450px]">
+              <h2 className="text-[8vw] font-black italic uppercase leading-[0.8] mb-12 tracking-tighter">PROYECCIÓN <br/> <span className="text-yellow-400">DE RETORNO</span></h2>
+              <div className="h-[400px] bg-slate-900/20 p-8 rounded-[3rem] border border-white/5">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={financialStats}>
-                    <CartesianGrid stroke="#1e293b" vertical={false} />
-                    <XAxis dataKey="year" stroke="#475569" fontWeight="bold" />
-                    <Tooltip contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '20px'}} />
-                    <Bar dataKey="ebitda" fill="#1e293b" radius={[10, 10, 0, 0]} barSize={50} />
-                    <Area type="monotone" dataKey="rev" stroke="#facc15" fill="#facc15" fillOpacity={0.1} strokeWidth={5} />
+                    <CartesianGrid stroke="#1e293b" vertical={false} strokeDasharray="3 3" />
+                    <XAxis dataKey="year" stroke="#475569" fontWeight="bold" axisLine={false} tickLine={false} />
+                    <Tooltip contentStyle={{backgroundColor: '#000', border: 'none', borderRadius: '15px'}} />
+                    <Bar dataKey="ebitda" fill="#1e293b" radius={[8, 8, 0, 0]} barSize={40} />
+                    <Area type="monotone" dataKey="rev" stroke="#facc15" fill="#facc15" fillOpacity={0.05} strokeWidth={4} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-yellow-400 p-16 rounded-[5rem] text-black text-center flex flex-col justify-center shadow-2xl relative overflow-hidden group">
-              <Rocket className="absolute -top-10 -right-10 opacity-10 group-hover:scale-125 transition-transform duration-1000" size={300} />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-10 relative z-10">Investment Simulator</p>
-              <input 
-                type="range" min="10000" max="500000" step="5000" 
-                value={investment} onChange={(e) => setInvestment(Number(e.target.value))}
-                className="w-full accent-black mb-10 cursor-pointer relative z-10" 
-              />
-              <p className="text-2xl font-bold italic mb-2 relative z-10">Invirtiendo: €{investment.toLocaleString()}</p>
-              <p className="text-7xl font-black italic relative z-10">€{roi.total}</p>
-              <p className="text-[10px] font-black uppercase mt-6 tracking-widest opacity-60 relative z-10">Retorno Proyectado 2026</p>
+            
+            {/* Simulador de Inversión */}
+            <div className="bg-yellow-400 p-12 rounded-[4rem] text-black text-center flex flex-col justify-center shadow-2xl relative overflow-hidden group">
+              <Rocket className="absolute -top-12 -right-12 opacity-5 group-hover:scale-125 transition-transform duration-1000" size={300} />
+              <div className="relative z-10">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-10">Investment Multiplier</p>
+                <div className="mb-10">
+                  <input 
+                    type="range" min="10000" max="500000" step="5000" 
+                    value={investment} onChange={(e) => setInvestment(Number(e.target.value))}
+                    className="w-full accent-black mb-4 cursor-pointer" 
+                  />
+                  <div className="flex justify-between text-[10px] font-bold uppercase opacity-50">
+                    <span>10k</span>
+                    <span>500k</span>
+                  </div>
+                </div>
+                <p className="text-xl font-bold italic mb-2">Compromiso: €{investment.toLocaleString()}</p>
+                <p className="text-6xl font-black italic tracking-tighter">€{roi.total}</p>
+                <p className="text-[10px] font-black uppercase mt-6 tracking-widest bg-black text-white py-2 rounded-full inline-block px-6">Exit Estimado 2026 (3.5x)</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-40 bg-black text-center border-t border-white/5">
-        <h2 className="text-6xl font-black italic uppercase mb-12 tracking-tighter">ALUPLAK <span className="text-yellow-400">ENGINEERING</span></h2>
-        <p className="max-w-2xl mx-auto px-10 opacity-30 text-xs font-bold uppercase tracking-[0.5em] mb-20 leading-relaxed">
-          Transformando la superficie constructiva en infraestructura inteligente y rentable.
-        </p>
-        <p className="opacity-20 text-[10px] font-bold tracking-[0.6em] uppercase">© 2026 ALUPLAK SKIRTING BOARD S.L • SPAIN</p>
+      <footer className="py-24 bg-black text-center border-t border-white/5">
+        <h2 className="text-4xl font-black italic uppercase mb-8 tracking-tighter">ALUPLAK <span className="text-yellow-400">INDUSTRIES</span></h2>
+        <div className="flex justify-center gap-8 mb-12">
+           <Activity className="opacity-20" />
+           <Target className="opacity-20" />
+           <TrendingUp className="opacity-20" />
+        </div>
+        <p className="opacity-20 text-[9px] font-bold tracking-[0.6em] uppercase">© 2026 ALUPLAK SKIRTING BOARD S.L • SPAIN</p>
       </footer>
     </div>
   );
