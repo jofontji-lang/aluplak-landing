@@ -516,4 +516,3 @@ export default function App() {
   );
 }
 
-quiero que saques el grafico de PROYECCIÓN DE INGRESOS de la sección en la que está y lo pongas en la misma sección que el EBITDA
