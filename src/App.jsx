@@ -1,28 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, 
-  BarChart, Bar, AreaChart, Area, ComposedChart, Cell, LabelList
+  BarChart, Bar, AreaChart, Area, ComposedChart, LineChart, Line, PieChart, Pie, Cell, LabelList
 } from "recharts";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { 
-  Activity, TrendingUp, CheckCircle2, Construction, Timer, 
-  Layers, AlertTriangle, ArrowUpRight, Sparkles, Send, Bot, Loader2,
-  Rocket, Zap, Building2, ShieldCheck, Cpu, ChevronRight, Info
+  Activity, TrendingUp, Zap, CheckCircle2, Clock, Rocket, 
+  Target, Construction, ChevronRight, Timer, Layers, 
+  AlertTriangle, ArrowUpRight, Play, Info, Sparkles, Send, Bot, User, Loader2
 } from 'lucide-react';
 
-// --- CONFIGURACIÓN ---
+// --- CONFIGURACIÓN GEMINI API ---
 const apiKey = ""; 
 const GEMINI_MODEL = "gemini-2.5-flash-preview-09-2025";
-const APP_ID = "aluplak-investor-pro";
 
 export default function App() {
   const [investment, setInvestment] = useState(50000);
+  const [activeTab, setActiveTab] = useState('vision');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  // Estados para la IA y Chat
+  // Estados para la IA
   const [chatMessages, setChatMessages] = useState([
-    { role: 'assistant', content: 'Bienvenido al Centro de Control de Aluplak. ¿Deseas analizar nuestra proyección de ingresos para 2026 o entender por qué nuestro EBITDA supera el 28%?' }
+    { role: 'assistant', content: '¡Hola! Soy el asistente ✨ IA de Aluplak. ¿Tienes dudas sobre nuestro modelo de negocio o la tecnología de zócalo técnico?' }
   ]);
   const [userInput, setUserInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -34,6 +34,7 @@ export default function App() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
+  // Función para llamar a Gemini
   const fetchGemini = async (prompt, systemPrompt = "") => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
@@ -65,34 +66,40 @@ export default function App() {
     setIsTyping(true);
 
     try {
-      const systemPrompt = "Eres un analista financiero experto de Aluplak. Responde de forma técnica pero persuasiva sobre la inversión. Usa datos del dashboard: Margen EBITDA 28.4%, Proyección 2026 de 220k€.";
+      const systemPrompt = "Eres un experto en inversiones y tecnología de construcción (PropTech) de Aluplak. Aluplak vende zócalos técnicos de aluminio con gestión de cables y eficiencia térmica. Sé profesional, persuasivo y técnico.";
       const answer = await fetchGemini(userInput, systemPrompt);
       setChatMessages([...newMessages, { role: 'assistant', content: answer }]);
     } catch (e) {
-      setChatMessages([...newMessages, { role: 'assistant', content: "Lo siento, mi conexión con el servidor financiero se ha interrumpido momentáneamente." }]);
+      setChatMessages([...newMessages, { role: 'assistant', content: "Lo siento, tuve un problema conectando con el servidor. Por favor intenta de nuevo." }]);
     } finally {
       setIsTyping(false);
+    }
+  };
+
+  const generateRoiAnalysis = async () => {
+    setIsGeneratingRoi(true);
+    try {
+      const prompt = `Analiza una inversión de ${investment}€ en Aluplak. Considera un crecimiento del mercado del 20% anual, margen EBITDA del 28% y una valoración actual de 1.5M€. Proyecta el retorno en 5 años y justifica por qué es una buena inversión en el sector PropTech en España. Responde en formato ejecutivo, breve y potente.`;
+      const result = await fetchGemini(prompt);
+      setRoiAnalysis(result);
+    } catch (e) {
+      setRoiAnalysis("Error al generar el reporte. Inténtalo de nuevo.");
+    } finally {
+      setIsGeneratingRoi(false);
     }
   };
 
   const handleImgError = (e) => {
     e.target.style.display = 'none';
     const parent = e.target.parentElement;
-    parent.classList.add('bg-slate-800', 'flex', 'items-center', 'justify-center');
+    parent.classList.add('bg-slate-800', 'flex', 'items-center', 'justify-center', 'border', 'border-white/5');
     const span = document.createElement('span');
-    span.className = 'text-[9px] font-black text-slate-500 uppercase';
-    span.innerText = `Vista: ${e.target.alt}`;
+    span.className = 'text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] text-center px-6 leading-relaxed';
+    span.innerText = `Visualizando: ${e.target.alt || "Activo"}`;
     parent.appendChild(span);
   };
 
-  // --- DATOS ---
-  const ebitdaComparison = [
-    { name: 'Sector Medio', value: 12, label: '12%' },
-    { name: 'Carpintería', value: 18, label: '18%' },
-    { name: 'ALUPLAK', value: 28, label: '28.4%' },
-  ];
-
-  const projectionData = [
+  const financialStats = [
     { year: '2022', rev: 47416, ebitda: 13276 },
     { year: '2023', rev: 71677, ebitda: 20069 },
     { year: '2024', rev: 88210, ebitda: 24698 },
@@ -100,6 +107,19 @@ export default function App() {
     { year: '2026', rev: 220000, ebitda: 61600 },
   ];
 
+  // Datos para los gráficos de barras con etiquetas personalizadas
+  const ebitdaComparison = [
+    { name: 'Sector Medio', value: 12, label: '12%' },
+    { name: 'Carpintería', value: 18, label: '18%' },
+    { name: 'ALUPLAK', value: 28, label: '28.4%' },
+  ];
+
+  const efficiencyData = [
+    { name: 'Tradicional', tiempo: 100, coste: 100 },
+    { name: 'Sistema Aluplak', tiempo: 19, coste: 40 },
+  ];
+
+  // Componente personalizado para etiquetas de las barras
   const renderCustomLabel = (props) => {
     const { x, y, width, value, index } = props;
     const isAluplak = ebitdaComparison[index].name === 'ALUPLAK';
@@ -120,354 +140,362 @@ export default function App() {
 
   return (
     <div className="bg-[#020617] text-white min-h-screen font-sans selection:bg-yellow-400 selection:text-black antialiased">
-      <motion.div className="fixed top-0 left-0 right-0 h-1.5 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
+      <motion.div className="fixed top-0 left-0 right-0 h-1 bg-yellow-400 z-[1000] origin-left" style={{ scaleX }} />
 
-      {/* NAV SUPERIOR */}
-      <nav className="fixed top-0 w-full z-[500] bg-black/60 backdrop-blur-2xl border-b border-white/5 py-6 px-10 flex justify-between items-center">
-        <div className="flex items-center gap-4 group cursor-pointer">
-          <div className="bg-yellow-400 p-2 rounded-xl transition-transform group-hover:rotate-12">
-            <Activity className="text-black" size={20} />
+      {/* Navegación */}
+      <nav className="fixed top-0 w-full z-[500] bg-black/40 backdrop-blur-xl border-b border-white/5 py-5 px-8 flex justify-between items-center transition-all hover:bg-black/80">
+        <div className="flex items-center gap-3 group cursor-pointer">
+          <div className="bg-yellow-400 p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
+            <Activity className="text-black" size={18} />
           </div>
-          <span className="text-2xl font-black italic uppercase tracking-tighter text-white">ALUPLAK</span>
+          <span className="text-xl font-black italic uppercase tracking-tighter text-white">ALUPLAK</span>
         </div>
-        <div className="hidden lg:flex items-center gap-12 text-[10px] font-black uppercase tracking-[0.25em] text-slate-400">
-          <a href="#ebitda" className="hover:text-white transition-colors">EBITDA</a>
-          <a href="#growth" className="hover:text-white transition-colors">Proyección</a>
-          <a href="#tech" className="hover:text-white transition-colors">Tecnología</a>
-          <a href="#invest" className="bg-yellow-400 text-black px-8 py-2.5 rounded-full hover:bg-white transition-colors">Invertir</a>
+        <div className="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+          <a href="#vision" className="hover:text-yellow-400 transition-colors">Visión</a>
+          <a href="#ebitda-section" className="hover:text-yellow-400 transition-colors">Margen</a>
+          <a href="#tech" className="hover:text-yellow-400 transition-colors">Tecnología</a>
+          <a href="#finance" className="hover:text-yellow-400 transition-colors">Finanzas</a>
+          <a href="#ai-assistant" className="text-yellow-400 flex items-center gap-2"><Sparkles size={14}/> Asistente IA</a>
+          <a href="#inversion" className="bg-yellow-400 text-black px-6 py-2 rounded-full hover:scale-105 active:scale-95 transition-all shadow-lg shadow-yellow-400/20">Invertir</a>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center px-10 overflow-hidden">
+      {/* 1. SECCIÓN HERO */}
+      <section id="vision" className="relative h-screen flex items-center overflow-hidden px-8">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#020617]/70 z-10" />
-          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80" alt="Ingeniería Aluplak" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent z-20" />
+          <img src="Aluplak1.jpeg" onError={handleImgError} className="w-full h-full object-cover opacity-30 scale-110" alt="Fondo Hero Aluplak" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent" />
         </div>
-        
-        <div className="container mx-auto relative z-30">
+        <div className="container mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
-            <div className="flex items-center gap-4 mb-8">
-              <span className="w-12 h-px bg-yellow-400"></span>
-              <span className="text-yellow-400 font-black uppercase tracking-[0.4em] text-[11px] italic">Series A Investment Opportunity</span>
-            </div>
-            <h1 className="text-[14vw] md:text-[10rem] font-black italic leading-[0.8] uppercase tracking-tighter mb-10">
-              DISRUPTING <br /> <span className="text-yellow-400">SYSTEMS.</span>
+            <span className="text-yellow-400 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block italic">Industrializando el futuro</span>
+            <h1 className="text-[14vw] lg:text-[10rem] font-black italic leading-[0.75] uppercase tracking-tighter mb-10">
+              OPORTUNIDAD DE <br /> <span className="text-yellow-400">INVERSIÓN.</span>
             </h1>
-            <p className="max-w-2xl text-slate-400 text-lg md:text-xl font-medium leading-relaxed italic border-l-2 border-yellow-400/30 pl-8">
-              Tecnología de carpintería de aluminio industrializada que reduce costes operativos en un 40% y escala el margen de beneficio a niveles nunca vistos en el sector.
-            </p>
+            <div className="flex flex-wrap gap-12 items-center">
+              <p className="text-lg md:text-xl font-light italic text-slate-400 max-w-xl border-l-2 border-yellow-400/50 pl-8 leading-relaxed">
+                Transformando elementos pasivos en sistemas activos de alta eficiencia energética y montaje ultra-rápido.
+              </p>
+              <div className="flex gap-6">
+                 <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+                    <p className="text-[9px] uppercase font-black text-slate-500 mb-2 tracking-widest">Margen Operativo</p>
+                    <p className="text-3xl font-black italic text-yellow-400">28.4%</p>
+                 </div>
+                 <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+                    <p className="text-[9px] uppercase font-black text-slate-500 mb-2 tracking-widest">Ahorro de Tiempo</p>
+                    <p className="text-3xl font-black italic text-yellow-400">-81%</p>
+                 </div>
+              </div>
+            </div>
           </motion.div>
         </div>
-
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500 uppercase text-[9px] font-black tracking-[0.3em] flex flex-col items-center gap-4"
-        >
-          Scroll para Datos
-          <div className="w-px h-12 bg-gradient-to-b from-yellow-400 to-transparent"></div>
-        </motion.div>
       </section>
 
-      {/* SECCIÓN FINANCIERA INTEGRADA */}
-      <section className="py-32 px-10 bg-[#020617]">
-        <div className="container mx-auto max-w-7xl space-y-32">
-          
-          {/* BLOQUE 1: ANALISIS EBITDA */}
-          <div id="ebitda" className="relative group">
-            <div className="absolute -inset-8 bg-blue-600/5 rounded-[5rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-            <div className="relative bg-slate-900/30 border border-white/5 rounded-[4rem] p-16 overflow-hidden">
-              <div className="grid lg:grid-cols-2 gap-20 items-center">
-                <div>
-                  <div className="flex items-center gap-3 mb-8">
-                    <div className="bg-blue-600 p-2.5 rounded-xl">
-                      <ShieldCheck className="text-white" size={20} />
+      {/* SECCIÓN: MARGEN EBITDA RESALTADO CON NÚMEROS */}
+      <section id="ebitda-section" className="py-24 bg-[#020617] px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[120px] rounded-full" />
+        <div className="container mx-auto">
+          <div className="bg-slate-900/40 p-12 rounded-[4rem] border border-white/5 backdrop-blur-md shadow-2xl relative">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                   <div className="bg-blue-500 p-2 rounded-lg text-white shadow-lg shadow-blue-500/20"><TrendingUp size={20}/></div>
+                   <span className="text-blue-400 font-black uppercase text-[10px] tracking-widest italic tracking-[0.3em]">Ventaja Competitiva</span>
+                </div>
+                <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none mb-6">
+                  NÚMEROS QUE <br/><span className="text-blue-500">HABLAN SOLOS</span>
+                </h2>
+                <p className="text-slate-400 italic text-lg leading-relaxed max-w-md">
+                  Nuestro margen del 28.4% es el resultado directo de eliminar los costes ocultos de la construcción artesanal mediante la estandarización industrial del aluminio.
+                </p>
+              </div>
+
+              <div className="h-[350px] w-full pr-12">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={ebitdaComparison} layout="vertical" margin={{ left: 20, right: 80 }}>
+                    <CartesianGrid stroke="#ffffff05" horizontal={false} />
+                    <XAxis type="number" domain={[0, 35]} hide />
+                    <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{fontSize: 11, fontWeight: 'black', fill: '#94a3b8', fontStyle: 'italic'}} 
+                      width={100}
+                    />
+                    <Tooltip 
+                      cursor={{fill: 'rgba(255,255,255,0.03)'}} 
+                      contentStyle={{backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', color: '#fff'}} 
+                    />
+                    <Bar dataKey="value" radius={[0, 20, 20, 0]} barSize={45}>
+                      <LabelList dataKey="label" content={renderCustomLabel} />
+                      {ebitdaComparison.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.name === 'ALUPLAK' ? '#3b82f6' : '#1e293b'} 
+                          className={entry.name === 'ALUPLAK' ? 'drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]' : ''}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. EL PROBLEMA Y LA SOLUCIÓN */}
+      <section className="py-32 bg-slate-950 px-8">
+        <div className="container mx-auto">
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
+            <div className="relative group">
+              <div className="absolute -inset-10 bg-yellow-400/10 blur-[100px] rounded-full opacity-30"></div>
+              <div className="relative rounded-[3.5rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-900 aspect-square">
+                <img src="Aluplak2.jpeg" onError={handleImgError} className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Instalación en Obra Real" />
+                <div className="absolute bottom-12 left-12 right-12">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-yellow-400 p-2 rounded-lg"><Construction size={20} className="text-black" /></div>
+                    <span className="text-yellow-400 font-black uppercase text-[10px] tracking-widest italic">Operaciones en Vivo</span>
+                  </div>
+                  <h3 className="text-3xl font-black italic uppercase text-white">Montaje en Seco Real</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-16">
+              <div className="space-y-6">
+                <h2 className="text-6xl font-black italic uppercase tracking-tighter mb-4 leading-none">
+                  ELIMINANDO LA <br/><span className="text-yellow-400">INEFICIENCIA</span>
+                </h2>
+                <p className="text-slate-500 italic text-lg">La construcción tradicional es lenta y genera residuos. Aluplak digitaliza el proceso.</p>
+              </div>
+              <div className="space-y-8">
+                <div className="group p-8 bg-slate-900/40 rounded-3xl border border-white/5 hover:bg-red-500/5 transition-all">
+                  <div className="flex gap-6 items-start">
+                    <div className="bg-red-500/20 p-3 rounded-xl"><AlertTriangle className="text-red-500" size={24} /></div>
+                    <div>
+                      <h4 className="font-black text-lg text-white italic uppercase mb-2 tracking-tight">Limitaciones del Sector</h4>
+                      <p className="text-slate-400 text-sm italic leading-relaxed">Falta de mano de obra cualificada y largos tiempos de secado.</p>
                     </div>
-                    <span className="text-blue-400 font-black uppercase text-[10px] tracking-[0.3em] italic">Eficiencia de Margen</span>
-                  </div>
-                  <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none mb-10">
-                    Márgenes de <br/><span className="text-blue-600">Nueva Generación</span>
-                  </h2>
-                  <div className="space-y-6 text-slate-400 italic text-lg mb-10">
-                    <p>Mientras que la carpintería tradicional lucha con costes de mano de obra variables, nuestro sistema <span className="text-white font-bold">ALUPLAK</span> automatiza la precisión.</p>
-                    <p>El resultado es un margen EBITDA del <span className="text-blue-400 font-black">28.4%</span>, posicionándonos como la opción más rentable para inversores institucionales.</p>
-                  </div>
-                  <div className="flex gap-12">
-                     <div>
-                        <p className="text-4xl font-black italic text-white">2.4x</p>
-                        <p className="text-[9px] font-black text-slate-500 uppercase mt-1">vs Media Sector</p>
-                     </div>
-                     <div>
-                        <p className="text-4xl font-black italic text-white">+10%</p>
-                        <p className="text-[9px] font-black text-slate-500 uppercase mt-1">vs Carpintería Top</p>
-                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="p-8 bg-slate-900 rounded-[2rem] border border-white/5 text-center">
+                  <Timer className="mx-auto mb-4 text-slate-500" size={28} />
+                  <p className="text-4xl font-black italic mb-1">19 min</p>
+                  <p className="text-[9px] uppercase font-black text-slate-500 tracking-widest">Ahorro en Instalación</p>
+                </div>
+                <div className="p-8 bg-slate-900 rounded-[2rem] border border-white/5 text-center">
+                  <Layers className="mx-auto mb-4 text-slate-500" size={28} />
+                  <p className="text-4xl font-black italic mb-1">Zero</p>
+                  <p className="text-[9px] uppercase font-black text-slate-500 tracking-widest">Residuos en obra</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div className="h-[400px] w-full">
+      {/* 3. GALERÍA DE PRODUCTO */}
+      <section id="tech" className="py-32 bg-black px-8">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-7xl font-black italic uppercase tracking-tighter leading-[0.9] mb-4">INGENIERÍA <br/><span className="text-yellow-400">DE PRECISIÓN</span></h2>
+              <p className="text-slate-500 text-lg italic border-l border-white/10 pl-6">Cada componente diseñado para durabilidad y estética minimalista.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { id: 3, title: "Aluminio Naval", desc: "Máxima resistencia" },
+              { id: 4, title: "Clip de Anclaje", desc: "Presión patentada" },
+              { id: 5, title: "Canal Interno", desc: "Gestión de cables" },
+              { id: 6, title: "Nivelación", desc: "Ajuste milimétrico" }
+            ].map((item) => (
+              <motion.div key={item.id} whileHover={{ y: -15 }} className="group relative aspect-[3/4] rounded-[2.5rem] overflow-hidden border border-white/5 bg-slate-900 shadow-xl">
+                <img src={`Aluplak${item.id}.jpeg`} onError={handleImgError} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110" alt={item.title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <h4 className="text-2xl font-black italic uppercase text-white leading-tight mb-2">{item.title}</h4>
+                  <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. HOJA DE RUTA */}
+      <section className="py-32 bg-black px-8">
+        <div className="container mx-auto">
+          <div className="text-center mb-24">
+            <h2 className="text-6xl font-black italic uppercase tracking-tighter">HOJA DE <span className="text-yellow-400">RUTA</span></h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              { phase: "FASE 01", title: "Consolidación", active: false },
+              { phase: "FASE 02", title: "Escalado Industrial", active: true },
+              { phase: "FASE 03", title: "Expansión Global", active: false },
+            ].map((step, idx) => (
+              <div key={idx} className={`p-10 rounded-[3rem] border-l-8 transition-all ${step.active ? 'bg-yellow-400/5 border-yellow-400 scale-105' : 'bg-slate-900/40 border-slate-700 opacity-60'}`}>
+                <span className={`font-black italic text-xs tracking-widest ${step.active ? 'text-yellow-400' : 'text-slate-500'}`}>{step.phase}</span>
+                <h5 className="text-2xl font-black italic uppercase my-6">{step.title}</h5>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. DASHBOARD FINANCIERO E IA */}
+      <section id="finance" className="py-32 bg-slate-950 px-8 border-t border-white/5">
+        <div className="container mx-auto">
+          <div className="grid xl:grid-cols-3 gap-12 items-start">
+            <div className="xl:col-span-2 space-y-12">
+              
+              <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5 shadow-inner">
+                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                    <h3 className="text-3xl font-black italic uppercase leading-none">PROYECCIÓN DE INGRESOS</h3>
+                    <div className="bg-white/5 px-4 py-2 rounded-full">
+                       <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Finanzas Proyectadas</span>
+                    </div>
+                 </div>
+                 <div className="h-[300px] w-full">
+                   <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={financialStats}>
+                        <CartesianGrid stroke="#ffffff05" vertical={false} />
+                        <XAxis dataKey="year" stroke="#475569" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'bold'}} />
+                        <YAxis stroke="#475569" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'bold'}} />
+                        <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '20px', color: '#fff'}} />
+                        <Area type="monotone" dataKey="rev" fill="#facc15" fillOpacity={0.05} stroke="#facc15" strokeWidth={5} />
+                        <Bar dataKey="ebitda" fill="#334155" radius={[10, 10, 0, 0]} barSize={40} />
+                      </ComposedChart>
+                   </ResponsiveContainer>
+                 </div>
+              </div>
+
+              {/* Gráfico de Eficiencia */}
+              <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
+                <div className="mb-10 text-center">
+                  <h4 className="text-3xl font-black italic uppercase leading-none mb-2">EFICIENCIA OPERATIVA</h4>
+                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic tracking-[0.4em]">Aluplak vs Sistema Tradicional</p>
+                </div>
+                <div className="h-[280px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={ebitdaComparison} layout="vertical" margin={{ left: 20, right: 80 }}>
-                      <CartesianGrid stroke="#ffffff05" horizontal={false} />
-                      <XAxis type="number" domain={[0, 35]} hide />
-                      <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fontSize: 12, fontWeight: 'black', fill: '#475569', fontStyle: 'italic'}} width={120} />
-                      <Bar dataKey="value" radius={[0, 25, 25, 0]} barSize={55}>
-                        <LabelList dataKey="label" content={renderCustomLabel} />
-                        {ebitdaComparison.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.name === 'ALUPLAK' ? '#2563eb' : '#1e293b'} />
-                        ))}
-                      </Bar>
+                    <BarChart data={efficiencyData}>
+                      <CartesianGrid stroke="#ffffff05" vertical={false} />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'black', fill: '#94a3b8'}} />
+                      <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
+                      <Bar dataKey="tiempo" fill="#1e293b" radius={[15, 15, 0, 0]} barSize={35} name="Tiempo (min)" />
+                      <Bar dataKey="coste" fill="#facc15" radius={[15, 15, 0, 0]} barSize={35} name="Coste (%)" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* BLOQUE 2: PROYECCIÓN CON FLECHA DECORATIVA */}
-          <div id="growth" className="relative group">
-            <div className="absolute -inset-8 bg-yellow-400/5 rounded-[5rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-            <div className="relative bg-slate-900/30 border border-white/5 rounded-[4rem] p-16 overflow-hidden">
-              
-              {/* FLECHA DECORATIVA INTEGRADA */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                className="absolute top-20 right-20 z-0 pointer-events-none opacity-20 hidden xl:block"
-              >
-                <div className="relative">
-                  <ArrowUpRight size={280} className="text-yellow-400 stroke-[1px]" />
-                  <motion.div 
-                    animate={{ opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                    className="absolute inset-0 bg-yellow-400/10 blur-[100px] rounded-full"
-                  />
+              {/* Análisis de ROI IA */}
+              <div className="bg-gradient-to-br from-slate-900 to-black p-10 rounded-[3.5rem] border border-yellow-400/20 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                  <Sparkles size={120} className="text-yellow-400" />
                 </div>
-              </motion.div>
-
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 relative z-10 gap-10">
-                <div>
-                   <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-yellow-400 p-2.5 rounded-xl">
-                      <TrendingUp className="text-black" size={20} />
-                    </div>
-                    <span className="text-yellow-400 font-black uppercase text-[10px] tracking-[0.3em] italic">Hoja de Ruta 2026</span>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="bg-yellow-400 p-3 rounded-2xl"><TrendingUp size={24} className="text-black" /></div>
+                    <h3 className="text-2xl font-black italic uppercase tracking-tighter">Análisis de ROI ✨ IA</h3>
                   </div>
-                  <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none">
-                    Proyección de <br/><span className="text-yellow-400">Ingresos Brutos</span>
-                  </h2>
+                  
+                  <div className="mb-8">
+                    <p className="text-slate-400 italic mb-6">Genera un análisis de inversión personalizado basado en tu ticket actual (<b>€{investment.toLocaleString()}</b>).</p>
+                    <button 
+                      onClick={generateRoiAnalysis}
+                      disabled={isGeneratingRoi}
+                      className="px-8 py-4 bg-white/5 border border-yellow-400/50 text-yellow-400 rounded-full font-black uppercase text-xs tracking-widest hover:bg-yellow-400 hover:text-black transition-all flex items-center gap-3"
+                    >
+                      {isGeneratingRoi ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
+                      Generar Reporte Personalizado ✨
+                    </button>
+                  </div>
+
+                  {roiAnalysis && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                      className="p-8 bg-black/50 border border-white/5 rounded-[2rem] text-slate-300 italic text-sm leading-relaxed whitespace-pre-wrap font-light"
+                    >
+                      {roiAnalysis}
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Panel de Inversión y Chat */}
+            <div id="inversion" className="sticky top-28 space-y-8">
+              <div className="bg-yellow-400 p-12 rounded-[4rem] text-black shadow-2xl relative overflow-hidden group">
+                <Rocket className="mb-8" size={48} />
+                <h3 className="text-4xl font-black italic uppercase leading-[0.9] mb-6">OPORTUNIDAD SERIE A</h3>
+                <div className="space-y-8 mb-12">
+                  <div>
+                    <div className="flex justify-between text-[11px] font-black uppercase mb-4">
+                      <span>Tu Inversión</span>
+                      <span>€{investment.toLocaleString()}</span>
+                    </div>
+                    <input 
+                      type="range" min="10000" max="1000000" step="10000" 
+                      value={investment} onChange={(e) => setInvestment(Number(e.target.value))}
+                      className="w-full h-1.5 bg-black/10 rounded-full appearance-none accent-black"
+                    />
+                  </div>
+                  <div className="p-8 bg-black/95 text-white rounded-[2.5rem]">
+                     <p className="text-[10px] font-black uppercase opacity-50 mb-2">Equity Estimado</p>
+                     <p className="text-4xl font-black italic tracking-tighter">~ {(investment / 1500000 * 100).toFixed(2)}%</p>
+                  </div>
+                </div>
+                <button className="w-full py-7 bg-black text-white rounded-full font-black uppercase italic tracking-widest">Dossier de Inversión</button>
+              </div>
+
+              <div id="ai-assistant" className="bg-slate-900 border border-white/5 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-[500px]">
+                <div className="p-6 bg-slate-800 border-b border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-yellow-400 p-2 rounded-xl text-black"><Bot size={18}/></div>
+                    <span className="text-xs font-black uppercase tracking-widest italic">Aluplak ✨ Mentor</span>
+                  </div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 </div>
                 
-                <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] flex items-center gap-8 min-w-[300px]">
-                   <div className="flex-1">
-                      <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">CAGR Esperado</p>
-                      <p className="text-4xl font-black italic text-white">+48%</p>
-                   </div>
-                   <div className="h-16 w-px bg-white/10"></div>
-                   <div className="flex-1">
-                      <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Objetivo 2026</p>
-                      <p className="text-2xl font-black italic text-yellow-400">€220.000</p>
-                   </div>
-                </div>
-              </div>
-
-              <div className="h-[500px] w-full relative z-10">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={projectionData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                    <defs>
-                      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#facc15" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#facc15" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid stroke="#ffffff05" vertical={false} />
-                    <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{fontSize: 14, fontWeight: 'black', fill: '#475569'}} dy={20} />
-                    <YAxis axisLine={false} tickLine={false} tick={{fontSize: 11, fontWeight: 'bold', fill: '#475569'}} />
-                    <Tooltip 
-                      cursor={{stroke: '#facc15', strokeWidth: 2, strokeDasharray: '5 5'}}
-                      contentStyle={{backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', padding: '20px'}}
-                    />
-                    <Area type="monotone" dataKey="rev" stroke="#facc15" strokeWidth={5} fill="url(#areaGrad)" name="Ingresos (€)" />
-                    <Bar dataKey="ebitda" name="EBITDA (€)" radius={[12, 12, 0, 0]} barSize={50}>
-                       {projectionData.map((entry, index) => (
-                         <Cell key={`cell-${index}`} fill={index === projectionData.length - 1 ? '#3b82f6' : '#1e293b'} />
-                       ))}
-                    </Bar>
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
-              
-              <div className="mt-12 flex items-center justify-center gap-10">
-                 <div className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded-full bg-yellow-400"></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Volumen de Ventas</span>
-                 </div>
-                 <div className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded-full bg-blue-500"></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Excedente Bruto (EBITDA)</span>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TECNOLOGÍA PROPIETARIA */}
-      <section id="tech" className="py-32 px-10 bg-black">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-32 items-center">
-            <div className="order-2 lg:order-1">
-               <div className="relative rounded-[4rem] overflow-hidden border border-white/10 group aspect-square">
-                  <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80" alt="Producción Aluplak" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                  <div className="absolute bottom-12 left-12 right-12">
-                     <div className="bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20">
-                        <p className="text-yellow-400 font-black uppercase text-[9px] tracking-widest mb-2">Instalación Certificada</p>
-                        <p className="text-xl font-bold italic">Sistema Click-Lock™ de Aluplak reduciendo tiempos un 80%.</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            
-            <div className="order-1 lg:order-2 space-y-12">
-               <div>
-                  <span className="text-yellow-400 font-black uppercase text-[11px] tracking-[0.5em] italic block mb-6">Ventaja Técnica</span>
-                  <h2 className="text-7xl font-black italic uppercase tracking-tighter leading-[0.9] mb-8">
-                    HARDWARE <br/><span className="text-yellow-400">OPTIMIZADO.</span>
-                  </h2>
-                  <p className="text-slate-500 text-xl italic leading-relaxed">
-                    Hemos eliminado los puntos de fricción históricos de la carpintería: mermas de material, errores humanos en el corte y logística ineficiente.
-                  </p>
-               </div>
-               
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {[
-                    { title: "Mermas Zero", val: "0.5%", desc: "Optimización por IA de perfiles.", icon: <Cpu/> },
-                    { title: "Velocidad", val: "2h", desc: "Instalación completa por estancia.", icon: <Timer/> },
-                    { title: "Patentes", val: "3", desc: "Diseños industriales protegidos.", icon: <ShieldCheck/> },
-                    { title: "Escala", val: "∞", desc: "Producción modular descentralizable.", icon: <Layers/> }
-                  ].map((feat, i) => (
-                    <div key={i} className="p-8 bg-slate-900/50 rounded-3xl border border-white/5 hover:border-yellow-400/30 transition-colors group">
-                       <div className="text-yellow-400 mb-6 group-hover:scale-110 transition-transform">{feat.icon}</div>
-                       <p className="text-3xl font-black italic text-white mb-1">{feat.val}</p>
-                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">{feat.title}</p>
-                       <p className="text-xs text-slate-500 font-medium italic">{feat.desc}</p>
-                    </div>
-                  ))}
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CHAT IA Y SIMULADOR */}
-      <section id="invest" className="py-32 px-10 bg-slate-950 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent"></div>
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid xl:grid-cols-5 gap-12">
-            
-            {/* TERMINAL DE IA */}
-            <div className="xl:col-span-3 flex flex-col h-[700px] bg-slate-900/40 rounded-[4rem] border border-white/5 overflow-hidden backdrop-blur-xl">
-              <div className="p-8 border-b border-white/5 flex items-center justify-between bg-black/20">
-                <div className="flex items-center gap-4">
-                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 italic">Aluplak AI Analyst Core v2.5</span>
-                </div>
-                <Bot className="text-slate-600" size={18} />
-              </div>
-              
-              <div className="flex-1 overflow-y-auto p-10 space-y-8 scrollbar-hide">
-                {chatMessages.map((msg, i) => (
-                  <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] p-6 rounded-3xl text-sm font-medium italic leading-relaxed ${
-                      msg.role === 'user' 
-                      ? 'bg-blue-600 text-white rounded-tr-none' 
-                      : 'bg-white/5 text-slate-300 border border-white/10 rounded-tl-none'
-                    }`}>
-                      {msg.content}
-                    </div>
-                  </div>
-                ))}
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-white/5 p-6 rounded-3xl rounded-tl-none border border-white/10">
-                      <div className="flex gap-2">
-                        <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></span>
-                        <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                        <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide">
+                  {chatMessages.map((msg, i) => (
+                    <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-[80%] p-4 rounded-2xl text-xs font-medium ${msg.role === 'user' ? 'bg-yellow-400 text-black' : 'bg-slate-800 text-slate-300 border border-white/5'}`}>
+                        {msg.content}
                       </div>
                     </div>
-                  </div>
-                )}
-                <div ref={chatEndRef} />
-              </div>
+                  ))}
+                  {isTyping && (
+                    <div className="flex justify-start">
+                      <div className="bg-slate-800 p-4 rounded-2xl border border-white/5 flex gap-1">
+                        <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce"></div>
+                        <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce delay-75"></div>
+                        <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce delay-150"></div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={chatEndRef} />
+                </div>
 
-              <div className="p-8 bg-black/40 border-t border-white/5">
-                <div className="relative">
+                <div className="p-4 bg-black/40 border-t border-white/5 flex gap-2">
                   <input 
-                    type="text"
+                    type="text" 
+                    placeholder="Pregunta sobre patentes..." 
+                    className="flex-1 bg-slate-800 border-none rounded-full px-4 text-xs focus:ring-1 focus:ring-yellow-400 text-white"
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Pregunta sobre ROI, CAPEX o Escalabilidad..."
-                    className="w-full bg-slate-800/50 border border-white/10 rounded-full py-5 px-8 text-sm italic focus:outline-none focus:border-yellow-400/50 transition-colors pr-20"
                   />
-                  <button 
-                    onClick={handleSendMessage}
-                    className="absolute right-3 top-3 p-3 bg-yellow-400 text-black rounded-full hover:scale-110 transition-transform"
-                  >
-                    <Send size={18} />
+                  <button onClick={handleSendMessage} className="bg-yellow-400 p-3 rounded-full text-black hover:scale-105 transition-transform">
+                    <Send size={16} />
                   </button>
                 </div>
-              </div>
-            </div>
-
-            {/* TICKET DE INVERSIÓN */}
-            <div className="xl:col-span-2 space-y-8">
-              <div className="bg-yellow-400 p-12 rounded-[4rem] text-black h-full flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-12">
-                    <Rocket size={48} />
-                    <div className="text-right">
-                       <p className="text-[9px] font-black uppercase tracking-widest opacity-60">Status</p>
-                       <p className="text-xs font-black uppercase">Open Rounds</p>
-                    </div>
-                  </div>
-                  <h3 className="text-5xl font-black italic uppercase leading-[0.8] mb-12 tracking-tighter">
-                    SOLICITAR <br/>DOSSIER.
-                  </h3>
-                  
-                  <div className="space-y-8 mb-12">
-                    <div>
-                       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-4">
-                          <span>Intención de Inversión</span>
-                          <span>€{investment.toLocaleString()}</span>
-                       </div>
-                       <input 
-                         type="range" min="10000" max="500000" step="5000" value={investment} 
-                         onChange={(e) => setInvestment(Number(e.target.value))}
-                         className="w-full h-3 bg-black/10 rounded-full appearance-none accent-black cursor-pointer"
-                       />
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                       <div className="bg-black/5 p-6 rounded-3xl border border-black/5">
-                          <p className="text-[8px] font-black uppercase opacity-60 mb-1">Equity Est.</p>
-                          <p className="text-xl font-black italic">{(investment / 10000).toFixed(2)}%</p>
-                       </div>
-                       <div className="bg-black/5 p-6 rounded-3xl border border-black/5">
-                          <p className="text-[8px] font-black uppercase opacity-60 mb-1">ROI Proyect.</p>
-                          <p className="text-xl font-black italic">4.2x</p>
-                       </div>
-                    </div>
-                  </div>
-                </div>
-
-                <button className="w-full py-8 bg-black text-white rounded-full font-black uppercase italic tracking-[0.2em] text-xs hover:bg-slate-800 transition-colors shadow-2xl shadow-black/20 group flex items-center justify-center gap-4">
-                   Firmar Carta de Intención
-                   <ChevronRight size={16} className="group-hover:translate-x-2 transition-transform" />
-                </button>
               </div>
             </div>
           </div>
@@ -475,21 +503,12 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-24 bg-black px-10 border-t border-white/5">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-          <div className="flex items-center gap-4">
-            <div className="bg-slate-800 p-2 rounded-lg">
-              <Activity className="text-yellow-400" size={18} />
-            </div>
-            <span className="text-xl font-black italic tracking-tighter uppercase">ALUPLAK</span>
-          </div>
-          <div className="flex gap-12 text-[9px] font-black text-slate-500 uppercase tracking-widest italic">
-             <a href="#" className="hover:text-white transition-colors">Legal</a>
-             <a href="#" className="hover:text-white transition-colors">Data Security</a>
-             <a href="#" className="hover:text-white transition-colors">Investor Relations</a>
-          </div>
-          <p className="text-[9px] font-black text-slate-700 uppercase tracking-[0.3em]">©2024 ALUPLAK METAL SYSTEMS S.L.</p>
+      <footer className="py-24 bg-black border-t border-white/5 text-center px-8">
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <div className="bg-yellow-400 p-1.5 rounded-lg"><Activity className="text-black" size={20} /></div>
+          <span className="text-3xl font-black italic uppercase tracking-tighter">ALUPLAK</span>
         </div>
+        <p className="text-[10px] font-bold tracking-[0.5em] text-slate-700 uppercase">© 2024 ALUPLAK METAL SYSTEMS S.L. MADRID, SPAIN.</p>
       </footer>
     </div>
   );
