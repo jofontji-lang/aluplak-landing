@@ -34,7 +34,7 @@ export default function App() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
-  // Función para llamar a Gemini con Backoff Exponencial
+  // Función para llamar a Gemini
   const fetchGemini = async (prompt, systemPrompt = "") => {
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
@@ -107,7 +107,7 @@ export default function App() {
     { year: '2026', rev: 220000, ebitda: 61600 },
   ];
 
-  // Datos para los nuevos gráficos de barras
+  // Datos para los gráficos de barras
   const ebitdaComparison = [
     { name: 'Sector Medio', value: 12 },
     { name: 'Carpintería', value: 18 },
@@ -139,6 +139,7 @@ export default function App() {
         </div>
         <div className="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
           <a href="#vision" className="hover:text-yellow-400 transition-colors">Visión</a>
+          <a href="#ebitda-section" className="hover:text-yellow-400 transition-colors">Margen</a>
           <a href="#tech" className="hover:text-yellow-400 transition-colors">Tecnología</a>
           <a href="#finance" className="hover:text-yellow-400 transition-colors">Finanzas</a>
           <a href="#ai-assistant" className="text-yellow-400 flex items-center gap-2"><Sparkles size={14}/> Asistente IA</a>
@@ -174,6 +175,59 @@ export default function App() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* NUEVA SECCIÓN: MARGEN EBITDA JUSTO DESPUÉS DEL HERO */}
+      <section id="ebitda-section" className="py-24 bg-[#020617] px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[120px] rounded-full" />
+        <div className="container mx-auto">
+          <div className="bg-slate-900/40 p-12 rounded-[4rem] border border-white/5 backdrop-blur-md shadow-2xl relative">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                   <div className="bg-blue-500 p-2 rounded-lg text-white shadow-lg shadow-blue-500/20"><TrendingUp size={20}/></div>
+                   <span className="text-blue-400 font-black uppercase text-[10px] tracking-widest italic tracking-[0.3em]">Liderazgo en Rentabilidad</span>
+                </div>
+                <h2 className="text-6xl font-black italic uppercase tracking-tighter leading-none mb-6">
+                  MARGEN <br/><span className="text-blue-500">EBITDA SUPERIOR</span>
+                </h2>
+                <p className="text-slate-400 italic text-lg leading-relaxed max-w-md">
+                  Aluplak no solo innova en producto, sino en modelo financiero. Nuestro margen supera en más del doble la media del sector de carpintería tradicional gracias a la industrialización.
+                </p>
+              </div>
+
+              <div className="h-[350px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={ebitdaComparison} layout="vertical" margin={{ left: 20 }}>
+                    <CartesianGrid stroke="#ffffff05" horizontal={false} />
+                    <XAxis type="number" hide />
+                    <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{fontSize: 11, fontWeight: 'black', fill: '#94a3b8', fontStyle: 'italic'}} 
+                      width={100}
+                    />
+                    <Tooltip 
+                      cursor={{fill: 'rgba(255,255,255,0.03)'}} 
+                      contentStyle={{backgroundColor: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', color: '#fff'}} 
+                    />
+                    <Bar dataKey="value" radius={[0, 20, 20, 0]} barSize={45}>
+                      {ebitdaComparison.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.name === 'ALUPLAK' ? '#3b82f6' : '#1e293b'} 
+                          className={entry.name === 'ALUPLAK' ? 'drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]' : ''}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -286,12 +340,11 @@ export default function App() {
           <div className="grid xl:grid-cols-3 gap-12 items-start">
             <div className="xl:col-span-2 space-y-12">
               
-              {/* Gráfico Principal Existente */}
               <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5 shadow-inner">
                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                     <h3 className="text-3xl font-black italic uppercase leading-none">PROYECCIÓN DE INGRESOS</h3>
                     <div className="bg-white/5 px-4 py-2 rounded-full">
-                       <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Penetración de Mercado</span>
+                       <span className="text-[9px] font-black uppercase text-slate-500 tracking-widest">Finanzas Proyectadas</span>
                     </div>
                  </div>
                  <div className="h-[300px] w-full">
@@ -306,61 +359,25 @@ export default function App() {
                       </ComposedChart>
                    </ResponsiveContainer>
                  </div>
-                 <div className="mt-8 flex justify-center gap-12 text-center">
-                    {revenueMix.map((item, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full" style={{backgroundColor: item.fill}}></div>
-                        <span className="text-[10px] font-bold uppercase text-slate-400">{item.name}</span>
-                      </div>
-                    ))}
-                 </div>
               </div>
 
-              {/* DOS NUEVOS GRÁFICOS DE BARRAS SOLICITADOS */}
-              <div className="grid md:grid-cols-2 gap-8">
-                
-                {/* Gráfico 1: Margen Sectorial */}
-                <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
-                  <div className="mb-8">
-                    <h4 className="text-xl font-black italic uppercase leading-none mb-2">MARGEN EBITDA (%)</h4>
-                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic">Benchmarking Sectorial</p>
-                  </div>
-                  <div className="h-[240px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={ebitdaComparison} layout="vertical">
-                        <CartesianGrid stroke="#ffffff05" horizontal={false} />
-                        <XAxis type="number" hide />
-                        <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#94a3b8'}} width={80} />
-                        <Tooltip cursor={{fill: 'transparent'}} contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
-                        <Bar dataKey="value" radius={[0, 10, 10, 0]} barSize={25}>
-                          {ebitdaComparison.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.name === 'ALUPLAK' ? '#facc15' : '#1e293b'} />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
+              {/* Gráfico 2: Eficiencia de Tiempo y Coste */}
+              <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
+                <div className="mb-10 text-center">
+                  <h4 className="text-3xl font-black italic uppercase leading-none mb-2">EFICIENCIA OPERATIVA</h4>
+                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic tracking-[0.4em]">Aluplak vs Sistema Tradicional</p>
                 </div>
-
-                {/* Gráfico 2: Eficiencia de Tiempo y Coste */}
-                <div className="bg-slate-900/30 p-10 rounded-[3.5rem] border border-white/5">
-                  <div className="mb-8">
-                    <h4 className="text-xl font-black italic uppercase leading-none mb-2">EFICIENCIA OPERATIVA</h4>
-                    <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest italic">Ahorro Aluplak vs Tradicional</p>
-                  </div>
-                  <div className="h-[240px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={efficiencyData}>
-                        <CartesianGrid stroke="#ffffff05" vertical={false} />
-                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 9, fontWeight: 'black', fill: '#94a3b8'}} />
-                        <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
-                        <Bar dataKey="tiempo" fill="#334155" radius={[10, 10, 0, 0]} barSize={25} />
-                        <Bar dataKey="coste" fill="#facc15" radius={[10, 10, 0, 0]} barSize={25} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
+                <div className="h-[280px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={efficiencyData}>
+                      <CartesianGrid stroke="#ffffff05" vertical={false} />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 10, fontWeight: 'black', fill: '#94a3b8'}} />
+                      <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '15px'}} />
+                      <Bar dataKey="tiempo" fill="#1e293b" radius={[15, 15, 0, 0]} barSize={35} name="Tiempo (min)" />
+                      <Bar dataKey="coste" fill="#facc15" radius={[15, 15, 0, 0]} barSize={35} name="Coste (%)" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
-
               </div>
 
               {/* Análisis de ROI IA */}
@@ -398,7 +415,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Panel de Inversión */}
+            {/* Panel de Inversión y Chat */}
             <div id="inversion" className="sticky top-28 space-y-8">
               <div className="bg-yellow-400 p-12 rounded-[4rem] text-black shadow-2xl relative overflow-hidden group">
                 <Rocket className="mb-8" size={48} />
@@ -423,7 +440,6 @@ export default function App() {
                 <button className="w-full py-7 bg-black text-white rounded-full font-black uppercase italic tracking-widest">Dossier de Inversión</button>
               </div>
 
-              {/* CHATBOT IA */}
               <div id="ai-assistant" className="bg-slate-900 border border-white/5 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col h-[500px]">
                 <div className="p-6 bg-slate-800 border-b border-white/5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -457,7 +473,7 @@ export default function App() {
                   <input 
                     type="text" 
                     placeholder="Pregunta sobre patentes..." 
-                    className="flex-1 bg-slate-800 border-none rounded-full px-4 text-xs focus:ring-1 focus:ring-yellow-400"
+                    className="flex-1 bg-slate-800 border-none rounded-full px-4 text-xs focus:ring-1 focus:ring-yellow-400 text-white"
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
