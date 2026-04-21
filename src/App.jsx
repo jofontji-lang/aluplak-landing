@@ -8,7 +8,7 @@ import {
   Activity, TrendingUp, Zap, ShieldCheck, 
   Droplets, Smartphone, CheckCircle2, Clock, Euro, Rocket, 
   Globe, Factory, Users, Target, BarChart3, Construction, 
-  ChevronRight, Timer
+  ChevronRight, Timer, Layers, LayoutGrid
 } from 'lucide-react';
 
 export default function App() {
@@ -53,12 +53,12 @@ export default function App() {
       <nav className="fixed top-0 w-full z-[500] bg-black/80 backdrop-blur-md border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <Activity className="text-yellow-400" size={24} />
-          <span className="text-xl font-black italic uppercase tracking-tighter">ALUPLAK</span>
+          <span className="text-xl font-black italic uppercase tracking-tighter text-white">ALUPLAK</span>
         </div>
         <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
           <a href="#ahorro" className="hover:text-yellow-400 transition-colors">Eficiencia</a>
+          <a href="#gama" className="hover:text-yellow-400 transition-colors">Galería</a>
           <a href="#estrategia" className="hover:text-yellow-400 transition-colors">Estrategia</a>
-          <a href="#galeria" className="hover:text-yellow-400 transition-colors">Gama</a>
           <a href="#metricas" className="bg-yellow-400 text-black px-4 py-1 rounded-full hover:bg-white transition-all">Investor Portal</a>
         </div>
       </nav>
@@ -66,8 +66,9 @@ export default function App() {
       {/* HERO */}
       <section className="relative h-screen flex items-center overflow-hidden px-6 md:px-12">
         <div className="absolute inset-0 z-0">
-          <img src="/Aluplak1.jpeg" className="w-full h-full object-cover opacity-30" alt="Aluplak Background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
+          <img src="/Aluplak1.jpeg" className="w-full h-full object-cover opacity-40 scale-110 blur-[2px]" alt="Aluplak Background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="container mx-auto relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -103,7 +104,7 @@ export default function App() {
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400">Optimización de Campo</span>
                   </div>
-                  <h3 className="text-3xl font-black italic uppercase leading-none mb-3">Sencillez <br/> Estructural</h3>
+                  <h3 className="text-3xl font-black italic uppercase leading-none mb-3 text-white">Sencillez <br/> Estructural</h3>
                   <p className="text-slate-300 text-sm font-light italic leading-relaxed">
                     El sistema de clipado directo elimina la necesidad de herramientas complejas, reduciendo el error humano y acelerando la entrega de obra.
                   </p>
@@ -114,7 +115,7 @@ export default function App() {
             {/* Panel de Gráfico de Ahorro */}
             <div className="w-full lg:w-7/12 flex flex-col justify-between">
               <div className="mb-12">
-                <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter leading-tight mb-4">
+                <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter leading-tight mb-4 text-white">
                   Ahorro en <br/> <span className="text-yellow-400">Mano de Obra</span>
                 </h2>
                 <p className="text-lg text-slate-400 font-light italic max-w-xl">
@@ -162,7 +163,7 @@ export default function App() {
                     <span className="text-[10px] font-black uppercase tracking-widest">Tiempo Estimado</span>
                   </div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-black italic">8.0h</span>
+                    <span className="text-4xl font-black italic text-white">8.0h</span>
                     <span className="text-xs text-slate-500 italic">tradicional</span>
                   </div>
                 </div>
@@ -183,11 +184,46 @@ export default function App() {
         </div>
       </section>
 
+      {/* NUEVA SECCIÓN: GAMA Y DETALLE (Usando Aluplak 3, 4, 5, 6) */}
+      <section id="gama" className="py-32 bg-black px-6 md:px-12">
+        <div className="container mx-auto">
+          <div className="flex items-end justify-between mb-16">
+            <div>
+              <h2 className="text-5xl font-black italic uppercase tracking-tighter text-white">Gama de <br/> <span className="text-yellow-400">Producto</span></h2>
+              <p className="text-slate-400 italic mt-4 max-w-md">Versatilidad estética sin comprometer la eficiencia técnica.</p>
+            </div>
+            <LayoutGrid className="text-slate-700" size={60} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { img: "/Aluplak3.jpeg", title: "Minimal", desc: "Perfiles de baja intrusión" },
+              { img: "/Aluplak4.jpeg", title: "Industrial", desc: "Resistencia extrema" },
+              { img: "/Aluplak5.jpeg", title: "Architect", desc: "Detalles premium" },
+              { img: "/Aluplak6.jpeg", title: "Elite", desc: "Máxima disipación" }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -10 }}
+                className="group relative h-[450px] rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl"
+              >
+                <img src={item.img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={item.title} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                <div className="absolute bottom-8 left-8">
+                  <h4 className="text-2xl font-black italic uppercase text-white">{item.title}</h4>
+                  <p className="text-yellow-400 text-xs font-bold uppercase tracking-widest mt-2">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ESTRATEGIA Y CRECIMIENTO */}
-      <section id="estrategia" className="py-32 bg-black px-6 md:px-12">
+      <section id="estrategia" className="py-32 bg-slate-950 px-6 md:px-12">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <h2 className="text-5xl font-black italic uppercase tracking-tighter">Plan de <br/> <span className="text-yellow-400">Escalabilidad</span></h2>
+            <h2 className="text-5xl font-black italic uppercase tracking-tighter text-white">Plan de <br/> <span className="text-yellow-400">Escalabilidad</span></h2>
             <div className="text-right text-slate-500 text-xs font-bold uppercase tracking-[0.3em] max-w-xs">
               Estrategia comercial focalizada en la exportación y eficiencia logística.
             </div>
@@ -197,7 +233,7 @@ export default function App() {
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
                 <Globe size={24} />
               </div>
-              <h4 className="text-xl font-black italic uppercase mb-4">Exportación</h4>
+              <h4 className="text-xl font-black italic uppercase mb-4 text-white">Exportación</h4>
               <p className="text-slate-400 font-light leading-relaxed italic text-sm">
                 Tarifas específicas para mercados internacionales optimizando márgenes netos y logística transfronteriza.
               </p>
@@ -206,7 +242,7 @@ export default function App() {
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
                 <Factory size={24} />
               </div>
-              <h4 className="text-xl font-black italic uppercase mb-4">Métrica por Metro</h4>
+              <h4 className="text-xl font-black italic uppercase mb-4 text-white">Métrica por Metro</h4>
               <p className="text-slate-400 font-light leading-relaxed italic text-sm">
                 Cálculo de beneficio exacto por Metro Lineal vs Barra de 2.4m, eliminando mermas y fugas de capital en obra.
               </p>
@@ -215,7 +251,7 @@ export default function App() {
               <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-yellow-400 group-hover:text-black transition-colors">
                 <Users size={24} />
               </div>
-              <h4 className="text-xl font-black italic uppercase mb-4">Red de Distribución</h4>
+              <h4 className="text-xl font-black italic uppercase mb-4 text-white">Red de Distribución</h4>
               <p className="text-slate-400 font-light leading-relaxed italic text-sm">
                 Esquema de precios recomendado para distribuidores que asegura una penetración de mercado rápida y sostenible.
               </p>
@@ -224,10 +260,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* EFICIENCIA ENERGÉTICA */}
-      <section className="py-32 bg-slate-950 px-6 md:px-12 border-y border-white/5">
-        <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-center">
-          <div className="order-2 lg:order-1 bg-slate-900/20 p-8 rounded-[2.5rem] border border-white/5 h-[400px]">
+      {/* EFICIENCIA ENERGÉTICA Contextual con Aluplak 7 */}
+      <section className="relative py-32 bg-black px-6 md:px-12 border-y border-white/5 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-10">
+          <img src="/Aluplak7.jpeg" className="w-full h-full object-cover" alt="Detalle técnico" />
+        </div>
+        <div className="container mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
+          <div className="order-2 lg:order-1 bg-slate-900/40 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/5 h-[400px]">
              <div className="flex justify-between items-center mb-8">
                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Curva de Consumo Térmico (kWh)</span>
                <div className="flex gap-4">
@@ -245,7 +284,7 @@ export default function App() {
             </ResponsiveContainer>
           </div>
           <div className="order-1 lg:order-2 space-y-8">
-            <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter">Radiación <br/> <span className="text-yellow-400">Inteligente</span></h2>
+            <h2 className="text-5xl md:text-6xl font-black italic uppercase tracking-tighter text-white">Radiación <br/> <span className="text-yellow-400">Inteligente</span></h2>
             <p className="text-lg text-slate-400 font-light italic leading-relaxed">
               Invisotherm no calienta el aire, calienta la masa. El resultado es una sensación térmica instantánea con un ahorro real del 30% en la factura eléctrica del cliente final.
             </p>
@@ -270,13 +309,13 @@ export default function App() {
           <div className="rounded-[3rem] overflow-hidden border border-white/5 aspect-video shadow-2xl relative group">
             <video src="/AluplakVideo1.mp4" controls className="w-full h-full object-cover" />
             <div className="absolute top-6 left-6 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10">Demo Técnica v.01</span>
+              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10 text-white">Demo Técnica v.01</span>
             </div>
           </div>
           <div className="rounded-[3rem] overflow-hidden border border-white/5 aspect-video shadow-2xl relative group">
             <video src="/AluplakVideo2.mp4" controls className="w-full h-full object-cover" />
             <div className="absolute top-6 left-6 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10">Instalación Real</span>
+              <span className="bg-black/60 backdrop-blur px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border border-white/10 text-white">Instalación Real</span>
             </div>
           </div>
         </div>
@@ -287,7 +326,7 @@ export default function App() {
         <div className="container mx-auto">
           <div className="grid xl:grid-cols-3 gap-16 items-center">
             <div className="xl:col-span-2">
-              <h2 className="text-[8vw] font-black italic uppercase leading-[0.8] mb-12 tracking-tighter">PROYECCIÓN <br/> <span className="text-yellow-400">DE RETORNO</span></h2>
+              <h2 className="text-[8vw] font-black italic uppercase leading-[0.8] mb-12 tracking-tighter text-white">PROYECCIÓN <br/> <span className="text-yellow-400">DE RETORNO</span></h2>
               <div className="h-[400px] bg-slate-900/20 p-8 rounded-[3rem] border border-white/5">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={financialStats}>
@@ -328,13 +367,13 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="py-24 bg-black text-center border-t border-white/5">
-        <h2 className="text-4xl font-black italic uppercase mb-8 tracking-tighter">ALUPLAK <span className="text-yellow-400">INDUSTRIES</span></h2>
+        <h2 className="text-4xl font-black italic uppercase mb-8 tracking-tighter text-white">ALUPLAK <span className="text-yellow-400">INDUSTRIES</span></h2>
         <div className="flex justify-center gap-8 mb-12">
-           <Activity className="opacity-20" />
-           <Target className="opacity-20" />
-           <TrendingUp className="opacity-20" />
+           <Activity className="opacity-20 text-white" />
+           <Target className="opacity-20 text-white" />
+           <TrendingUp className="opacity-20 text-white" />
         </div>
-        <p className="opacity-20 text-[9px] font-bold tracking-[0.6em] uppercase">© 2026 ALUPLAK SKIRTING BOARD S.L • SPAIN</p>
+        <p className="opacity-20 text-[9px] font-bold tracking-[0.6em] uppercase text-white">© 2026 ALUPLAK SKIRTING BOARD S.L • SPAIN</p>
       </footer>
     </div>
   );
