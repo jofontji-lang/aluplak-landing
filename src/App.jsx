@@ -152,7 +152,7 @@ export default function App() {
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
             <span className="text-yellow-400 font-black uppercase tracking-[0.5em] text-[10px] mb-6 block italic">Industrializando el futuro</span>
             <h1 className="text-[14vw] lg:text-[10rem] font-black italic leading-[0.75] uppercase tracking-tighter mb-10">
-              REDEFINIENDO EL <br /> <span className="text-yellow-400">ZÓCALO.</span>
+              OPORTUNIDAD DE <br /> <span className="text-yellow-400">INVERSIÓN.</span>
             </h1>
             <div className="flex flex-wrap gap-12 items-center">
               <p className="text-lg md:text-xl font-light italic text-slate-400 max-w-xl border-l-2 border-yellow-400/50 pl-8 leading-relaxed">
