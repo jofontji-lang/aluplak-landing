@@ -141,86 +141,68 @@ export default function App() {
           </div>
         </div>
       </section>
-
-  {/* SECCIÓN NUEVA: DEMOSTRACIÓN TÉCNICA Y PRODUCTO EN ACCIÓN */}
+{/* SECCIÓN: DEMOSTRACIÓN TÉCNICA Y PRODUCTO EN ACCIÓN (Manual Play) */}
 <section className="bg-[#020617] py-32 px-6 border-t border-white/5">
   <div className="max-w-7xl mx-auto">
     <SectionTitle 
       title="Tecnología en Movimiento" 
-      subtitle="Visualiza la disrupción de Aluplak" 
+      subtitle="Haz clic para visualizar la disrupción de Aluplak" 
     />
 
     <div className="grid md:grid-cols-2 gap-8">
       
       {/* CARD VIDEO 2: FOCO EN INSTALACIÓN / ACABADO */}
-      <motion.div 
-        whileHover={{ y: -10 }}
-        className="group relative bg-white/5 rounded-[3rem] overflow-hidden border border-white/10"
-      >
-        <div className="aspect-video w-full overflow-hidden">
+      <div className="group relative bg-white/5 rounded-[3rem] overflow-hidden border border-white/10">
+        <div className="aspect-video w-full overflow-hidden bg-black">
           <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
+            controls 
+            preload="metadata"
+            poster="/Aluplak5.jpeg" // Usa una de tus imágenes como portada
             className="w-full h-full object-cover"
           >
             <source src="/AluplakVideo2.mp4" type="video/mp4" />
+            Tu navegador no soporta videos.
           </video>
         </div>
         <div className="p-10">
           <div className="flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Sistema Bi-Componente</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-yellow-400 font-mono">Video ID: 02 / Instalación</span>
           </div>
           <h3 className="text-2xl font-black italic text-white uppercase mb-4 tracking-tighter">
             Montaje en tiempo récord
           </h3>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Eliminamos la albañilería tradicional. Instalación limpia, desmontable y preparada para el registro de instalaciones sin daños en pared.
+            Visualiza cómo el sistema bi-componente reduce drásticamente los tiempos de ejecución en obra blanca.
           </p>
         </div>
-      </motion.div>
+      </div>
 
       {/* CARD VIDEO 1: FOCO EN DISEÑO Y CALOR INVISIBLE */}
-      <motion.div 
-        whileHover={{ y: -10 }}
-        className="group relative bg-white/5 rounded-[3rem] overflow-hidden border border-white/10"
-      >
-        <div className="aspect-video w-full overflow-hidden">
+      <div className="group relative bg-white/5 rounded-[3rem] overflow-hidden border border-white/10">
+        <div className="aspect-video w-full overflow-hidden bg-black">
           <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+            controls 
+            preload="metadata"
+            poster="/Aluplak1.jpeg" // Usa otra imagen como portada
+            className="w-full h-full object-cover"
           >
             <source src="/AluplakVideo1.mp4" type="video/mp4" />
+            Tu navegador no soporta videos.
           </video>
         </div>
         <div className="p-10">
           <div className="flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-blue-400">Nanotecnología Térmica</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 font-mono">Video ID: 01 / Concepto</span>
           </div>
           <h3 className="text-2xl font-black italic text-white uppercase mb-4 tracking-tighter">
             Invisotherm: El futuro térmico
           </h3>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Panel de fibrocemento calefactable de una sola pieza. La integración perfecta entre estructura constructiva y confort climático.
+            Demostración estética de la integración de nanotecnología en paneles de fibrocemento.
           </p>
         </div>
-      </motion.div>
+      </div>
 
-    </div>
-
-    {/* MIRA TAMBIÉN: GALERÍA DE DETALLE (Usando tus imágenes JPEGs) */}
-    <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-      {["Aluplak3.jpeg", "Aluplak4.jpg", "Aluplak6.jpeg", "Aluplak1.jpeg"].map((img, idx) => (
-        <div key={idx} className="h-40 rounded-2xl overflow-hidden border border-white/5 opacity-50 hover:opacity-100 transition">
-          <img src={`/${img}`} alt="Detalle Aluplak" className="w-full h-full object-cover" />
-        </div>
-      ))}
     </div>
   </div>
 </section>
