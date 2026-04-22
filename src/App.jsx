@@ -359,44 +359,61 @@ export default function App() {
   </div>
 </section>
       
-      {/* 4. AHORRO Y EFICIENCIA (ENERGÍA + MANO DE OBRA) */}
-      <section id="eficiencia" className="bg-white px-6 py-32 text-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+   {/* 4. AHORRO Y EFICIENCIA (ENERGÍA + MANO DE OBRA) */}
+<section id="eficiencia" className="bg-white px-6 py-32 text-black">
+  <div className="max-w-7xl mx-auto">
+    <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div>
+        <SectionTitle title="Eficiencia Radical" subtitle="Ahorro Operativo y Energético" />
+        
+        {/* NUEVO: DESTACADO DE ROI ESTRATÉGICO */}
+        <div className="mb-10 bg-yellow-400/10 border-l-4 border-yellow-400 p-6 rounded-r-2xl">
+          <div className="flex items-center gap-4">
+            <div className="text-5xl font-black italic tracking-tighter text-black">3.5x</div>
             <div>
-              <SectionTitle title="Eficiencia Radical" subtitle="Ahorro Operativo y Energético" />
-              <div className="space-y-12">
-                <div className="flex gap-6">
-                  <div className="bg-black text-white w-16 h-16 rounded-2xl flex items-center justify-center shrink-0">
-                    <Clock size={32} />
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-black italic uppercase tracking-tighter">-80% Tiempo de Obra</h4>
-                    <p className="text-slate-600 mt-2 leading-relaxed">El sistema bi-componente permite un montaje inmediato sin rozas ni albañilería[cite: 12].</p>
-                  </div>
-                </div>
-                <div className="flex gap-6">
-                  <div className="bg-yellow-400 text-black w-16 h-16 rounded-2xl flex items-center justify-center shrink-0">
-                    <Zap size={32} />
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-black italic uppercase tracking-tighter Eficiencia Térmica">Consumo Inteligente</h4>
-                    <p className="text-slate-600 mt-2 leading-relaxed">Nanotecnología térmica que no consume oxígeno ni necesita mantenimiento indefinido[cite: 78, 79].</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <img src="/Aluplak5.jpeg" className="rounded-[4rem] shadow-2xl" alt="Eficiencia Aluplak" />
-              <div className="absolute -bottom-10 -left-10 bg-black text-white p-10 rounded-[3rem] max-w-xs">
-                <div className="text-5xl font-black italic text-yellow-400 mb-2">ROI 3.5x</div>
-                <p className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Proyección de retorno sobre inversión inmobiliaria.</p>
-              </div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-yellow-600">ROI Proyectado</p>
+              <p className="text-sm font-bold leading-tight">Retorno de inversión basado en la reducción de tiempos y eficiencia de Invisotherm.</p>
             </div>
           </div>
         </div>
-      </section>
 
+        <div className="space-y-12">
+          <div className="flex gap-6">
+            <div className="bg-black text-white w-16 h-16 rounded-2xl flex items-center justify-center shrink-0">
+              <Clock size={32} />
+            </div>
+            <div>
+              <h4 className="text-2xl font-black italic uppercase tracking-tighter">-80% Tiempo de Obra</h4>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                El sistema bi-componente permite un montaje inmediato sin rozas ni albañilería, optimizando el coste de mano de obra.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-6">
+            <div className="bg-yellow-400 text-black w-16 h-16 rounded-2xl flex items-center justify-center shrink-0">
+              <Zap size={32} />
+            </div>
+            <div>
+              <h4 className="text-2xl font-black italic uppercase tracking-tighter">Confort Inteligente</h4>
+              <p className="text-slate-600 mt-2 leading-relaxed">
+                Nanotecnología térmica de baja inercia: calor por radiación que no consume oxígeno y maximiza el ahorro energético.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative">
+        <img src="/Aluplak5.jpeg" className="rounded-[4rem] shadow-2xl border-8 border-slate-100" alt="Eficiencia Aluplak" />
+        {/* Pequeño detalle técnico extraído de la ficha técnica */}
+        <div className="absolute -top-6 -right-6 bg-black text-white px-6 py-4 rounded-2xl shadow-xl">
+           <p className="text-[10px] font-black uppercase tracking-widest text-yellow-400">Espesor del Panel</p>
+           <p className="text-2xl font-black italic">~1mm</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       {/* 5. SECCIÓN PROPIEDAD INTELECTUAL */}
       <section className="max-w-7xl mx-auto px-6 py-32">
         <div className="bg-[#0f172a] border border-white/10 rounded-[4rem] p-16 relative overflow-hidden">
