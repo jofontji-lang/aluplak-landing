@@ -82,71 +82,155 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3. SECCIÓN FINANCIERA DETALLADA */}
-      <section id="finanzas" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div>
-            <h2 className="text-5xl font-black italic tracking-tighter text-white uppercase">Métricas de Rendimiento</h2>
-            <p className="text-yellow-400 font-bold tracking-[0.2em] text-xs uppercase mt-2">Evolución prevista e ingresos 2026</p>
+{/* 3. SECCIÓN FINANCIERA: DOMINIO DEL MERCADO & SUPERIORIDAD DE MARGEN */}
+<section id="finanzas" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+  <div className="mb-16">
+    <div className="flex items-center gap-2 mb-4">
+      <span className="h-px w-12 bg-yellow-400"></span>
+      <span className="text-yellow-400 font-black uppercase tracking-[0.3em] text-xs">Análisis Comparativo de Mercado</span>
+    </div>
+    <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-none">
+      RENTABILIDAD <br /> <span className="text-yellow-400">DISRUPTIVA.</span>
+    </h2>
+  </div>
+
+  <div className="grid lg:grid-cols-12 gap-8">
+    
+    {/* COLUMNA IZQUIERDA: EL "GAP" CON LA COMPETENCIA */}
+    <div className="lg:col-span-5 flex flex-col gap-6">
+      <div className="bg-white/5 border border-white/10 p-8 rounded-[3rem] relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
+          <TrendingUp className="text-yellow-400" size={40} />
+        </div>
+        <h3 className="text-xl font-black italic text-white uppercase mb-8">Margen EBITDA vs Competencia</h3>
+        
+        <div className="space-y-10">
+          {/* Aluplak */}
+          <div className="relative">
+            <div className="flex justify-between mb-2 items-end">
+              <span className="text-yellow-400 font-black tracking-widest text-xs uppercase">Aluplak Tech</span>
+              <span className="text-3xl font-black text-white italic">78%</span>
+            </div>
+            <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }} 
+                whileInView={{ width: "78%" }} 
+                className="h-full bg-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.4)]"
+              />
+            </div>
+            <p className="text-[10px] text-slate-500 mt-2 font-bold uppercase">Ventaja: Integración vertical y Nanotecnología propia.</p>
           </div>
-          <div className="flex bg-white/5 p-1 rounded-full border border-white/10">
-            {["ventas", "roi"].map((tab) => (
-              <button 
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-full text-[10px] font-black uppercase transition ${activeTab === tab ? 'bg-yellow-400 text-black' : 'text-slate-400'}`}
-              >
-                {tab === "ventas" ? "Evolución Ingresos" : "EBITDA & ROI"}
-              </button>
-            ))}
+
+          {/* Media Sector */}
+          <div className="relative opacity-50">
+            <div className="flex justify-between mb-2 items-end">
+              <span className="text-slate-400 font-black tracking-widest text-xs uppercase">Media Sector HVAC</span>
+              <span className="text-2xl font-black text-slate-400 italic">28%</span>
+            </div>
+            <div className="h-4 w-full bg-white/10 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }} 
+                whileInView={{ width: "28%" }} 
+                className="h-full bg-slate-500"
+              />
+            </div>
+            <p className="text-[10px] text-slate-600 mt-2 font-bold uppercase">Basado en sistemas tradicionales de alta estructura de costes.</p>
           </div>
         </div>
+      </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white/5 border border-white/10 p-10 rounded-[3rem]">
-            <div className="h-[400px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                {activeTab === "ventas" ? (
-                  <AreaChart data={financialData.ventas}>
-                    <defs>
-                      <linearGradient id="gradSales" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#facc15" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#facc15" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
-                    <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
-                    <Tooltip contentStyle={{backgroundColor: '#0f172a', border: 'none', borderRadius: '16px'}} />
-                    <Area type="monotone" dataKey="monto" stroke="#facc15" strokeWidth={4} fill="url(#gradSales)" />
-                  </AreaChart>
-                ) : (
-                  <BarChart data={financialData.margenes} layout="vertical">
-                    <XAxis type="number" hide />
-                    <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#fff', fontSize: 14, fontWeight: '900'}} />
-                    <Tooltip cursor={{fill: '#ffffff05'}} />
-                    <Bar dataKey="valor" radius={[0, 20, 20, 0]} barSize={60}>
-                      {financialData.margenes.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                      <LabelList dataKey="valor" position="right" fill="#fff" fontSize={20} fontWeight="900" formatter={(v) => `${v}% EBITDA`} />
-                    </Bar>
-                  </BarChart>
-                )}
-              </ResponsiveContainer>
-            </div>
+      {/* KPI RÁPIDO: ESCALABILIDAD */}
+      <div className="bg-yellow-400 p-8 rounded-[3rem] text-black">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="bg-black text-white p-2 rounded-lg">
+            <DollarSign size={20} />
           </div>
-          <div className="bg-yellow-400 text-black p-12 rounded-[3rem] flex flex-col justify-between">
-            <div>
-              <Target size={48} className="mb-6" />
-              <h3 className="text-4xl font-black italic tracking-tighter leading-none mb-4">3.5x ROI <br/>ESTIMADO</h3>
-              <p className="font-bold text-sm uppercase leading-tight opacity-80">Retorno de inversión basado en escalabilidad internacional y baja estructura de costes fijos.</p>
-            </div>
-            <div className="pt-8 border-t border-black/10">
-              <p className="text-xs font-black uppercase">Punto de equilibrio</p>
-              <p className="text-2xl font-black italic">Q2 2026</p>
-            </div>
-          </div>
+          <span className="font-black uppercase text-xs tracking-widest">Inversión Smart</span>
         </div>
-      </section>
+        <div className="text-5xl font-black italic tracking-tighter leading-none">3.5x ROI</div>
+        <p className="text-sm font-bold mt-2 leading-tight uppercase opacity-80">Proyección de retorno a 24 meses basada en contratos de distribución en +30 países.</p>
+      </div>
+    </div>
 
+    {/* COLUMNA DERECHA: EL GRÁFICO DE CRECIMIENTO EXPONENCIAL */}
+    <div className="lg:col-span-7 bg-[#0f172a] border border-white/10 p-10 rounded-[3rem] relative overflow-hidden">
+      <div className="flex justify-between items-start mb-12">
+        <div>
+          <h3 className="text-2xl font-black italic text-white uppercase tracking-tighter">Trayectoria de Ingresos</h3>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mt-1">Crecimiento YoY Consolidado</p>
+        </div>
+        <div className="flex gap-2">
+            <div className="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-black uppercase border border-green-500/20">
+              +51% Growth 2023
+            </div>
+            <div className="bg-yellow-400/10 text-yellow-400 px-3 py-1 rounded-full text-[10px] font-black uppercase border border-yellow-400/20">
+              Target 2026
+            </div>
+        </div>
+      </div>
+
+      <div className="h-[400px] w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={financialData.ventas}>
+            <defs>
+              <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#facc15" stopOpacity={0.4}/>
+                <stop offset="95%" stopColor="#facc15" stopOpacity={0}/>
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
+            <XAxis 
+              dataKey="year" 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{fill: '#475569', fontSize: 12, fontWeight: 'bold'}} 
+              dy={15}
+            />
+            <YAxis hide domain={[0, 250000]} />
+            <Tooltip 
+              cursor={{ stroke: '#facc15', strokeWidth: 2, strokeDasharray: '5 5' }}
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-black border border-white/10 p-4 rounded-2xl shadow-2xl">
+                      <p className="text-[10px] font-black uppercase text-slate-500 mb-1">{payload[0].payload.year}</p>
+                      <p className="text-xl font-black italic text-white">{payload[0].value.toLocaleString()}€</p>
+                      <p className="text-[9px] font-black text-yellow-400 uppercase mt-1">{payload[0].payload.tag}</p>
+                    </div>
+                  );
+                }
+                return null;
+              }}
+            />
+            <Area 
+              type="monotone" 
+              dataKey="monto" 
+              stroke="#facc15" 
+              strokeWidth={4} 
+              fillOpacity={1} 
+              fill="url(#colorSales)" 
+              animationDuration={2000}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
+        {[
+          { label: "Punto Equilibrio", val: "Q2 2026" },
+          { label: "EBITDA Anual", val: "78.4%" },
+          { label: "Asset Value", val: "IP Patent" }
+        ].map((item, i) => (
+          <div key={i}>
+            <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">{item.label}</p>
+            <p className="text-lg font-black italic text-white">{item.val}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
       {/* 4. AHORRO COSTES ENERGÉTICOS */}
       <section className="py-32 px-6 bg-white/5">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
