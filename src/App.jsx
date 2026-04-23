@@ -76,7 +76,7 @@ export default function App() {
             </p>
             <div className="flex gap-4">
               <img src="/Aluplak1.jpeg" className="w-24 h-24 object-cover rounded-2xl border border-white/10" alt="Detail" />
-              <img src="/Aluplak4.jpg" className="w-24 h-24 object-cover rounded-2xl border border-white/10" alt="Detail" />
+              <img src="/Aluplak4.jpeg" className="w-24 h-24 object-cover rounded-2xl border border-white/10" alt="Detail" />
             </div>
           </motion.div>
         </div>
