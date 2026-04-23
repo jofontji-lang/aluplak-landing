@@ -82,155 +82,141 @@ export default function App() {
         </div>
       </section>
 
-{/* 3. SECCIÓN FINANCIERA: DOMINIO DEL MERCADO & SUPERIORIDAD DE MARGEN */}
+{/* 3. SECCIÓN FINANCIERA: RADAR DE INVERSIÓN & DISRUPCIÓN DE MÁRGENES */}
 <section id="finanzas" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
-  <div className="mb-16">
-    <div className="flex items-center gap-2 mb-4">
-      <span className="h-px w-12 bg-yellow-400"></span>
-      <span className="text-yellow-400 font-black uppercase tracking-[0.3em] text-xs">Análisis Comparativo de Mercado</span>
+  
+  {/* Encabezado con el concepto de Integración Vertical */}
+  <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-8">
+    <div className="max-w-2xl">
+      <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-none mb-6">
+        EFICIENCIA DE <br /> <span className="text-yellow-400">CAPITAL.</span>
+      </h2>
+      <p className="text-slate-400 text-lg border-l-2 border-yellow-400 pl-6 italic">
+        "No competimos en precio, competimos en rentabilidad. Aluplak transforma el coste de construcción en un activo tecnológico de alto margen."
+      </p>
     </div>
-    <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-none">
-      RENTABILIDAD <br /> <span className="text-yellow-400">DISRUPTIVA.</span>
-    </h2>
+    <div className="bg-white/5 p-6 rounded-3xl border border-white/10 flex-1">
+      <p className="text-yellow-400 font-black uppercase text-[10px] tracking-widest mb-2">Pilar Estratégico 01</p>
+      <h4 className="text-white font-black italic uppercase text-lg">Integración Vertical</h4>
+      <p className="text-slate-500 text-sm mt-2">
+        Fabricamos tecnología propia basada en micas y carbonos. Al eliminar intermediarios, convertimos materiales ligeros en soluciones de alto valor.
+      </p>
+    </div>
   </div>
 
   <div className="grid lg:grid-cols-12 gap-8">
     
-    {/* COLUMNA IZQUIERDA: EL "GAP" CON LA COMPETENCIA */}
-    <div className="lg:col-span-5 flex flex-col gap-6">
-      <div className="bg-white/5 border border-white/10 p-8 rounded-[3rem] relative overflow-hidden group">
-        <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity">
-          <TrendingUp className="text-yellow-400" size={40} />
+    {/* COLUMNA IZQUIERDA: COMPARATIVA EBITDA */}
+    <div className="lg:col-span-5 space-y-8">
+      <div className="bg-[#0f172a] border border-white/10 p-10 rounded-[3rem] relative overflow-hidden group">
+        <div className="flex justify-between items-end mb-10">
+          <h3 className="text-2xl font-black italic text-white uppercase leading-tight">Margen <br /> EBITDA</h3>
+          <div className="text-right">
+            <span className="text-5xl font-black text-yellow-400 italic">78%</span>
+            <p className="text-[10px] text-slate-500 font-bold uppercase">Vs 28% Sector</p>
+          </div>
         </div>
-        <h3 className="text-xl font-black italic text-white uppercase mb-8">Margen EBITDA vs Competencia</h3>
         
-        <div className="space-y-10">
-          {/* Aluplak */}
-          <div className="relative">
-            <div className="flex justify-between mb-2 items-end">
-              <span className="text-yellow-400 font-black tracking-widest text-xs uppercase">Aluplak Tech</span>
-              <span className="text-3xl font-black text-white italic">78%</span>
-            </div>
-            <div className="h-4 w-full bg-white/5 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }} 
-                whileInView={{ width: "78%" }} 
-                className="h-full bg-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.4)]"
-              />
-            </div>
-            <p className="text-[10px] text-slate-500 mt-2 font-bold uppercase">Ventaja: Integración vertical y Nanotecnología propia.</p>
+        {/* Gráfico de Barras Comparativo */}
+        <div className="space-y-6">
+          <div className="h-12 bg-white/5 rounded-2xl relative overflow-hidden border border-white/5">
+            <motion.div 
+              initial={{ width: 0 }} 
+              whileInView={{ width: "78%" }} 
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400 flex items-center px-4"
+            >
+              <span className="text-black font-black text-[10px] uppercase">Aluplak Tech</span>
+            </motion.div>
           </div>
-
-          {/* Media Sector */}
-          <div className="relative opacity-50">
-            <div className="flex justify-between mb-2 items-end">
-              <span className="text-slate-400 font-black tracking-widest text-xs uppercase">Media Sector HVAC</span>
-              <span className="text-2xl font-black text-slate-400 italic">28%</span>
-            </div>
-            <div className="h-4 w-full bg-white/10 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }} 
-                whileInView={{ width: "28%" }} 
-                className="h-full bg-slate-500"
-              />
-            </div>
-            <p className="text-[10px] text-slate-600 mt-2 font-bold uppercase">Basado en sistemas tradicionales de alta estructura de costes.</p>
+          <div className="h-12 bg-white/5 rounded-2xl relative overflow-hidden border border-white/5 opacity-40">
+            <motion.div 
+              initial={{ width: 0 }} 
+              whileInView={{ width: "28%" }} 
+              className="h-full bg-slate-600 flex items-center px-4"
+            >
+              <span className="text-white font-black text-[10px] uppercase tracking-tighter">Competencia HVAC</span>
+            </motion.div>
           </div>
         </div>
+
+        <p className="mt-8 text-xs text-slate-400 leading-relaxed uppercase font-bold tracking-tight">
+          Nuestra ventaja: El <span className="text-white">Modelo "Asset-Light"</span>. No vendemos hierro, vendemos IP. Esto permite que casi todo el margen bruto fluya directamente al beneficio operativo.
+        </p>
       </div>
 
-      {/* KPI RÁPIDO: ESCALABILIDAD */}
-      <div className="bg-yellow-400 p-8 rounded-[3rem] text-black">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="bg-black text-white p-2 rounded-lg">
-            <DollarSign size={20} />
-          </div>
-          <span className="font-black uppercase text-xs tracking-widest">Inversión Smart</span>
-        </div>
-        <div className="text-5xl font-black italic tracking-tighter leading-none">3.5x ROI</div>
-        <p className="text-sm font-bold mt-2 leading-tight uppercase opacity-80">Proyección de retorno a 24 meses basada en contratos de distribución en +30 países.</p>
+      {/* KPI: Mantenimiento Cero */}
+      <div className="bg-yellow-400 p-10 rounded-[3rem] text-black group hover:scale-[1.02] transition-transform cursor-default">
+        <Activity size={40} className="mb-4" />
+        <h4 className="text-xl font-black uppercase italic leading-none mb-2">Mantenimiento Cero = <br /> Valor Infinito</h4>
+        <p className="text-sm font-bold opacity-80 uppercase leading-tight">
+          Sin fluidos ni partes móviles. Eliminamos el coste de postventa que erosiona los márgenes de los fabricantes tradicionales.
+        </p>
       </div>
     </div>
 
-    {/* COLUMNA DERECHA: EL GRÁFICO DE CRECIMIENTO EXPONENCIAL */}
-    <div className="lg:col-span-7 bg-[#0f172a] border border-white/10 p-10 rounded-[3rem] relative overflow-hidden">
-      <div className="flex justify-between items-start mb-12">
+    {/* COLUMNA DERECHA: CRECIMIENTO Y PROYECCIÓN */}
+    <div className="lg:col-span-7 bg-white/5 border border-white/10 p-10 rounded-[3rem] flex flex-col">
+      <div className="flex justify-between items-start mb-8">
         <div>
-          <h3 className="text-2xl font-black italic text-white uppercase tracking-tighter">Trayectoria de Ingresos</h3>
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mt-1">Crecimiento YoY Consolidado</p>
+          <h3 className="text-3xl font-black italic text-white uppercase tracking-tighter">Trayectoria Proyectada</h3>
+          <p className="text-[10px] font-black text-yellow-400 uppercase tracking-[0.4em] mt-2">Escalabilidad Global 2026</p>
         </div>
-        <div className="flex gap-2">
-            <div className="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-black uppercase border border-green-500/20">
-              +51% Growth 2023
-            </div>
-            <div className="bg-yellow-400/10 text-yellow-400 px-3 py-1 rounded-full text-[10px] font-black uppercase border border-yellow-400/20">
-              Target 2026
-            </div>
+        <div className="text-right">
+          <p className="text-3xl font-black text-white italic tracking-tighter">132K€</p>
+          <p className="text-[10px] text-green-400 font-bold uppercase tracking-widest">Récord 2025</p>
         </div>
       </div>
 
-      <div className="h-[400px] w-full">
+      <div className="h-[350px] w-full flex-grow">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={financialData.ventas}>
             <defs>
-              <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#facc15" stopOpacity={0.4}/>
+              <linearGradient id="glowYellow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#facc15" stopOpacity={0.3}/>
                 <stop offset="95%" stopColor="#facc15" stopOpacity={0}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
-            <XAxis 
-              dataKey="year" 
-              axisLine={false} 
-              tickLine={false} 
-              tick={{fill: '#475569', fontSize: 12, fontWeight: 'bold'}} 
-              dy={15}
-            />
-            <YAxis hide domain={[0, 250000]} />
+            <XAxis dataKey="year" hide />
             <Tooltip 
-              cursor={{ stroke: '#facc15', strokeWidth: 2, strokeDasharray: '5 5' }}
-              content={({ active, payload }) => {
-                if (active && payload && payload.length) {
-                  return (
-                    <div className="bg-black border border-white/10 p-4 rounded-2xl shadow-2xl">
-                      <p className="text-[10px] font-black uppercase text-slate-500 mb-1">{payload[0].payload.year}</p>
-                      <p className="text-xl font-black italic text-white">{payload[0].value.toLocaleString()}€</p>
-                      <p className="text-[9px] font-black text-yellow-400 uppercase mt-1">{payload[0].payload.tag}</p>
-                    </div>
-                  );
-                }
-                return null;
-              }}
+              content={({ payload }) => payload?.[0] ? (
+                <div className="bg-black border border-yellow-400/50 p-4 rounded-xl shadow-2xl">
+                  <p className="text-[10px] font-black text-slate-500 uppercase">{payload[0].payload.year}</p>
+                  <p className="text-xl font-black text-white italic">{payload[0].value.toLocaleString()}€</p>
+                </div>
+              ) : null }
             />
             <Area 
-              type="monotone" 
+              type="stepAfter" 
               dataKey="monto" 
               stroke="#facc15" 
-              strokeWidth={4} 
-              fillOpacity={1} 
-              fill="url(#colorSales)" 
-              animationDuration={2000}
+              strokeWidth={3} 
+              fill="url(#glowYellow)" 
             />
           </AreaChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
-        {[
-          { label: "Punto Equilibrio", val: "Q2 2026" },
-          { label: "EBITDA Anual", val: "78.4%" },
-          { label: "Asset Value", val: "IP Patent" }
-        ].map((item, i) => (
-          <div key={i}>
-            <p className="text-[9px] font-black uppercase text-slate-500 tracking-widest">{item.label}</p>
-            <p className="text-lg font-black italic text-white">{item.val}</p>
+      <div className="mt-8 pt-8 border-t border-white/5 grid grid-cols-2 gap-8">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <ShieldCheck size={16} className="text-yellow-400" />
+            <span className="text-[10px] font-black uppercase text-slate-500">Garantía Inversor</span>
           </div>
-        ))}
+          <p className="text-sm text-slate-300 italic">"Estructura blindada por patentes propias y baja exposición a costes fijos."</p>
+        </div>
+        <div className="bg-white/5 rounded-2xl p-4 flex flex-col justify-center text-center border border-white/5">
+           <span className="text-2xl font-black text-white italic">3.5x ROI</span>
+           <span className="text-[9px] font-black uppercase text-yellow-400 tracking-tighter">Retorno Estimado 24 Meses</span>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
+
+      
       {/* 4. AHORRO COSTES ENERGÉTICOS */}
       <section className="py-32 px-6 bg-white/5">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
