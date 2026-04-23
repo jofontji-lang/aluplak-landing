@@ -512,6 +512,100 @@ export default function App() {
   </div>
 
 </section>
+
+
+      {/* SECCIÓN NUEVA: MERCADOS DE ALTO VALOR (Extraído del Informe de Rentabilidad) */}
+<section className="py-32 px-6 bg-[#020617] border-t border-white/5">
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center mb-20">
+      <h2 className="text-5xl font-black italic text-white uppercase tracking-tighter">Más allá de la <br /><span className="text-yellow-400">Edificación Convencional.</span></h2>
+      <p className="text-slate-500 mt-4 uppercase tracking-[0.3em] text-xs font-bold">Nichos de mercado identificados 2026-2031</p>
+    </div>
+
+    <div className="grid md:grid-cols-3 gap-8">
+      {[
+        { title: "Nautical & Yachts", desc: "Climatización invisible para embarcaciones de recreo donde el espacio es el activo más costoso.", icon: <Activity /> },
+        { title: "Wellness Spaces", desc: "Estudios de Yoga y Spas que requieren calor por radiación sin movimiento de aire ni polvo.", icon: <Leaf /> },
+        { title: "Luxury Mobility", desc: "Interiores de Jets privados y campers de gama alta con nanotecnología de 1mm.", icon: <Zap /> }
+      ].map((item, i) => (
+        <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-yellow-400 hover:text-black transition-all group cursor-default">
+          <div className="mb-6 group-hover:scale-110 transition-transform">{item.icon}</div>
+          <h4 className="text-xl font-black uppercase italic mb-3">{item.title}</h4>
+          <p className="text-sm opacity-70 font-bold leading-tight uppercase">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+      {/* SECCIÓN NUEVA: ELIMINACIÓN DE COSTES (Data-Driven) */}
+<section className="py-32 px-6 bg-white text-black">
+  <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <div>
+      <h2 className="text-6xl font-black italic leading-[0.85] uppercase mb-8">LO QUE <br /> <span className="text-yellow-500">AHORRAS</span> <br /> AL INVERTIR.</h2>
+      <p className="text-slate-600 text-lg mb-10">Invisotherm no es un gasto, es una simplificación financiera del proyecto arquitectónico.</p>
+      
+      <div className="space-y-4">
+        {[
+          "Cero mantenimiento (Sin revisiones anuales)",
+          "Eliminación total de tuberías y calderas",
+          "Sin rozas ni albañilería pesada",
+          "Liberación de m2 útiles (Sin radiadores voluminosos)"
+        ].map((text, i) => (
+          <div key={i} className="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
+              <ShieldCheck size={14} />
+            </div>
+            <span className="font-black uppercase text-xs tracking-tight">{text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <div className="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 p-8 opacity-20"><DollarSign size={80} /></div>
+      <h3 className="text-3xl font-black italic uppercase mb-6 text-yellow-400">Veredicto Estratégico</h3>
+      <p className="text-slate-400 leading-relaxed mb-8">
+        "El modelo financiero proyecta un rendimiento extraordinario basado en la reducción de la complejidad de obra y la alta demanda de soluciones de eficiencia energética A++."
+      </p>
+      <div className="text-5xl font-black italic tracking-tighter">ROI 31% <span className="text-sm text-slate-500 not-italic uppercase tracking-widest font-bold">TIR Proyectada</span></div>
+    </div>
+  </div>
+</section>
+
+      {/* SECCIÓN NUEVA: CAPACIDAD INDUSTRIAL */}
+<section className="py-32 px-6 bg-[#0f172a]">
+  <div className="max-w-7xl mx-auto">
+    <div className="grid md:grid-cols-4 gap-4">
+      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
+        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Espesor Tech</p>
+        <p className="text-4xl font-black text-white italic">1 mm</p>
+        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Nanotecnología de Carbono</p>
+      </div>
+      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
+        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Área de Confort</p>
+        <p className="text-4xl font-black text-white italic">14 m²</p>
+        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Por panel estándar</p>
+      </div>
+      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
+        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Entrega Estándar</p>
+        <p className="text-4xl font-black text-white italic">3 meses</p>
+        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Capacidad de Fábrica</p>
+      </div>
+      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
+        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Pedido Mínimo</p>
+        <p className="text-4xl font-black text-white italic">50 ud.</p>
+        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Bajo contrato B2B</p>
+      </div>
+    </div>
+    
+    <div className="mt-12 text-center">
+      <p className="text-slate-400 italic text-sm">
+        *Datos extraídos del Documento Comercial Aluplak 2026. Material termoestable, resistente al fuego y hermético.
+      </p>
+    </div>
+  </div>
+</section>
       
       {/* FOOTER CTA */}
       <footer className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
