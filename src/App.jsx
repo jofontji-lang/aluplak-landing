@@ -242,47 +242,107 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. AHORRO MANO DE OBRA (INSTALACIÓN) */}
-      <section id="eficiencia" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-black italic tracking-tighter text-white uppercase italic">Instalación en Tiempo Récord</h2>
-            <p className="text-slate-500 font-bold uppercase tracking-[0.3em] text-xs mt-4">Reducción de costes operativos del 80%</p>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="bg-[#0f172a] border border-white/5 p-4 rounded-[2.5rem] flex flex-col gap-4">
-              <img src="/Aluplak7.jpeg" className="rounded-[2rem] h-64 object-cover" alt="Mecanismo" />
-              <div className="p-4">
-                <h4 className="text-white font-black uppercase italic mb-2">Paso 1: Perfilería</h4>
-                <p className="text-xs text-slate-500">Sistema bi-componente que se integra en el drywall sin necesidad de rozas.</p>
+{/* 5. AHORRO MANO DE OBRA: INSTALACIÓN ULTRA-FAST */}
+<section id="eficiencia" className="py-32 px-6 overflow-hidden">
+  <div className="max-w-7xl mx-auto">
+    <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+      <div className="max-w-2xl">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="h-px w-12 bg-yellow-400"></span>
+          <span className="text-yellow-400 font-black uppercase tracking-[0.3em] text-xs">Operatividad Revolucionaria</span>
+        </div>
+        <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-[0.85]">
+          INSTALACIÓN <br /> EN UN <span className="text-yellow-400 underline decoration-8">CLIC.</span>
+        </h2>
+      </div>
+      <div className="text-right hidden md:block">
+        <p className="text-5xl font-black text-white italic">-80%</p>
+        <p className="text-xs text-slate-500 font-black uppercase tracking-widest">Coste de Mano de Obra</p>
+      </div>
+    </div>
+
+    <div className="grid lg:grid-cols-12 gap-12 items-start">
+      
+      {/* IMAGEN PRINCIPAL: EL OPERARIO (Aluplak3) */}
+      <div className="lg:col-span-7 relative group">
+        <div className="absolute -inset-4 bg-yellow-400/20 blur-2xl rounded-[4rem] opacity-0 group-hover:opacity-100 transition duration-700"></div>
+        <div className="relative rounded-[3.5rem] overflow-hidden border border-white/10 shadow-2xl">
+          <img 
+            src="/Aluplak3.jpeg" 
+            alt="Operario instalando Aluplak" 
+            className="w-full h-[500px] object-cover grayscale group-hover:grayscale-0 transition duration-700 scale-105 group-hover:scale-100" 
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-10">
+            <div className="flex items-center gap-4">
+              <div className="bg-yellow-400 text-black p-3 rounded-2xl rotate-12">
+                <Hand size={24} />
               </div>
-            </div>
-            <div className="bg-[#0f172a] border border-white/5 p-4 rounded-[2.5rem] flex flex-col gap-4">
-              <img src="/Aluplak8.jpeg" className="rounded-[2rem] h-64 object-cover" alt="Mecanismo" />
-              <div className="p-4">
-                <h4 className="text-white font-black uppercase italic mb-2">Paso 2: Nanotecnología</h4>
-                <p className="text-xs text-slate-500">Inserción del panel calefactor de 0.5mm. Plug & Play térmico.</p>
-              </div>
-            </div>
-            <div className="bg-yellow-400 p-8 rounded-[2.5rem] flex flex-col justify-center items-center text-center">
-              <Clock size={48} className="text-black mb-6" />
-              <div className="text-6xl font-black text-black italic leading-none">-80%</div>
-              <p className="text-black font-black uppercase text-[10px] tracking-widest mt-2">Horas de Montaje</p>
-              <div className="h-40 w-full mt-8">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={financialData.ahorroLaboral}>
-                    <Bar dataKey="horas" radius={10}>
-                      {financialData.ahorroLaboral.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <p className="text-white font-black italic uppercase text-xl">Sistema Bi-Componente Patentado</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
+      {/* COMPARATIVA DE TIEMPOS POTENTE */}
+      <div className="lg:col-span-5 space-y-8">
+        <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem]">
+          <h3 className="text-white font-black uppercase italic mb-8 tracking-tighter text-xl">Tiempo de Ejecución (Horas/Estancia)</h3>
+          
+          <div className="space-y-12">
+            {/* Otros Sistemas */}
+            <div className="relative">
+              <div className="flex justify-between mb-3 items-center">
+                <span className="text-slate-500 font-black text-[10px] uppercase tracking-widest">Sistemas Tradicionales (Agua/Gas)</span>
+                <span className="text-slate-400 font-black italic">12h - 16h</span>
+              </div>
+              <div className="h-3 w-full bg-white/5 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }} 
+                  whileInView={{ width: "100%" }} 
+                  className="h-full bg-slate-700"
+                />
+              </div>
+              <p className="text-[9px] text-slate-600 mt-2 uppercase font-bold tracking-tighter">Incluye: Rozas, tuberías, soldaduras y albañilería.</p>
+            </div>
+
+            {/* ALUPLAK */}
+            <div className="relative">
+              <div className="flex justify-between mb-3 items-center">
+                <span className="text-yellow-400 font-black text-[10px] uppercase tracking-widest">ALUPLAK INVISOTHERM</span>
+                <span className="text-2xl font-black text-white italic">2.5h</span>
+              </div>
+              <div className="h-6 w-full bg-white/5 rounded-full overflow-hidden border border-yellow-400/20">
+                <motion.div 
+                  initial={{ width: 0 }} 
+                  whileInView={{ width: "20%" }} 
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="h-full bg-yellow-400 shadow-[0_0_25px_rgba(250,204,21,0.5)] flex items-center justify-end px-2"
+                />
+              </div>
+              <p className="text-[9px] text-yellow-400/60 mt-2 uppercase font-bold tracking-tighter">Montaje en seco. Integración directa en Drywall.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* BENEFICIO ECONÓMICO DIRECTO */}
+        <div className="bg-white p-10 rounded-[3rem] text-black">
+          <div className="flex items-center gap-4 mb-6">
+            <Clock className="text-yellow-500" size={32} />
+            <h4 className="font-black uppercase italic leading-none">Ahorro en <br /> Mano de Obra</h4>
+          </div>
+          <p className="text-sm font-bold opacity-70 leading-relaxed uppercase">
+            La facilidad de montaje permite que operarios de carpintería o pladur realicen la instalación térmica, eliminando la dependencia de técnicos especializados costosos.
+          </p>
+          <div className="mt-6 flex gap-2">
+            <img src="/Aluplak7.jpeg" className="w-16 h-16 rounded-xl object-cover border-2 border-black/5" alt="paso 1" />
+            <img src="/Aluplak8.jpeg" className="w-16 h-16 rounded-xl object-cover border-2 border-black/5" alt="paso 2" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      
       {/* 5. PATENTES PROPIEDAD DE LA EMPRESA */}
       <section id="patentes" className="py-32 px-6 bg-white rounded-[4rem] text-black">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
