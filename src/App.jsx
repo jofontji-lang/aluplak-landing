@@ -342,33 +342,80 @@ export default function App() {
     </div>
   </div>
 </section>
+
+      {/* 6. PATENTES Y PROPIEDAD INTELECTUAL */}
+<section id="patentes" className="py-32 bg-slate-900 relative overflow-hidden">
+  {/* Fondo decorativo con efecto de malla técnica */}
+  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="grid lg:grid-cols-2 gap-20 items-center">
       
-      {/* 5. PATENTES PROPIEDAD DE LA EMPRESA */}
-      <section id="patentes" className="py-32 px-6 bg-white rounded-[4rem] text-black">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-          <div className="flex-1">
-            <div className="bg-black text-white w-fit px-4 py-1 rounded-full text-[10px] font-black uppercase mb-6">Asset Intelligence</div>
-            <h2 className="text-6xl font-black italic tracking-tighter uppercase leading-[0.85] mb-8">
-              PROPIEDAD <br /> <span className="text-yellow-500 underline">INTELECTUAL</span> <br /> 100% ALUPLAK.
-            </h2>
-            <div className="grid grid-cols-2 gap-8">
-              <div>
-                <Award className="mb-4" size={32} />
-                <h4 className="font-black uppercase italic">Patente Europea</h4>
-                <p className="text-sm opacity-60">Control total sobre la fabricación y distribución del sistema bi-componente.</p>
-              </div>
-              <div>
-                <ShieldCheck className="mb-4" size={32} />
-                <h4 className="font-black uppercase italic">Certificación IMQ</h4>
-                <p className="text-sm opacity-60">Homologación bajo estándares IEC 60335 para seguridad eléctrica global.</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex-1 relative">
-            <img src="/Aluplak5.jpeg" className="rounded-[3rem] shadow-2xl rotate-3" alt="Patente" />
+      {/* COLUMNA IZQUIERDA: EL VIDEO REVELADOR */}
+      <div className="relative">
+        <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-[2rem] blur opacity-30"></div>
+        <div className="relative bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            className="w-full h-auto aspect-[9/16] object-cover"
+          >
+            <source src="/AluplakVideo1.mp4" type="video/mp4" />
+            Tu navegador no soporta el video.
+          </video>
+          {/* Overlay de información sobre el video */}
+          <div className="absolute top-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+            <p className="text-[10px] text-yellow-400 font-black uppercase tracking-widest flex items-center gap-2">
+              <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+              Demostración Técnica: Invisotherm
+            </p>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* COLUMNA DERECHA: TEXTO Y VALOR DE PATENTE */}
+      <div className="space-y-10">
+        <div>
+          <h3 className="text-yellow-400 font-black uppercase tracking-widest text-sm mb-4">Activos Intangibles</h3>
+          <h2 className="text-5xl font-black text-white italic leading-none uppercase mb-6">
+            TECNOLOGÍA <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">PROPIETARIA.</span>
+          </h2>
+          <p className="text-slate-400 text-lg leading-relaxed">
+            Nuestra mayor ventaja competitiva es el **Sistema Bi-Componente Patentado**. Hemos roto el paradigma del sector al convertir un elemento pasivo (el rodapié) en un activo inteligente y registrable.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6">
+          {/* Tarjeta de Patente 1 */}
+          <div className="bg-white/5 border-l-4 border-yellow-400 p-6 rounded-r-2xl">
+            <h4 className="text-white font-bold uppercase text-sm mb-2">Patente de Invención: Sistema Bi-Componente</h4>
+            <p className="text-slate-500 text-xs">Protección del diseño de base + tapa desmontable que permite el registro de instalaciones sin obra.</p>
+          </div>
+
+          {/* Tarjeta de Patente 2 */}
+          <div className="bg-white/5 border-l-4 border-slate-500 p-6 rounded-r-2xl opacity-80">
+            <h4 className="text-white font-bold uppercase text-sm mb-2">Modelo de Utilidad: Invisotherm Nanotech</h4>
+            <p className="text-slate-500 text-xs">Integración de circuitos impresos térmicos en paneles de fibrocemento y drywall de 13mm.</p>
+          </div>
+        </div>
+
+        <div className="pt-10 flex items-center gap-8">
+          <div className="text-center">
+            <p className="text-4xl font-black text-white">30+</p>
+            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter text-nowrap">Países con presencia</p>
+          </div>
+          <div className="h-10 w-px bg-white/10"></div>
+          <div className="text-center">
+            <p className="text-4xl font-black text-white">100%</p>
+            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter text-nowrap">Diseño en Valencia</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* 6. CONFORT COMO VALOR FUNDAMENTAL */}
       <section id="confort" className="py-32 px-6">
