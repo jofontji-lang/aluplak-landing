@@ -343,73 +343,89 @@ export default function App() {
   </div>
 </section>
 
-      {/* 6. PATENTES Y PROPIEDAD INTELECTUAL */}
-<section id="patentes" className="py-32 bg-slate-900 relative overflow-hidden">
-  {/* Fondo decorativo con efecto de malla técnica */}
-  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+      {/* 6. PATENTES Y PROPIEDAD INTELECTUAL: EL ACTIVO BLINDADO */}
+<section id="patentes" className="py-32 bg-[#020617] relative overflow-hidden">
+  {/* Elemento de diseño: Texto de fondo */}
+  <div className="absolute top-1/4 -left-20 text-[15rem] font-black italic text-white/[0.02] whitespace-nowrap select-none pointer-events-none">
+    INTELLECTUAL PROPERTY
+  </div>
 
   <div className="max-w-7xl mx-auto px-6 relative z-10">
-    <div className="grid lg:grid-cols-2 gap-20 items-center">
+    <div className="grid lg:grid-cols-12 gap-12 items-center">
       
-      {/* COLUMNA IZQUIERDA: EL VIDEO REVELADOR */}
-      <div className="relative">
-        <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-[2rem] blur opacity-30"></div>
-        <div className="relative bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10">
+      {/* COLUMNA IZQUIERDA: EL VIDEO (Lógica técnica) */}
+      <div className="lg:col-span-4 group">
+        <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 bg-black aspect-[9/16] shadow-2xl">
           <video 
             autoPlay 
             muted 
             loop 
-            className="w-full h-auto aspect-[9/16] object-cover"
+            playsInline
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
           >
             <source src="/AluplakVideo1.mp4" type="video/mp4" />
-            Tu navegador no soporta el video.
           </video>
-          {/* Overlay de información sobre el video */}
-          <div className="absolute top-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-            <p className="text-[10px] text-yellow-400 font-black uppercase tracking-widest flex items-center gap-2">
-              <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-              Demostración Técnica: Invisotherm
-            </p>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div className="absolute bottom-8 left-8">
+            <p className="text-yellow-400 font-black text-[10px] uppercase tracking-[0.3em] mb-2">Internal Testing</p>
+            <h4 className="text-white font-black italic uppercase text-lg leading-tight">Validación <br /> Nanotérmica</h4>
           </div>
         </div>
       </div>
 
-      {/* COLUMNA DERECHA: TEXTO Y VALOR DE PATENTE */}
-      <div className="space-y-10">
+      {/* COLUMNA CENTRAL: LA IMAGEN PREMIUM (Aluplak5.jpeg - Atracción visual) */}
+      <div className="lg:col-span-4 relative">
+        <div className="absolute -inset-1 bg-yellow-400 rounded-[3rem] blur-xl opacity-20 animate-pulse"></div>
+        <div className="relative rounded-[3rem] overflow-hidden border border-white/20 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+          <img 
+            src="/Aluplak5.jpeg" 
+            alt="Aluplak Premium Design" 
+            className="w-full h-[600px] object-cover hover:scale-110 transition-transform duration-1000"
+          />
+          <div className="absolute top-0 right-0 p-8">
+            <Award className="text-yellow-400 drop-shadow-lg" size={40} />
+          </div>
+        </div>
+      </div>
+
+      {/* COLUMNA DERECHA: TEXTO ESTRATÉGICO */}
+      <div className="lg:col-span-4 space-y-12">
         <div>
-          <h3 className="text-yellow-400 font-black uppercase tracking-widest text-sm mb-4">Activos Intangibles</h3>
-          <h2 className="text-5xl font-black text-white italic leading-none uppercase mb-6">
-            TECNOLOGÍA <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">PROPIETARIA.</span>
+          <h2 className="text-6xl font-black italic text-white uppercase leading-[0.85] mb-8">
+            ACTIVO <br /> <span className="text-yellow-400">ÚNICO.</span>
           </h2>
-          <p className="text-slate-400 text-lg leading-relaxed">
-            Nuestra mayor ventaja competitiva es el **Sistema Bi-Componente Patentado**. Hemos roto el paradigma del sector al convertir un elemento pasivo (el rodapié) en un activo inteligente y registrable.
+          <p className="text-slate-400 text-lg leading-relaxed border-l-2 border-white/10 pl-6">
+            Aluplak posee el **100% de la Propiedad Intelectual** de sus sistemas. No somos ensambladores; somos los dueños de la patente que permite la climatización invisible sin mantenimiento.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
-          {/* Tarjeta de Patente 1 */}
-          <div className="bg-white/5 border-l-4 border-yellow-400 p-6 rounded-r-2xl">
-            <h4 className="text-white font-bold uppercase text-sm mb-2">Patente de Invención: Sistema Bi-Componente</h4>
-            <p className="text-slate-500 text-xs">Protección del diseño de base + tapa desmontable que permite el registro de instalaciones sin obra.</p>
+        <div className="space-y-6">
+          <div className="flex gap-4 items-start">
+            <div className="bg-white/5 p-3 rounded-2xl border border-white/10">
+              <ShieldCheck className="text-yellow-400" size={24} />
+            </div>
+            <div>
+              <h5 className="text-white font-black uppercase italic text-sm">Patente Europea</h5>
+              <p className="text-slate-500 text-xs mt-1">Protección del sistema bi-componente desmontable en más de 30 países.</p>
+            </div>
           </div>
 
-          {/* Tarjeta de Patente 2 */}
-          <div className="bg-white/5 border-l-4 border-slate-500 p-6 rounded-r-2xl opacity-80">
-            <h4 className="text-white font-bold uppercase text-sm mb-2">Modelo de Utilidad: Invisotherm Nanotech</h4>
-            <p className="text-slate-500 text-xs">Integración de circuitos impresos térmicos en paneles de fibrocemento y drywall de 13mm.</p>
+          <div className="flex gap-4 items-start">
+            <div className="bg-white/5 p-3 rounded-2xl border border-white/10">
+              <Zap className="text-yellow-400" size={24} />
+            </div>
+            <div>
+              <h5 className="text-white font-black uppercase italic text-sm">Certificación IMQ</h5>
+              <p className="text-slate-500 text-xs mt-1">Homologación de seguridad eléctrica bajo estándares IEC 60335.</p>
+            </div>
           </div>
         </div>
 
-        <div className="pt-10 flex items-center gap-8">
-          <div className="text-center">
-            <p className="text-4xl font-black text-white">30+</p>
-            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter text-nowrap">Países con presencia</p>
-          </div>
-          <div className="h-10 w-px bg-white/10"></div>
-          <div className="text-center">
-            <p className="text-4xl font-black text-white">100%</p>
-            <p className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter text-nowrap">Diseño en Valencia</p>
-          </div>
+        <div className="bg-yellow-400 p-8 rounded-[2.5rem] text-black">
+          <h4 className="font-black uppercase italic text-xl mb-2 leading-none">Blindaje frente a competencia</h4>
+          <p className="text-[11px] font-bold uppercase leading-tight opacity-80">
+            Nuestra ventaja técnica impide la entrada de sustitutos, garantizando el monopolio tecnológico en soluciones de rodapié térmico.
+          </p>
         </div>
       </div>
 
