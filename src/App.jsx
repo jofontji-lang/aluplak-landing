@@ -513,7 +513,7 @@ export default function App() {
 
 </section>
 
-      {/* 7. DASHBOARD FINANCIERO: PROYECCIONES 2026-2031 */}
+     {/* 7. DASHBOARD FINANCIERO: PROYECCIONES 2026-2031 */}
 <section className="py-32 bg-black text-white overflow-hidden">
   <div className="max-w-7xl mx-auto px-6">
     
@@ -526,7 +526,7 @@ export default function App() {
         <p className="text-slate-500 font-bold uppercase tracking-[0.4em] mt-4">Multiplicador de Capital Proyectado</p>
       </div>
       <div className="bg-white/5 border border-white/10 p-8 rounded-3xl text-right">
-        <p className="text-slate-500 text-[10px] font-black uppercase">VAN (Valor Actual Neto)</p>
+        <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">VAN (Valor Actual Neto)</p>
         <p className="text-5xl font-black italic text-white">159,4 M€</p>
       </div>
     </div>
@@ -535,54 +535,59 @@ export default function App() {
       
       {/* 1. GRÁFICO PRINCIPAL: CRECIMIENTO X21 (VENTAS VS EBITDA) */}
       <div className="lg:col-span-8 bg-[#050505] border border-white/10 rounded-[3rem] p-10 relative">
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
           <div>
             <h3 className="text-2xl font-black italic uppercase">Proyección de Resultados</h3>
             <p className="text-xs text-slate-500 font-bold uppercase">Cifras expresadas en Millones de Euros (M€)</p>
           </div>
           <div className="flex gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-yellow-400 rounded-sm"></div>
+              <div className="w-3 h-3 bg-yellow-400 rounded-sm shadow-[0_0_10px_rgba(250,204,21,0.4)]"></div>
               <span className="text-[10px] font-black uppercase tracking-widest">Ventas</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-slate-700 rounded-sm"></div>
+              <div className="w-3 h-3 bg-slate-500 rounded-sm"></div>
               <span className="text-[10px] font-black uppercase tracking-widest">EBITDA</span>
             </div>
           </div>
         </div>
 
         {/* ESTRUCTURA DEL GRÁFICO DE BARRAS REAL */}
-        <div className="flex items-end justify-between h-[400px] gap-4 relative">
+        <div className="flex items-end justify-between h-[400px] gap-2 md:gap-4 relative border-b border-white/10 pb-2">
           {[
-            { year: "2026", v: 59, e: 9.7, vHeight: "15%", eHeight: "5%" },
-            { year: "2027", v: 166, e: 27.2, vHeight: "25%", eHeight: "8%" },
-            { year: "2028", v: 348, e: 57.1, vHeight: "40%", eHeight: "12%" },
-            { year: "2029", v: 572, e: 93.7, vHeight: "60%", eHeight: "18%" },
-            { year: "2030", v: 841, e: 138, vHeight: "80%", eHeight: "24%" },
-            { year: "2031", v: 1264, e: 207, vHeight: "100%", eHeight: "30%" }
+            { year: "2026", v: 59, e: 9.7, vH: "15%", eH: "5%" },
+            { year: "2027", v: 166, e: 27.2, vH: "25%", eH: "8%" },
+            { year: "2028", v: 348, e: 57.1, vH: "40%", eH: "12%" },
+            { year: "2029", v: 572, e: 93.7, vH: "60%", eH: "18%" },
+            { year: "2030", v: 841, e: 138, vH: "80%", eH: "24%" },
+            { year: "2031", v: 1264, e: 207, vH: "100%", eH: "30%" }
           ].map((bar, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-6 group relative">
-              <div className="w-full flex flex-col justify-end items-center relative h-full">
-                {/* Ebitda Bar (Overlay) */}
+            <div key={i} className="flex-1 flex flex-col items-center group relative h-full">
+              <div className="w-full flex items-end justify-center gap-[2px] md:gap-1 h-full relative">
+                
+                {/* Barra Ventas (Fondo) */}
                 <motion.div 
                   initial={{ height: 0 }}
-                  whileInView={{ height: bar.eHeight }}
-                  className="w-full bg-slate-700 rounded-t-lg z-20 absolute bottom-0 shadow-lg"
+                  whileInView={{ height: bar.vH }}
+                  transition={{ duration: 1, delay: i * 0.05 }}
+                  className="w-full bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t-lg z-10 group-hover:brightness-110 transition-all"
                 />
-                {/* Sales Bar */}
+                
+                {/* Barra EBITDA (Superpuesta con color Slate-500 para visibilidad) */}
                 <motion.div 
                   initial={{ height: 0 }}
-                  whileInView={{ height: bar.vHeight }}
-                  className="w-full bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t-lg z-10 group-hover:brightness-125 transition-all"
+                  whileInView={{ height: bar.eH }}
+                  transition={{ duration: 1, delay: (i * 0.05) + 0.2 }}
+                  className="w-full bg-slate-500 rounded-t-lg z-20 absolute bottom-0 shadow-lg"
                 />
-                {/* Tooltip con Datos */}
-                <div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity text-center z-30 bg-white text-black p-3 rounded-xl pointer-events-none shadow-2xl">
+
+                {/* Tooltip con Datos (Corregido con cierres de etiqueta <p>) */}
+                <div className="absolute -top-20 opacity-0 group-hover:opacity-100 transition-all bg-white text-black p-3 rounded-xl z-50 shadow-2xl pointer-events-none min-w-[100px]">
                    <p className="text-[10px] font-black uppercase leading-none mb-1">Ventas: {bar.v}M€</p>
                    <p className="text-[10px] font-black uppercase text-yellow-600 leading-none">EBITDA: {bar.e}M€</p>
                 </div>
               </div>
-              <span className="text-slate-600 font-black text-sm italic">{bar.year}</span>
+              <span className="text-slate-600 font-black text-[10px] md:text-sm italic mt-6">{bar.year}</span>
             </div>
           ))}
         </div>
@@ -591,18 +596,18 @@ export default function App() {
       {/* 2. LATERAL: UNIDAD ECONÓMICA Y RENTABILIDAD */}
       <div className="lg:col-span-4 flex flex-col gap-6">
         {/* Card ROI */}
-        <div className="bg-yellow-400 p-10 rounded-[3rem] text-black">
+        <div className="bg-yellow-400 p-10 rounded-[3rem] text-black shadow-xl">
           <p className="font-black uppercase text-xs tracking-widest mb-2">ROI a 6 años</p>
           <p className="text-6xl font-black italic leading-none tracking-tighter">7.185%</p>
           <div className="mt-8 pt-8 border-t border-black/10 space-y-4">
-             <div className="flex justify-between items-center italic">
+              <div className="flex justify-between items-center italic">
                 <span className="text-xs font-black uppercase">TIR</span>
                 <span className="text-2xl font-black">229%</span>
-             </div>
-             <div className="flex justify-between items-center italic">
+              </div>
+              <div className="flex justify-between items-center italic">
                 <span className="text-xs font-black uppercase">Payback</span>
                 <span className="text-2xl font-black">&lt; 1 Año</span>
-             </div>
+              </div>
           </div>
         </div>
 
@@ -610,40 +615,39 @@ export default function App() {
         <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] flex-1">
           <h4 className="text-white font-black uppercase italic text-lg mb-6">Unit Economics</h4>
           <div className="space-y-4">
-            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px]">
+            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px] tracking-widest">
               <span>Precio venta / m²</span>
               <span className="text-white">507€</span>
             </div>
-            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px]">
+            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px] tracking-widest">
               <span>Coste Directo / m²</span>
               <span className="text-white">323€</span>
             </div>
             <div className="h-px bg-white/10 my-4"></div>
             <div className="flex justify-between items-end">
               <div>
-                <p className="text-yellow-400 font-black text-[10px] uppercase">Margen Bruto</p>
-                <p className="text-3xl font-black italic">184€</p>
+                <p className="text-yellow-400 font-black text-[10px] uppercase mb-1">Margen Bruto</p>
+                <p className="text-4xl font-black italic text-white leading-none">184€</p>
               </div>
               <div className="text-right">
-                <p className="text-white font-black text-2xl italic">36,4%</p>
+                <p className="text-yellow-400 font-black text-3xl italic">36,4%</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     {/* 3. FOOTER: EL MERCADO (TAM) */}
     <div className="mt-6 bg-white/5 border border-white/10 p-10 rounded-[3rem] grid md:grid-cols-2 gap-12 items-center">
       <div>
         <p className="text-yellow-400 font-black text-xs uppercase tracking-widest mb-4">Potencial de Mercado (TAM)</p>
-        <p className="text-4xl font-black italic uppercase leading-tight">
+        <p className="text-4xl font-black italic uppercase leading-tight text-white">
           Mercado de 100M m² <br />
           <span className="text-slate-500">Solo capturamos el 2,5%</span>
         </p>
       </div>
-      <div className="text-slate-400 text-sm font-bold uppercase leading-relaxed border-l border-white/10 pl-12">
+      <div className="text-slate-400 text-sm font-bold uppercase leading-relaxed border-l border-white/10 pl-12 italic">
         "Nuestra proyección es conservadora. Alcanzamos los objetivos de facturación de 1.264M€ con una penetración de mercado inferior al 3% en 2031."
       </div>
     </div>
