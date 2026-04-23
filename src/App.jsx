@@ -513,154 +513,140 @@ export default function App() {
 
 </section>
 
-{/* 7. DASHBOARD PARA INVERSORES: LAS 10 MÉTRICAS DE ORO */}
-<section id="investment-metrics" className="py-32 bg-slate-950 text-white relative overflow-hidden">
-  <div className="max-w-7xl mx-auto px-6 relative z-10">
+      {/* 7. DASHBOARD FINANCIERO: PROYECCIONES 2026-2031 */}
+<section className="py-32 bg-black text-white overflow-hidden">
+  <div className="max-w-7xl mx-auto px-6">
     
-    {/* CABECERA AGRESIVA */}
-    <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-20 border-b border-white/10 pb-12">
+    {/* HEADER DE TESIS DE INVERSIÓN */}
+    <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
       <div>
-        <h2 className="text-6xl md:text-8xl font-black italic uppercase leading-none tracking-tighter">
-          TESIS DE <br /><span className="text-yellow-400">CRECIMIENTO.</span>
+        <h2 className="text-7xl font-black italic tracking-tighter uppercase leading-none">
+          MÉTRICAS DE <br /><span className="text-yellow-400">ESCALABILIDAD.</span>
         </h2>
-        <p className="text-slate-500 font-bold uppercase tracking-[0.4em] mt-6 flex items-center gap-2">
-          <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-          Datos auditados Proyección 2026-2031
-        </p>
+        <p className="text-slate-500 font-bold uppercase tracking-[0.4em] mt-4">Multiplicador de Capital Proyectado</p>
       </div>
-      <div className="bg-yellow-400 text-black p-10 rounded-[2.5rem] shadow-[0_0_60px_rgba(250,204,21,0.2)]">
-        <p className="text-[10px] font-black uppercase tracking-widest mb-1">Payback Estimado</p>
-        <p className="text-6xl font-black italic leading-none tracking-tighter">&lt; 1 AÑO</p>
-        <p className="text-sm font-bold uppercase mt-2">Retorno de Capital en 12 meses</p>
+      <div className="bg-white/5 border border-white/10 p-8 rounded-3xl text-right">
+        <p className="text-slate-500 text-[10px] font-black uppercase">VAN (Valor Actual Neto)</p>
+        <p className="text-5xl font-black italic text-white">159,4 M€</p>
       </div>
     </div>
 
-    {/* BLOQUE 1: RENTABILIDAD Y VAN */}
-    <div className="grid lg:grid-cols-4 gap-4 mb-4">
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-yellow-400/50 transition-all">
-        <p className="text-yellow-400 font-black text-xs uppercase mb-4">ROI (6 años)</p>
-        <p className="text-5xl font-black italic">7.185%</p>
-        <p className="text-slate-500 text-[10px] mt-2 font-bold uppercase">Multiplicas x71 la inversión</p>
-      </div>
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10">
-        <p className="text-slate-400 font-black text-xs uppercase mb-4">TIR</p>
-        <p className="text-5xl font-black italic">229%</p>
-        <p className="text-slate-500 text-[10px] mt-2 font-bold uppercase">Rentabilidad Anualizada</p>
-      </div>
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 lg:col-span-2 flex justify-between items-center">
-        <div>
-          <p className="text-slate-400 font-black text-xs uppercase mb-4">VAN (Valor Actual Neto)</p>
-          <p className="text-6xl font-black italic tracking-tighter">159,4 M€</p>
-        </div>
-        <TrendingUp size={60} className="text-yellow-400 opacity-20" />
-      </div>
-    </div>
-
-    {/* BLOQUE 2: GRÁFICOS DE VOLUMEN Y EBITDA */}
-    <div className="grid lg:grid-cols-12 gap-4 mb-4">
-      {/* Gráfico de Facturación */}
-      <div className="lg:col-span-8 bg-white/5 p-12 rounded-[3rem] border border-white/10">
-        <div className="flex justify-between items-start mb-12">
-          <h3 className="font-black italic uppercase text-xl">Escalabilidad: Ventas vs EBITDA (M€)</h3>
-          <div className="flex gap-4">
-            <span className="flex items-center gap-2 text-[10px] font-bold uppercase"><div className="w-3 h-3 bg-yellow-400 rounded-sm"></div> Facturación</span>
-            <span className="flex items-center gap-2 text-[10px] font-bold uppercase"><div className="w-3 h-3 bg-slate-600 rounded-sm"></div> EBITDA</span>
+    <div className="grid lg:grid-cols-12 gap-6">
+      
+      {/* 1. GRÁFICO PRINCIPAL: CRECIMIENTO X21 (VENTAS VS EBITDA) */}
+      <div className="lg:col-span-8 bg-[#050505] border border-white/10 rounded-[3rem] p-10 relative">
+        <div className="flex justify-between items-center mb-16">
+          <div>
+            <h3 className="text-2xl font-black italic uppercase">Proyección de Resultados</h3>
+            <p className="text-xs text-slate-500 font-bold uppercase">Cifras expresadas en Millones de Euros (M€)</p>
+          </div>
+          <div className="flex gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-yellow-400 rounded-sm"></div>
+              <span className="text-[10px] font-black uppercase tracking-widest">Ventas</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-slate-700 rounded-sm"></div>
+              <span className="text-[10px] font-black uppercase tracking-widest">EBITDA</span>
+            </div>
           </div>
         </div>
-        
-        <div className="flex items-end justify-between h-64 gap-3">
+
+        {/* ESTRUCTURA DEL GRÁFICO DE BARRAS REAL */}
+        <div className="flex items-end justify-between h-[400px] gap-4 relative">
           {[
-            { y: '26', v: 59, e: 9.7, h: '15%' },
-            { y: '27', v: 166, e: 27.2, h: '30%' },
-            { y: '28', v: 348, e: 57.1, h: '45%' },
-            { y: '29', v: 572, e: 93.7, h: '60%' },
-            { y: '30', v: 841, e: 138, h: '80%' },
-            { y: '31', v: 1264, e: 207, h: '100%' }
+            { year: "2026", v: 59, e: 9.7, vHeight: "15%", eHeight: "5%" },
+            { year: "2027", v: 166, e: 27.2, vHeight: "25%", eHeight: "8%" },
+            { year: "2028", v: 348, e: 57.1, vHeight: "40%", eHeight: "12%" },
+            { year: "2029", v: 572, e: 93.7, vHeight: "60%", eHeight: "18%" },
+            { year: "2030", v: 841, e: 138, vHeight: "80%", eHeight: "24%" },
+            { year: "2031", v: 1264, e: 207, vHeight: "100%", eHeight: "30%" }
           ].map((bar, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-4 group">
-              <div className="relative w-full h-full flex flex-col justify-end items-center gap-1">
-                <div className="w-full bg-slate-600 rounded-t-sm" style={{ height: `${parseInt(bar.h) * 0.2}%` }}></div>
-                <div className="w-full bg-yellow-400 rounded-t-sm group-hover:brightness-125 transition-all" style={{ height: bar.h }}></div>
-                <div className="absolute -top-10 text-center opacity-0 group-hover:opacity-100 transition-opacity">
-                   <p className="text-white font-black text-[10px]">{bar.v}M€</p>
-                   <p className="text-yellow-400 font-black text-[8px]">{bar.e}M€ EB.</p>
+            <div key={i} className="flex-1 flex flex-col items-center gap-6 group relative">
+              <div className="w-full flex flex-col justify-end items-center relative h-full">
+                {/* Ebitda Bar (Overlay) */}
+                <motion.div 
+                  initial={{ height: 0 }}
+                  whileInView={{ height: bar.eHeight }}
+                  className="w-full bg-slate-700 rounded-t-lg z-20 absolute bottom-0 shadow-lg"
+                />
+                {/* Sales Bar */}
+                <motion.div 
+                  initial={{ height: 0 }}
+                  whileInView={{ height: bar.vHeight }}
+                  className="w-full bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t-lg z-10 group-hover:brightness-125 transition-all"
+                />
+                {/* Tooltip con Datos */}
+                <div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity text-center z-30 bg-white text-black p-3 rounded-xl pointer-events-none shadow-2xl">
+                   <p className="text-[10px] font-black uppercase leading-none mb-1">Ventas: {bar.v}M€</p>
+                   <p className="text-[10px] font-black uppercase text-yellow-600 leading-none">EBITDA: {bar.e}M€</p>
                 </div>
               </div>
-              <span className="text-slate-600 font-black text-xs uppercase italic">{bar.y}</span>
+              <span className="text-slate-600 font-black text-sm italic">{bar.year}</span>
             </div>
           ))}
         </div>
-        <p className="mt-12 text-slate-500 font-bold uppercase text-[10px] tracking-widest">
-          Crecimiento x21 en 5 años impulsado por digitalización y canal B2B
+      </div>
+
+      {/* 2. LATERAL: UNIDAD ECONÓMICA Y RENTABILIDAD */}
+      <div className="lg:col-span-4 flex flex-col gap-6">
+        {/* Card ROI */}
+        <div className="bg-yellow-400 p-10 rounded-[3rem] text-black">
+          <p className="font-black uppercase text-xs tracking-widest mb-2">ROI a 6 años</p>
+          <p className="text-6xl font-black italic leading-none tracking-tighter">7.185%</p>
+          <div className="mt-8 pt-8 border-t border-black/10 space-y-4">
+             <div className="flex justify-between items-center italic">
+                <span className="text-xs font-black uppercase">TIR</span>
+                <span className="text-2xl font-black">229%</span>
+             </div>
+             <div className="flex justify-between items-center italic">
+                <span className="text-xs font-black uppercase">Payback</span>
+                <span className="text-2xl font-black">&lt; 1 Año</span>
+             </div>
+          </div>
+        </div>
+
+        {/* Card Margen */}
+        <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] flex-1">
+          <h4 className="text-white font-black uppercase italic text-lg mb-6">Unit Economics</h4>
+          <div className="space-y-4">
+            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px]">
+              <span>Precio venta / m²</span>
+              <span className="text-white">507€</span>
+            </div>
+            <div className="flex justify-between text-slate-500 font-bold uppercase text-[10px]">
+              <span>Coste Directo / m²</span>
+              <span className="text-white">323€</span>
+            </div>
+            <div className="h-px bg-white/10 my-4"></div>
+            <div className="flex justify-between items-end">
+              <div>
+                <p className="text-yellow-400 font-black text-[10px] uppercase">Margen Bruto</p>
+                <p className="text-3xl font-black italic">184€</p>
+              </div>
+              <div className="text-right">
+                <p className="text-white font-black text-2xl italic">36,4%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {/* 3. FOOTER: EL MERCADO (TAM) */}
+    <div className="mt-6 bg-white/5 border border-white/10 p-10 rounded-[3rem] grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p className="text-yellow-400 font-black text-xs uppercase tracking-widest mb-4">Potencial de Mercado (TAM)</p>
+        <p className="text-4xl font-black italic uppercase leading-tight">
+          Mercado de 100M m² <br />
+          <span className="text-slate-500">Solo capturamos el 2,5%</span>
         </p>
       </div>
-
-      {/* Unidad Económica */}
-      <div className="lg:col-span-4 bg-yellow-400 p-12 rounded-[3rem] text-black flex flex-col justify-between">
-        <h3 className="font-black italic uppercase text-2xl leading-none mb-8">Margen por <br /> metro cuadrado</h3>
-        <div className="space-y-6">
-          <div className="flex justify-between border-b-2 border-black/10 pb-4">
-            <span className="text-xs font-black uppercase">Precio Venta</span>
-            <span className="font-black text-2xl">507€</span>
-          </div>
-          <div className="flex justify-between border-b-2 border-black/10 pb-4">
-            <span className="text-xs font-black uppercase">Coste Directo</span>
-            <span className="font-black text-2xl">323€</span>
-          </div>
-          <div className="flex justify-between items-center pt-4">
-            <div>
-               <p className="text-xs font-black uppercase">Beneficio Neto</p>
-               <p className="text-5xl font-black italic">184€</p>
-            </div>
-            <div className="text-right">
-               <p className="text-xs font-black uppercase">Margen</p>
-               <p className="text-4xl font-black italic">36%</p>
-            </div>
-          </div>
-        </div>
+      <div className="text-slate-400 text-sm font-bold uppercase leading-relaxed border-l border-white/10 pl-12">
+        "Nuestra proyección es conservadora. Alcanzamos los objetivos de facturación de 1.264M€ con una penetración de mercado inferior al 3% en 2031."
       </div>
     </div>
-
-    {/* BLOQUE 3: MERCADO (TAM) Y PENETRACIÓN */}
-    <div className="grid lg:grid-cols-2 gap-4">
-      <div className="bg-white/5 border border-white/10 p-12 rounded-[3rem] flex items-center gap-12">
-        <div className="relative w-40 h-40 flex items-center justify-center">
-           <svg className="w-full h-full rotate-[-90deg]">
-              <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="15" fill="transparent" className="text-white/5" />
-              <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="15" fill="transparent" strokeDasharray="440" strokeDashoffset="429" className="text-yellow-400" />
-           </svg>
-           <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-black italic leading-none">2,5%</span>
-              <span className="text-[8px] font-black uppercase">Quota 2031</span>
-           </div>
-        </div>
-        <div className="flex-1">
-          <h4 className="text-white font-black uppercase italic text-xl mb-4">TAM: 100M m²</h4>
-          <p className="text-slate-500 text-sm leading-relaxed font-bold uppercase">
-            Solo necesitamos capturar el <span className="text-white">2,5% del mercado potencial</span> para alcanzar los 1.200M€ de facturación. No hay riesgo de saturación.
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-white/5 border border-white/10 p-12 rounded-[3rem] flex flex-col justify-center">
-        <h4 className="text-yellow-400 font-black uppercase text-xs tracking-widest mb-6 text-center">Ventaja Competitiva Operativa</h4>
-        <div className="grid grid-cols-3 gap-8 text-center italic font-black text-sm uppercase">
-          <div className="opacity-50 hover:opacity-100 transition-opacity">
-            <p className="text-3xl mb-2 text-white">NO</p>
-            <p className="text-[10px]">Calderas</p>
-          </div>
-          <div className="opacity-50 hover:opacity-100 transition-opacity">
-            <p className="text-3xl mb-2 text-white">NO</p>
-            <p className="text-[10px]">Tuberías</p>
-          </div>
-          <div className="opacity-50 hover:opacity-100 transition-opacity">
-            <p className="text-3xl mb-2 text-white">0%</p>
-            <p className="text-[10px]">Mantenimiento</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
       
