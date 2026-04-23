@@ -513,96 +513,102 @@ export default function App() {
 
 </section>
 
+{/* 7. BUSINESS CASE: EL MULTIPLICADOR DE CAPITAL */}
+<section id="inversion" className="py-32 bg-black relative overflow-hidden">
+  {/* Fondo de cuadrícula financiera */}
+  <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
 
-      {/* SECCIÓN NUEVA: MERCADOS DE ALTO VALOR (Extraído del Informe de Rentabilidad) */}
-<section className="py-32 px-6 bg-[#020617] border-t border-white/5">
-  <div className="max-w-7xl mx-auto">
-    <div className="text-center mb-20">
-      <h2 className="text-5xl font-black italic text-white uppercase tracking-tighter">Más allá de la <br /><span className="text-yellow-400">Edificación Convencional.</span></h2>
-      <p className="text-slate-500 mt-4 uppercase tracking-[0.3em] text-xs font-bold">Nichos de mercado identificados 2026-2031</p>
+  <div className="max-w-7xl mx-auto px-6 relative z-10">
+    
+    {/* CABECERA DE IMPACTO */}
+    <div className="text-center mb-24">
+      <h2 className="text-7xl md:text-9xl font-black italic text-white uppercase tracking-tighter leading-none">
+        ROI <span className="text-yellow-400">7.185%</span>
+      </h2>
+      <p className="text-slate-500 font-black uppercase tracking-[0.5em] text-sm mt-4">Proyección de Retorno a 6 años (2026-2031)</p>
     </div>
 
-    <div className="grid md:grid-cols-3 gap-8">
+    {/* GRID DE MÉTRICAS CRÍTICAS */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
       {[
-        { title: "Nautical & Yachts", desc: "Climatización invisible para embarcaciones de recreo donde el espacio es el activo más costoso.", icon: <Activity /> },
-        { title: "Wellness Spaces", desc: "Estudios de Yoga y Spas que requieren calor por radiación sin movimiento de aire ni polvo.", icon: <Leaf /> },
-        { title: "Luxury Mobility", desc: "Interiores de Jets privados y campers de gama alta con nanotecnología de 1mm.", icon: <Zap /> }
-      ].map((item, i) => (
-        <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-[2.5rem] hover:bg-yellow-400 hover:text-black transition-all group cursor-default">
-          <div className="mb-6 group-hover:scale-110 transition-transform">{item.icon}</div>
-          <h4 className="text-xl font-black uppercase italic mb-3">{item.title}</h4>
-          <p className="text-sm opacity-70 font-bold leading-tight uppercase">{item.desc}</p>
+        { label: "TIR", value: "229%", sub: "Rentabilidad Interna" },
+        { label: "Payback", value: "< 1 Año", sub: "Retorno Inversión" },
+        { label: "VAN", value: "159,4M€", sub: "Valor Actual Neto" },
+        { label: "Margen", value: "36,4%", sub: "Por Unidad Escalar" }
+      ].map((stat, i) => (
+        <div key={i} className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:border-yellow-400/50 transition-colors">
+          <p className="text-yellow-400 font-black text-xs uppercase tracking-widest mb-2">{stat.label}</p>
+          <p className="text-4xl font-black text-white italic">{stat.value}</p>
+          <p className="text-[10px] text-slate-500 font-bold uppercase mt-1">{stat.sub}</p>
         </div>
       ))}
     </div>
-  </div>
-</section>
 
-      {/* SECCIÓN NUEVA: ELIMINACIÓN DE COSTES (Data-Driven) */}
-<section className="py-32 px-6 bg-white text-black">
-  <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-    <div>
-      <h2 className="text-6xl font-black italic leading-[0.85] uppercase mb-8">LO QUE <br /> <span className="text-yellow-500">AHORRAS</span> <br /> AL INVERTIR.</h2>
-      <p className="text-slate-600 text-lg mb-10">Invisotherm no es un gasto, es una simplificación financiera del proyecto arquitectónico.</p>
-      
-      <div className="space-y-4">
-        {[
-          "Cero mantenimiento (Sin revisiones anuales)",
-          "Eliminación total de tuberías y calderas",
-          "Sin rozas ni albañilería pesada",
-          "Liberación de m2 útiles (Sin radiadores voluminosos)"
-        ].map((text, i) => (
-          <div key={i} className="flex items-center gap-3 border-b border-slate-100 pb-4">
-            <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white">
-              <ShieldCheck size={14} />
+    <div className="grid lg:grid-cols-12 gap-12">
+      {/* GRÁFICO DE CRECIMIENTO ESCALAR (CSS Puro) */}
+      <div className="lg:col-span-8 bg-white/[0.02] border border-white/10 rounded-[3rem] p-12">
+        <h3 className="text-white font-black uppercase italic mb-12 flex items-center gap-4">
+          <TrendingUp className="text-yellow-400" /> 
+          Escalabilidad de Ingresos (M€)
+        </h3>
+        
+        <div className="flex items-end justify-between gap-2 h-64">
+          {[
+            { year: "26", val: "59", h: "15%" },
+            { year: "27", val: "166", h: "25%" },
+            { year: "28", val: "348", h: "40%" },
+            { year: "29", val: "572", h: "60%" },
+            { year: "30", val: "841", h: "80%" },
+            { year: "31", val: "1264", h: "100%" }
+          ].map((bar, i) => (
+            <div key={i} className="flex-1 flex flex-col items-center gap-4 group">
+              <div className="relative w-full">
+                <motion.div 
+                  initial={{ height: 0 }}
+                  whileInView={{ height: bar.h }}
+                  transition={{ duration: 1, delay: i * 0.1 }}
+                  className="bg-gradient-to-t from-yellow-600 to-yellow-400 w-full rounded-t-xl group-hover:brightness-125 transition-all"
+                />
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-white font-black text-xs">{bar.val}M</span>
+                </div>
+              </div>
+              <span className="text-slate-600 font-black text-xs italic">{bar.year}</span>
             </div>
-            <span className="font-black uppercase text-xs tracking-tight">{text}</span>
-          </div>
-        ))}
+          ))}
+        </div>
+        <p className="text-slate-500 text-[10px] uppercase font-bold mt-10 tracking-widest text-center">
+          Crecimiento x21 en 5 años basado en una penetración de mercado inferior al 3%
+        </p>
       </div>
-    </div>
-    
-    <div className="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 p-8 opacity-20"><DollarSign size={80} /></div>
-      <h3 className="text-3xl font-black italic uppercase mb-6 text-yellow-400">Veredicto Estratégico</h3>
-      <p className="text-slate-400 leading-relaxed mb-8">
-        "El modelo financiero proyecta un rendimiento extraordinario basado en la reducción de la complejidad de obra y la alta demanda de soluciones de eficiencia energética A++."
-      </p>
-      <div className="text-5xl font-black italic tracking-tighter">ROI 31% <span className="text-sm text-slate-500 not-italic uppercase tracking-widest font-bold">TIR Proyectada</span></div>
-    </div>
-  </div>
-</section>
 
-      {/* SECCIÓN NUEVA: CAPACIDAD INDUSTRIAL */}
-<section className="py-32 px-6 bg-[#0f172a]">
-  <div className="max-w-7xl mx-auto">
-    <div className="grid md:grid-cols-4 gap-4">
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
-        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Espesor Tech</p>
-        <p className="text-4xl font-black text-white italic">1 mm</p>
-        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Nanotecnología de Carbono</p>
+      {/* UNIDAD ECONÓMICA: POR QUÉ FUNCIONA */}
+      <div className="lg:col-span-4 flex flex-col gap-6">
+        <div className="bg-yellow-400 p-10 rounded-[3rem] text-black">
+          <h4 className="font-black uppercase italic text-xl mb-6 leading-none">Unidad <br /> Económica</h4>
+          <div className="space-y-4">
+            <div className="flex justify-between border-b border-black/10 pb-2">
+              <span className="text-[10px] font-black uppercase">Precio Venta m²</span>
+              <span className="font-black">507€</span>
+            </div>
+            <div className="flex justify-between border-b border-black/10 pb-2">
+              <span className="text-[10px] font-black uppercase">Coste Directo m²</span>
+              <span className="font-black">323€</span>
+            </div>
+            <div className="flex justify-between pt-2">
+              <span className="text-[10px] font-black uppercase">Beneficio Neto</span>
+              <span className="text-2xl font-black">184€</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white/5 border border-white/10 p-8 rounded-[3rem] flex-1">
+          <p className="text-white font-black uppercase italic text-sm mb-4">Veredicto Estratégico</p>
+          <p className="text-slate-400 text-xs leading-relaxed uppercase font-bold">
+            "La combinación de alta barrera de entrada por patente y baja penetración necesaria en el TAM (100M m²) asegura un EBITDA proyectado de 207M€ para 2031."
+          </p>
+        </div>
       </div>
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
-        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Área de Confort</p>
-        <p className="text-4xl font-black text-white italic">14 m²</p>
-        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Por panel estándar</p>
-      </div>
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
-        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Entrega Estándar</p>
-        <p className="text-4xl font-black text-white italic">3 meses</p>
-        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Capacidad de Fábrica</p>
-      </div>
-      <div className="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
-        <p className="text-slate-500 text-[10px] font-black uppercase mb-2">Pedido Mínimo</p>
-        <p className="text-4xl font-black text-white italic">50 ud.</p>
-        <p className="text-[9px] text-yellow-400 font-bold uppercase mt-2">Bajo contrato B2B</p>
-      </div>
-    </div>
-    
-    <div className="mt-12 text-center">
-      <p className="text-slate-400 italic text-sm">
-        *Datos extraídos del Documento Comercial Aluplak 2026. Material termoestable, resistente al fuego y hermético.
-      </p>
     </div>
   </div>
 </section>
