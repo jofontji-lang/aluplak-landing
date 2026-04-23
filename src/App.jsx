@@ -446,24 +446,73 @@ export default function App() {
   </div>
 </section>
       
-      {/* 6. CONFORT COMO VALOR FUNDAMENTAL */}
-      <section id="confort" className="py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <Activity className="text-yellow-400 mx-auto mb-8" size={64} />
-          <h2 className="text-6xl font-black italic tracking-tighter text-white uppercase leading-none mb-10">
-            EL CONFORT <br /><span className="text-yellow-400">NO SE VE, SE SIENTE.</span>
-          </h2>
-          <p className="text-slate-400 text-2xl font-light leading-relaxed mb-12 italic">
-            "Eliminamos el ruido visual y el polvo en suspensión. Creamos espacios de bienestar puro mediante radiación infrarroja, la forma más natural de calor conocida por el hombre."
-          </p>
-          <div className="aspect-video rounded-[3rem] overflow-hidden border border-white/10">
-            <video controls className="w-full h-full object-cover">
-              <source src="/AluplakVideo2.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </section>
+{/* 6. CONFORT COMO VALOR FUNDAMENTAL: BIENESTAR INVISIBLE */}
+<section id="confort" className="py-32 bg-white text-black relative overflow-hidden">
+  
+  {/* 1. CABECERA CENTRADA Y EMOCIONAL */}
+  <div className="max-w-4xl mx-auto px-6 text-center mb-20 relative z-10">
+    <div className="flex justify-center mb-8">
+      <div className="bg-yellow-400 p-4 rounded-full">
+        <Activity size={32} className="text-black" />
+      </div>
+    </div>
+    <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase leading-[0.85] mb-8">
+      EL CONFORT <br /><span className="text-yellow-500">NO SE VE.</span>
+    </h2>
+    <p className="text-slate-500 text-2xl font-light leading-relaxed italic">
+      "Eliminamos el ruido visual y el polvo en suspensión. Creamos espacios de bienestar puro mediante radiación infrarroja, la forma más natural de calor conocida."
+    </p>
+  </div>
 
+  {/* 2. IMAGEN IMPACTO: Aluplak8 (Detalle de tecnología y acabado) */}
+  <div className="max-w-6xl mx-auto px-6 mb-20">
+    <div className="relative rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)]">
+      <img 
+        src="/Aluplak8.jpeg" 
+        alt="Detalle de confort Aluplak" 
+        className="w-full h-[500px] object-cover object-center"
+      />
+      {/* Etiqueta flotante */}
+      <div className="absolute top-10 left-10 bg-white/90 backdrop-blur-md p-6 rounded-3xl border border-black/5 max-w-xs hidden md:block">
+        <p className="font-black uppercase text-[10px] tracking-widest mb-2 text-yellow-600">Pure Wellness</p>
+        <p className="text-sm font-bold leading-tight">Integración milimétrica que respeta la arquitectura y mejora la salud del aire.</p>
+      </div>
+    </div>
+  </div>
+
+  {/* 3. BLOQUE DE CIERRE: VIDEO 2 (La experiencia de usuario) */}
+  <div className="max-w-4xl mx-auto px-6">
+    <div className="bg-slate-50 rounded-[3rem] p-12 border border-slate-100 text-center">
+      <h3 className="text-2xl font-black uppercase italic mb-8">Siente la radiación homogénea</h3>
+      <div className="aspect-video rounded-[2rem] overflow-hidden border border-black/10 shadow-lg bg-black">
+        <video controls className="w-full h-full object-cover">
+          <source src="/AluplakVideo2.mp4" type="video/mp4" />
+          Tu navegador no soporta el video.
+        </video>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+        <div className="flex flex-col items-center">
+          <Zap size={20} className="text-yellow-500 mb-2"/>
+          <span className="text-[9px] font-black uppercase">Sin Corrientes</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <Leaf size={20} className="text-green-500 mb-2"/>
+          <span className="text-[9px] font-black uppercase">Aire Puro</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <ShieldCheck size={20} className="text-blue-500 mb-2"/>
+          <span className="text-[9px] font-black uppercase">Silencio Total</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <Target size={20} className="text-red-500 mb-2"/>
+          <span className="text-[9px] font-black uppercase">Calor Preciso</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+      
       {/* FOOTER CTA */}
       <footer className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
         <div className="font-black italic text-3xl text-white">ALUPLAK<span className="text-yellow-400">.</span></div>
