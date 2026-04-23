@@ -553,41 +553,47 @@ export default function App() {
         </div>
 
         {/* ESTRUCTURA DEL GRÁFICO DE BARRAS REAL */}
-        <div className="flex items-end justify-between h-[400px] gap-4 relative">
-          {[
-            { year: "2026", v: 59, e: 9.7, vHeight: "15%", eHeight: "5%" },
-            { year: "2027", v: 166, e: 27.2, vHeight: "25%", eHeight: "8%" },
-            { year: "2028", v: 348, e: 57.1, vHeight: "40%", eHeight: "12%" },
-            { year: "2029", v: 572, e: 93.7, vHeight: "60%", eHeight: "18%" },
-            { year: "2030", v: 841, e: 138, vHeight: "80%", eHeight: "24%" },
-            { year: "2031", v: 1264, e: 207, vHeight: "100%", eHeight: "30%" }
-          ].map((bar, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-6 group relative">
-              <div className="w-full flex flex-col justify-end items-center relative h-full">
-                {/* Ebitda Bar (Overlay) */}
-                <motion.div 
-                  initial={{ height: 0 }}
-                  whileInView={{ height: bar.eHeight }}
-                  className="w-full bg-slate-700 rounded-t-lg z-20 absolute bottom-0 shadow-lg"
-                />
-                {/* Sales Bar */}
-                <motion.div 
-                  initial={{ height: 0 }}
-                  whileInView={{ height: bar.vHeight }}
-                  className="w-full bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t-lg z-10 group-hover:brightness-125 transition-all"
-                />
-                {/* Tooltip con Datos */}
-                <div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity text-center z-30 bg-white text-black p-3 rounded-xl pointer-events-none shadow-2xl">
-                   <p className="text-[10px] font-black uppercase leading-none mb-1">Ventas: {bar.v}M€</p>
-                   <p className="text-[10px] font-black uppercase text-yellow-600 leading-none">EBITDA: {bar.e}M€</p>
-                </div>
-              </div>
-              <span className="text-slate-600 font-black text-sm italic">{bar.year}</span>
-            </div>
-          ))}
+{/* ESTRUCTURA DEL GRÁFICO DE BARRAS CORREGIDA */}
+<div className="flex items-end justify-between h-[400px] gap-2 md:gap-4 relative border-b border-white/10 pb-2">
+  {[
+    { year: "2026", v: 59, e: 9.7, vHeight: "15%", eHeight: "5%" },
+    { year: "2027", v: 166, e: 27.2, vHeight: "25%", eHeight: "8%" },
+    { year: "2028", v: 348, e: 57.1, vHeight: "40%", eHeight: "12%" },
+    { year: "2029", v: 572, e: 93.7, vHeight: "60%", eHeight: "18%" },
+    { year: "2030", v: 841, e: 138, vHeight: "80%", eHeight: "24%" },
+    { year: "2031", v: 1264, e: 207, vHeight: "100%", eHeight: "30%" }
+  ].map((bar, i) => (
+    <div key={i} className="flex-1 flex flex-col items-center group">
+      <div className="w-full flex items-end justify-center gap-1 h-full relative">
+        
+        {/* Barra de Ventas (Amarilla) */}
+        <motion.div 
+          initial={{ height: 0 }}
+          whileInView={{ height: bar.vHeight }}
+          transition={{ duration: 1, delay: i * 0.1 }}
+          className="w-1/2 bg-gradient-to-t from-yellow-600 to-yellow-400 rounded-t-sm md:rounded-t-md shadow-[0_0_15px_rgba(250,204,21,0.2)]"
+        />
+        
+        {/* Barra de EBITDA (Gris/Slate) */}
+        <motion.div 
+          initial={{ height: 0 }}
+          whileInView={{ height: bar.eHeight }}
+          transition={{ duration: 1, delay: (i * 0.1) + 0.2 }}
+          className="w-1/2 bg-slate-600 rounded-t-sm md:rounded-t-md"
+        />
+
+        {/* Tooltip flotante al pasar el ratón */}
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black p-2 rounded-lg text-[9px] font-black z-50 whitespace-nowrap shadow-xl">
+          VENTAS: {bar.v}M€ <br/>
+          <span className="text-yellow-600">EBITDA: {bar.e}M€</span>
         </div>
       </div>
+      <span className="text-slate-500 font-black text-[10px] md:text-xs italic mt-4">{bar.year}</span>
+    </div>
+  ))}
+</div>
 
+        
       {/* 2. LATERAL: UNIDAD ECONÓMICA Y RENTABILIDAD */}
       <div className="lg:col-span-4 flex flex-col gap-6">
         {/* Card ROI */}
